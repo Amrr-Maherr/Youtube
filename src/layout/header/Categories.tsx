@@ -11,7 +11,7 @@ export default function Categories() {
 
   if (isLoading || isPending) return null;
   if (error || !data) return null;
-  if (!isLoading) {
+  if (isLoading) {
   return <Loader/>
 }
   return (
