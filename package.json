@@ -22,9 +22,9 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.71.1",
-    "react-infinite-scroller": "^1.2.6",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.13.0",
+    "react-virtuoso": "^4.18.1",
     "swiper": "^12.1.1",
     "tailwind-merge": "^3.4.1",
     "tailwindcss": "^4.1.18"
