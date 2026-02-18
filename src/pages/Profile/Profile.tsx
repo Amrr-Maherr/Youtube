@@ -1,4 +1,4 @@
-import { User, Video, PlayCircle, Clock, Calendar, Mail, Globe } from "lucide-react";
+import { User, PlayCircle, Clock } from "lucide-react";
 
 const Profile = () => {
   return (
