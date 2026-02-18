@@ -61,6 +61,9 @@ export default function Slider({
           1024: { slidesPerView, spaceBetween },
           ...swiperOptions.breakpoints,
         }}
+        grabCursor={true}
+        allowSlideNext={true}
+        allowSlidePrev={true}
         className={`mySwiper ${className || ""}`}
         {...swiperOptions}
       >
