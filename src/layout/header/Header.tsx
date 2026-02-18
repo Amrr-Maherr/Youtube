@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import Logo from "@/components/shared/Logo";
+import Categories from "./Categories";
 
 export default function Header() {
   return (
@@ -92,6 +93,9 @@ export default function Header() {
           </Button>
         </div>
       </div>
+
+      {/* Categories Bar */}
+      <Categories />
     </header>
   );
 }
