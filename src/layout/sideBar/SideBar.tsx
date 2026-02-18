@@ -25,7 +25,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
-import Logo from "@/components/shared/Logo";
+// import Logo from "@/components/shared/Logo";
 
 const mainItems = [
   { icon: Home, label: "Home", href: "/" },
@@ -62,7 +62,7 @@ export function YouTubeSidebar() {
   return (
     <Sidebar className="border-none dark:bg-background py-2">
       <SidebarContent>
-        <Logo/>
+        {/* <Logo/> */}
         {/* Main Section */}
         <SidebarGroup>
           <SidebarGroupContent>
