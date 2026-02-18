@@ -1,11 +1,12 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import MainLayout from "../layout/MainLayout/MainLayout";
+import { TooltipProvider } from "../components/ui/tooltip";
 export default function AppRoutes() {
   return (
-    <BrowserRouter>
+    <TooltipProvider>
       <Routes>
-        <Route path="/" element={<div>Home</div>} />
-        <Route path="/profile" element={<div>profile</div>} />
+        <Route path="/" element={<MainLayout />}></Route>
       </Routes>
-    </BrowserRouter>
+    </TooltipProvider>
   );
 }
