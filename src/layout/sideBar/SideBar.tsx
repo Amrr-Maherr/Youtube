@@ -27,6 +27,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
+import Logo from "@/components/shared/Logo";
 
 const mainItems = [
   { icon: Home, label: "Home", href: "/" },
@@ -43,9 +45,6 @@ const libraryItems = [
 ];
 
 const exploreItems = [
-  { icon: Film, label: "Movies & TV", href: "/movies" },
-  { icon: Gamepad2, label: "Gaming", href: "/gaming" },
-  { icon: Trophy, label: "Sports", href: "/sports" },
   { icon: Newspaper, label: "News", href: "/news" },
   { icon: Lightbulb, label: "Learning", href: "/learning" },
   { icon: Shirt, label: "Fashion & Beauty", href: "/fashion" },
@@ -64,8 +63,9 @@ export function YouTubeSidebar() {
   const isActive = (href: string) => location.pathname === href;
 
   return (
-    <Sidebar className="border-none bg-[#0f0f0f]">
+    <Sidebar className="border-none dark:bg-background py-2">
       <SidebarContent>
+        <Logo/>
         {/* Main Section */}
         <SidebarGroup>
           <SidebarGroupContent>
@@ -75,9 +75,12 @@ export function YouTubeSidebar() {
                   <SidebarMenuButton
                     asChild
                     isActive={isActive(item.href)}
-                    className="data-[active=true]:bg-gray-800 data-[active=true]:font-medium"
+                    className="data-[active=true]:dark:bg-active font-medium"
                   >
-                    <Link to={item.href} className="flex items-center gap-5">
+                    <Link
+                      to={item.href}
+                      className="flex items-center gap-5 text-[14px] font-normal px-3 py-2"
+                    >
                       <item.icon className="h-5 w-5" />
                       <span className="text-sm">{item.label}</span>
                     </Link>
@@ -87,7 +90,7 @@ export function YouTubeSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
+        <Separator />
         {/* Library Section */}
         <SidebarGroup>
           <SidebarGroupContent>
@@ -109,7 +112,7 @@ export function YouTubeSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
+        <Separator />
         {/* Explore Section */}
         <SidebarGroup>
           <SidebarGroupContent>
@@ -131,7 +134,7 @@ export function YouTubeSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
+        <Separator />
         {/* Settings Section */}
         <SidebarGroup>
           <SidebarGroupContent>
