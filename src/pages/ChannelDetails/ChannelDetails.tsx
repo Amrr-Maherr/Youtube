@@ -3,7 +3,11 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { FetchChannelDetails, FetchChannelVideos } from "@/queries/Channel";
-import { ChannelBanner, ChannelAvatar, ChannelTabButton } from "./ChannelComponents";
+import {
+  ChannelBanner,
+  ChannelAvatar,
+  ChannelTabButton,
+} from "./ChannelComponents";
 import { ChannelHeader } from "./ChannelHeader";
 import { ChannelAbout } from "./ChannelAbout";
 import { ChannelTabs } from "./ChannelTabs";
@@ -25,8 +29,13 @@ export default function ChannelDetails() {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const channelId = searchParams.get("channelId") || "";
 
-  const { data: channel, isLoading: isLoadingChannel, error: channelError } = FetchChannelDetails(channelId);
-  const { data: videos, isLoading: isLoadingVideos } = FetchChannelVideos(channelId);
+  const {
+    data: channel,
+    isLoading: isLoadingChannel,
+    error: channelError,
+  } = FetchChannelDetails(channelId);
+  const { data: videos, isLoading: isLoadingVideos } =
+    FetchChannelVideos(channelId);
 
   const handleSubscribe = () => {
     setIsSubscribed(!isSubscribed);
@@ -44,8 +53,12 @@ export default function ChannelDetails() {
     }
   };
 
-  const subscriberCount = formatSubscriberCount(channel?.statistics?.subscriberCount);
-  const fullSubscriberCount = formatFullSubscriberCount(channel?.statistics?.subscriberCount);
+  const subscriberCount = formatSubscriberCount(
+    channel?.statistics?.subscriberCount,
+  );
+  const fullSubscriberCount = formatFullSubscriberCount(
+    channel?.statistics?.subscriberCount,
+  );
   const videoCount = formatVideoCount(channel?.statistics?.videoCount);
   const totalViews = formatFullViewCount(channel?.statistics?.viewCount);
   const email = extractEmail(channel?.snippet.description || "");
@@ -89,10 +102,13 @@ export default function ChannelDetails() {
         onError={() => {}}
       />
 
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 py-6">
+      <div className="mx-auto w-full px-4 sm:px-6 py-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
           <ChannelAvatar
-            avatarUrl={channel.snippet.thumbnails.high?.url || channel.snippet.thumbnails.medium?.url}
+            avatarUrl={
+              channel.snippet.thumbnails.high?.url ||
+              channel.snippet.thumbnails.medium?.url
+            }
             channelName={channel.snippet.title}
           />
 
@@ -108,7 +124,9 @@ export default function ChannelDetails() {
             description={channel.snippet.description}
             onSubscribe={handleSubscribe}
             onShare={handleShare}
-            onToggleDescription={() => setShowFullDescription(!showFullDescription)}
+            onToggleDescription={() =>
+              setShowFullDescription(!showFullDescription)
+            }
           />
         </div>
 

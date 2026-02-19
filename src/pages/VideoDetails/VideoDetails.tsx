@@ -8,6 +8,7 @@ import { VideoDescription } from "./VideoDescription";
 import { VideoComments } from "./VideoComments";
 import { RelatedVideos } from "./RelatedVideos";
 import { useVideoActions } from "./useVideoActions";
+import Loader from "@/components/shared/loader";
 
 export default function VideoDetails() {
   const [searchParams] = useSearchParams();
@@ -38,11 +39,7 @@ export default function VideoDetails() {
   };
 
   if (isLoadingVideo) {
-    return (
-      <div className="flex min-h-[600px] items-center justify-center">
-        <p className="text-muted-foreground">Loading video...</p>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (videoError || !video) {

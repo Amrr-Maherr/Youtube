@@ -5,6 +5,7 @@ import VideoCard from "@/components/VideoCard";
 import type { VideoCategory } from "@/types/Category";
 import type { Video } from "@/types/Video";
 import { Separator } from "@/components/ui/separator";
+import Loader from "@/components/shared/loader";
 
 export default function CategoryVideos() {
   const [searchParams] = useSearchParams();
@@ -44,11 +45,7 @@ export default function CategoryVideos() {
   }
 
   if (isLoading) {
-    return (
-      <div className="flex min-h-[600px] items-center justify-center">
-        <p className="text-muted-foreground">Loading videos...</p>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (error || !videos) {
@@ -72,7 +69,7 @@ export default function CategoryVideos() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 py-6">
+      <div className="mx-auto w-full px-4 sm:px-6 py-6">
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
@@ -89,7 +86,7 @@ export default function CategoryVideos() {
 
         {/* Videos Grid */}
         {videos.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {videos.map((video: Video) => (
               <VideoCard key={video.id} video={video} />
             ))}

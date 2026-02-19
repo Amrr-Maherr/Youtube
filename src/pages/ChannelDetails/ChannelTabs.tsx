@@ -1,6 +1,7 @@
 import { PlaySquare, Grid3X3, List } from "lucide-react";
 import VideoCard from "@/components/VideoCard";
 import type { Video } from "@/types/Video";
+import Loader from "@/components/shared/loader";
 
 export type ChannelTab = "videos" | "shorts" | "playlists" | "community" | "about";
 
@@ -20,9 +21,7 @@ export function ChannelTabs({
       {activeTab === "videos" && (
         <div>
           {isLoadingVideos ? (
-            <div className="flex min-h-[400px] items-center justify-center">
-              <p className="text-muted-foreground">Loading videos...</p>
-            </div>
+            <Loader />
           ) : videos && videos.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {videos.map((video: Video) => (

@@ -4,6 +4,7 @@ import { FetchSearchResults } from "@/queries/Search";
 import VideoCard from "@/components/VideoCard";
 import type { Video } from "@/types/Video";
 import { Search } from "lucide-react";
+import Loader from "@/components/shared/loader";
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
@@ -21,11 +22,7 @@ export default function SearchResults() {
   }, [searchQuery]);
 
   if (isPending && debouncedQuery) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        <p className="text-muted-foreground">Searching...</p>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (error) {
