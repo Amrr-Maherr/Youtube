@@ -5,6 +5,9 @@ import Profile from "../pages/Profile/Profile";
 import { TooltipProvider } from "../components/ui/tooltip";
 import NotFound from "@/pages/NotFound/NotFound";
 import Settings from "@/pages/Settings/Settings";
+import ReportHistory from "@/pages/ReportHistory/ReportHistory";
+import Help from "@/pages/Help/Help";
+import SendFeedback from "@/pages/SendFeedback/SendFeedback";
 
 export default function AppRoutes() {
   return (
@@ -13,8 +16,11 @@ export default function AppRoutes() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="report-history" element={<ReportHistory />} />
+          <Route path="help" element={<Help />} />
+          <Route path="send-feedback" element={<SendFeedback />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
     </TooltipProvider>
