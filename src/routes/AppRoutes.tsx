@@ -17,9 +17,9 @@ export default function AppRoutes() {
           <Route index element={<HomePage />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
-          <Route path="report-history" element={<ReportHistory />} />
+          <Route path="report" element={<ReportHistory />} />
           <Route path="help" element={<Help />} />
-          <Route path="send-feedback" element={<SendFeedback />} />
+          <Route path="feedback" element={<SendFeedback />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
