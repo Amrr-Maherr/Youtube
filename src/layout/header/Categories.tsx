@@ -37,7 +37,7 @@ export default function Categories() {
             key={category.id}
             variant="secondary"
             className={`
-              whitespace-nowrap rounded-lg px-3 py-1.5 h-auto font-medium text-sm
+              whitespace-nowrap rounded-lg px-3 py-1.5 h-auto font-medium text-sm cursor-pointer
               transition-colors w-fit min-w-fit
               ${
                 selected === category.snippet.title

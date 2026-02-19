@@ -11,3 +11,12 @@ export const GetAllCategories = async() => {
         return error
     }
 }
+
+export const GetSingleCategory = async ({id}: {id:string}) => {
+    try {
+        const response = await axios.get(`https://www.googleapis.com/youtube/v3/videoCategories?part=snippet&id=${id}&regionCode=US&key=${apiKey}`);
+        return response.data.items
+    } catch (error) {
+        return error
+    }
+}
