@@ -9,7 +9,7 @@ import { SetCategory } from '@/store/CategorySlice'
 
 export default function Categories() {
   const dispatch = useDispatch<AppDispatch>();
-  const categoryId = useSelector((state: RootState) => state.category);
+  // const categoryId = useSelector((state: RootState) => state.category.value);
   const [selected, setSelected] = useState("All");
   const { isPending, error, data } = FetchCategories();
 
@@ -24,9 +24,10 @@ export default function Categories() {
   const HandelCategory = (category: VideoCategory) => {
     if (category) {
       setSelected(category.snippet.title);
-      dispatch(SetCategory([category.id]));
+      dispatch(SetCategory(category.id));
     }
   }
+// console.log(data);
 
   return (
     <div className="w-full bg-background py-5 px-2">
