@@ -9,13 +9,17 @@ export default function Categories() {
   const [selected, setSelected] = useState("All");
   const { isPending, error, data, isLoading } = FetchCategories();
   useEffect(() => {
-    setSelected("Film & Animation");
+    if (!data) {
+      setSelected("");
+    } else {
+      setSelected(data[0].snippet.title);
+    }
   }, [data]);
   if (isLoading || isPending) return null;
   if (error || !data) return null;
   if (isLoading) {
   return <Loader/>
-}
+  }
   return (
     <div className="w-full bg-background py-5 px-2">
       <Slider
