@@ -11,6 +11,8 @@ import SendFeedback from "@/pages/SendFeedback/SendFeedback";
 import SearchResults from "@/pages/SearchResults/SearchResults";
 import VideoDetails from "@/pages/VideoDetails/VideoDetails";
 import ChannelDetails from "@/pages/ChannelDetails/ChannelDetails";
+import SignIn from "@/pages/Auth/SignIn";
+import SignUp from "@/pages/Auth/SignUp";
 
 export default function AppRoutes() {
   return (
@@ -28,6 +30,8 @@ export default function AppRoutes() {
           <Route path="feedback" element={<SendFeedback />} />
           <Route path="*" element={<NotFound />} />
         </Route>
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </TooltipProvider>
   );
