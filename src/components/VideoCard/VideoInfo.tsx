@@ -21,6 +21,14 @@ export function VideoInfo({
   const formattedViews = formatViews(views);
   const time = timeAgo(publishedAt);
 
+  const handleChannelClick = (e: React.MouseEvent) => {
+    if (channelId) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.location.href = `/channel?channelId=${channelId}`;
+    }
+  };
+
   return (
     <div className={cn("flex flex-1 flex-col gap-1", className)}>
       <h3 className="line-clamp-2 text-sm font-semibold leading-tight text-foreground group-hover:text-primary">
@@ -30,16 +38,12 @@ export function VideoInfo({
 
       <div className="flex flex-col text-xs text-muted-foreground">
         {channelId ? (
-          <a
-            href={`/channel?channelId=${channelId}`}
-            className="hover:text-foreground transition-colors hover:underline"
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = `/channel?channelId=${channelId}`;
-            }}
+          <span
+            onClick={handleChannelClick}
+            className="hover:text-foreground transition-colors hover:underline cursor-pointer"
           >
             {channel}
-          </a>
+          </span>
         ) : (
           <span className="hover:text-foreground transition-colors">
             {channel}
