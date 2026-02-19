@@ -14,6 +14,7 @@ import { FetchVideoDetails, FetchRelatedVideos, FetchVideoComments } from "@/que
 import { formatDuration, formatViews, timeAgo, getThumbnailUrl } from "@/lib/video";
 import type { Video } from "@/types/Video";
 import type { CommentThread } from "@/types/Comment";
+import Loader from "@/components/shared/loader";
 
 export default function VideoDetails() {
   const [searchParams] = useSearchParams();
@@ -57,9 +58,7 @@ export default function VideoDetails() {
 
   if (isLoadingVideo) {
     return (
-      <div className="flex min-h-[600px] items-center justify-center">
-        <p className="text-muted-foreground">Loading video...</p>
-      </div>
+      <Loader/>
     );
   }
 
