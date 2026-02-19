@@ -45,6 +45,7 @@ export default function Header() {
             variant="ghost"
             size="icon"
             className="hover:bg-gray-800 relative"
+            onClick={() => navigate("/notifications")}
           >
             <Bell className="h-5 w-5 text-white" />
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-600 rounded-full" />

@@ -13,6 +13,7 @@ import VideoDetails from "@/pages/VideoDetails/VideoDetails";
 import ChannelDetails from "@/pages/ChannelDetails/ChannelDetails";
 import SignIn from "@/pages/Auth/SignIn";
 import SignUp from "@/pages/Auth/SignUp";
+import Notifications from "@/pages/Notifications/Notifications";
 
 export default function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ export default function AppRoutes() {
           <Route path="results" element={<SearchResults />} />
           <Route path="watch" element={<VideoDetails />} />
           <Route path="channel" element={<ChannelDetails />} />
+          <Route path="notifications" element={<Notifications />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
           <Route path="report" element={<ReportHistory />} />
