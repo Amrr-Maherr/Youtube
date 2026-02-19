@@ -3,23 +3,31 @@ import { Button } from "@/components/ui/button";
 import Slider from "@/components/shared/Slider";
 import { FetchCategories } from "@/queries/FetchCategories";
 import type { VideoCategory } from "@/types/Category";
-import Loader from "@/components/shared/loader";
+import { useDispatch, useSelector } from 'react-redux'
+import type { RootState, AppDispatch } from '@/store/Store'
+import { SetCategory } from '@/store/CategorySlice'
 
 export default function Categories() {
+  const dispatch = useDispatch<AppDispatch>();
+  const categoryId = useSelector((state: RootState) => state.category);
   const [selected, setSelected] = useState("All");
-  const { isPending, error, data, isLoading } = FetchCategories();
+  const { isPending, error, data } = FetchCategories();
+
   useEffect(() => {
-    if (!data) {
-      setSelected("");
-    } else {
+    if (data && data.length > 0) {
       setSelected(data[0].snippet.title);
     }
   }, [data]);
-  if (isLoading || isPending) return null;
-  if (error || !data) return null;
-  if (isLoading) {
-  return <Loader/>
+
+  if (isPending || error || !data) return null;
+
+  const HandelCategory = (category: VideoCategory) => {
+    if (category) {
+      setSelected(category.snippet.title);
+      dispatch(SetCategory([category.id]));
+    }
   }
+
   return (
     <div className="w-full bg-background py-5 px-2">
       <Slider
@@ -45,7 +53,7 @@ export default function Categories() {
                   : "bg-[var(--category-inactive)] text-white hover:bg-gray-700"
               }
             `}
-            onClick={() => setSelected(category.snippet.title)}
+            onClick={() => HandelCategory(category)}
           >
             {category.snippet.title}
           </Button>
