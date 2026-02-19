@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Slider from "@/components/shared/Slider";
 import { FetchCategories } from "@/queries/FetchCategories";
@@ -8,7 +8,9 @@ import Loader from "@/components/shared/loader";
 export default function Categories() {
   const [selected, setSelected] = useState("All");
   const { isPending, error, data, isLoading } = FetchCategories();
-
+  useEffect(() => {
+    setSelected("Film & Animation");
+  }, [data]);
   if (isLoading || isPending) return null;
   if (error || !data) return null;
   if (isLoading) {
