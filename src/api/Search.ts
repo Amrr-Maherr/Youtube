@@ -25,10 +25,31 @@ export const GetSearchSuggestions = async (query: string): Promise<string[]> => 
       return [];
     }
 
-    const response = await axios.get(
-      `https://suggestqueries.google.com/complete/search?client=youtube&hl=en&q=${encodeURIComponent(query)}&callback=?`
-    );
-    return response.data?.[1]?.map((item: any) => item[0]) || [];
+    // Use JSONP to fetch suggestions from Google
+    const url = `https://suggestqueries.google.com/complete/search?client=youtube&hl=en&q=${encodeURIComponent(query)}&callback=handleSuggestions`;
+    
+    // Create a script element for JSONP
+    return new Promise((resolve) => {
+      (window as any).handleSuggestions = (data: any[]) => {
+        resolve(data?.[1]?.map((item: any) => item[0]) || []);
+        // Cleanup
+        delete (window as any).handleSuggestions;
+      };
+
+      const script = document.createElement('script');
+      script.src = url;
+      script.async = true;
+      document.body.appendChild(script);
+
+      // Cleanup after 2 seconds
+      setTimeout(() => {
+        script.remove();
+        if ((window as any).handleSuggestions) {
+          resolve([]);
+          delete (window as any).handleSuggestions;
+        }
+      }, 2000);
+    });
   } catch (error) {
     console.error("Error fetching suggestions:", error);
     return [];
