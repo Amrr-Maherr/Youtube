@@ -7,11 +7,13 @@ import {
   PlaySquare,
   Grid3X3,
   List,
+  Mail,
+  Globe,
+  Calendar,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { FetchChannelDetails, FetchChannelVideos } from "@/queries/Channel";
-import { formatViews, timeAgo } from "@/lib/video";
 import VideoCard from "@/components/VideoCard";
 import type { Video } from "@/types/Video";
 
@@ -22,6 +24,7 @@ export default function ChannelDetails() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<ChannelTab>("videos");
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
   const channelId = searchParams.get("channelId") || "";
 
   const { data: channel, isLoading: isLoadingChannel, error: channelError } = FetchChannelDetails(channelId);
@@ -55,6 +58,11 @@ export default function ChannelDetails() {
     return `${num} subscribers`;
   };
 
+  const formatFullSubscriberCount = (count?: string): string => {
+    if (!count) return "0";
+    return parseInt(count).toLocaleString();
+  };
+
   if (isLoadingChannel) {
     return (
       <div className="flex min-h-[600px] items-center justify-center">
@@ -78,8 +86,9 @@ export default function ChannelDetails() {
   }
 
   const subscriberCount = formatSubscriberCount(channel.statistics?.subscriberCount);
+  const fullSubscriberCount = formatFullSubscriberCount(channel.statistics?.subscriberCount);
   const videoCount = parseInt(channel.statistics?.videoCount || "0").toLocaleString();
-  const viewCount = formatViews(channel.statistics?.viewCount);
+  const totalViews = parseInt(channel.statistics?.viewCount || "0").toLocaleString();
 
   const tabs: { id: ChannelTab; label: string }[] = [
     { id: "videos", label: "Videos" },
@@ -88,12 +97,23 @@ export default function ChannelDetails() {
     { id: "community", label: "Community" },
     { id: "about", label: "About" },
   ];
-console.log();
+
+  // Extract email from description
+  const extractEmail = (description: string): string | null => {
+    const emailMatch = description.match(/[\w.-]+@[\w.-]+\.\w+/);
+    return emailMatch ? emailMatch[0] : null;
+  };
+
+  const email = extractEmail(channel.snippet.description);
+console.log(
+  channel.brandingSettings?.image?.bannerExternalUrl,
+  "channel.brandingSettings?.image?.bannerExternalUrl",
+);
 
   return (
     <div className="min-h-screen bg-background">
       {/* Channel Banner */}
-      <div className="relative h-48 w-full bg-muted sm:h-64">
+      <div className="relative h-32 w-full bg-muted sm:h-48 md:h-56 lg:h-64">
         {channel.brandingSettings?.image?.bannerExternalUrl ? (
           <img
             src={channel.brandingSettings.image.bannerExternalUrl}
@@ -102,7 +122,7 @@ console.log();
           />
         ) : (
           <div className="flex size-full items-center justify-center bg-gradient-to-r from-primary/20 to-primary/40">
-            <h1 className="text-4xl font-bold text-primary">
+            <h1 className="text-2xl sm:text-4xl font-bold text-primary">
               {channel.snippet.title}
             </h1>
           </div>
@@ -117,84 +137,107 @@ console.log();
             <img
               src={channel.snippet.thumbnails.high?.url || channel.snippet.thumbnails.medium?.url}
               alt={channel.snippet.title}
-              className="size-24 rounded-full sm:size-32"
+              className="size-24 rounded-full sm:size-32 border-4 border-background"
             />
           </div>
 
           {/* Channel Details */}
-          <div className="flex-1">
-            <h1 className="text-2xl font-bold text-foreground">
-              {channel.snippet.title}
-            </h1>
-            {channel.snippet.customUrl && (
-              <p className="text-sm text-muted-foreground">
-                @{channel.snippet.customUrl}
-              </p>
-            )}
+          <div className="flex-1 pt-2">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+                  {channel.snippet.title}
+                  <svg className="size-5 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                </h1>
+                {channel.snippet.customUrl && (
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {channel.snippet.customUrl}
+                  </p>
+                )}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-2">
+                <Button
+                  variant={isSubscribed ? "outline" : "default"}
+                  size="sm"
+                  className="rounded-full"
+                  onClick={handleSubscribe}
+                >
+                  {isSubscribed ? (
+                    <>
+                      <Bell className="mr-2 size-4" />
+                      Subscribed
+                    </>
+                  ) : (
+                    "Subscribe"
+                  )}
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="rounded-full"
+                  onClick={handleShare}
+                >
+                  <Share className="mr-2 size-4" />
+                  Share
+                </Button>
+                <Button variant="secondary" size="icon" className="rounded-full">
+                  <MoreVertical className="size-4" />
+                </Button>
+              </div>
+            </div>
 
             {/* Stats */}
-            <div className="mt-2 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-              <span>{subscriberCount}</span>
-              <span>•</span>
-              <span>{videoCount} videos</span>
-              <span>•</span>
-              <span>{viewCount}</span>
+            <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
+              <span className="font-medium text-foreground">{fullSubscriberCount}</span>
+              <span className="text-muted-foreground">{subscriberCount}</span>
+              <span className="text-muted-foreground">{videoCount} videos</span>
+              <span className="text-muted-foreground">{totalViews} views</span>
             </div>
 
             {/* Description Preview */}
-            <p className="mt-4 line-clamp-2 text-sm text-foreground">
-              {channel.snippet.description}
-            </p>
-
-            {/* Action Buttons */}
-            <div className="mt-4 flex flex-wrap items-center gap-2">
-              <Button
-                variant={isSubscribed ? "outline" : "default"}
-                size="sm"
-                className="rounded-full"
-                onClick={handleSubscribe}
-              >
-                {isSubscribed ? (
-                  <>
-                    <Bell className="mr-2 size-4" />
-                    Subscribed
-                  </>
-                ) : (
-                  "Subscribe"
-                )}
-              </Button>
-              <Button
-                variant="secondary"
-                size="sm"
-                className="rounded-full"
-                onClick={handleShare}
-              >
-                <Share className="mr-2 size-4" />
-                Share
-              </Button>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                <MoreVertical className="size-4" />
-              </Button>
+            <div
+              className={`mt-4 text-sm text-foreground ${showFullDescription ? "" : "line-clamp-2"}`}
+            >
+              <pre className="whitespace-pre-wrap font-sans">
+                {channel.snippet.description}
+              </pre>
             </div>
+            {channel.snippet.description.length > 200 && (
+              <Button
+                variant="link"
+                size="sm"
+                className="mt-2 h-auto p-0 text-sm font-medium"
+                onClick={() => setShowFullDescription(!showFullDescription)}
+              >
+                {showFullDescription ? "Show less" : "...more"}
+              </Button>
+            )}
           </div>
         </div>
 
         <Separator className="my-6" />
 
         {/* Tabs */}
-        <div className="flex gap-1 overflow-x-auto">
+        <div className="flex gap-1 overflow-x-auto border-b">
           {tabs.map((tab) => (
-            <Button
+            <button
               key={tab.id}
-              variant={activeTab === tab.id ? "secondary" : "ghost"}
-              size="sm"
               onClick={() => setActiveTab(tab.id)}
-              className={`rounded-full whitespace-nowrap ${
-                activeTab === tab.id ? "font-medium" : ""
+              className={`px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors relative ${
+                activeTab === tab.id
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {tab.label}
-            </Button>
+              {activeTab === tab.id && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+              )}
+            </button>
           ))}
         </div>
 
@@ -271,53 +314,100 @@ console.log();
           )}
 
           {activeTab === "about" && (
-            <div className="max-w-3xl space-y-6">
-              <div className="rounded-xl bg-secondary p-6">
-                <h3 className="mb-4 text-lg font-semibold">Description</h3>
-                <p className="whitespace-pre-wrap text-sm text-foreground">
-                  {channel.snippet.description || "No description available."}
-                </p>
-              </div>
+            <div className="grid gap-6 lg:grid-cols-3">
+              {/* Left Column - Channel Info */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Description Card */}
+                <div className="rounded-xl border bg-card p-6">
+                  <h3 className="mb-4 text-lg font-semibold">Description</h3>
+                  <pre className="whitespace-pre-wrap text-sm text-foreground font-sans">
+                    {channel.snippet.description || "No description available."}
+                  </pre>
+                </div>
 
-              <div className="rounded-xl bg-secondary p-6">
-                <h3 className="mb-4 text-lg font-semibold">Channel Details</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Channel Name</span>
-                    <span className="text-foreground">{channel.snippet.title}</span>
-                  </div>
-                  <Separator />
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Custom URL</span>
-                    <span className="text-foreground">
-                      {channel.snippet.customUrl || "Not available"}
-                    </span>
-                  </div>
-                  <Separator />
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Joined Date</span>
-                    <span className="text-foreground">
-                      {timeAgo(channel.snippet.publishedAt)}
-                    </span>
-                  </div>
-                  <Separator />
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Country</span>
-                    <span className="text-foreground">
-                      {channel.snippet.country || "Not available"}
-                    </span>
-                  </div>
-                  <Separator />
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Total Views</span>
-                    <span className="text-foreground">{viewCount}</span>
-                  </div>
-                  <Separator />
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Subscribers</span>
-                    <span className="text-foreground">{subscriberCount}</span>
+                {/* Channel Details Card */}
+                <div className="rounded-xl border bg-card p-6">
+                  <h3 className="mb-4 text-lg font-semibold">Channel details</h3>
+                  <div className="space-y-4 text-sm">
+                    <div className="flex items-center gap-3">
+                      <Mail className="size-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium">Email</p>
+                        <p className="text-muted-foreground">
+                          {email || "Not available"}
+                        </p>
+                      </div>
+                    </div>
+                    <Separator />
+                    <div className="flex items-center gap-3">
+                      <Globe className="size-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium">Country</p>
+                        <p className="text-muted-foreground">
+                          {channel.snippet.country || "Not available"}
+                        </p>
+                      </div>
+                    </div>
+                    <Separator />
+                    <div className="flex items-center gap-3">
+                      <Calendar className="size-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-medium">Joined</p>
+                        <p className="text-muted-foreground">
+                          {new Date(channel.snippet.publishedAt).toLocaleDateString('en-US', {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric'
+                          })}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Right Column - Stats */}
+              <div className="space-y-6">
+                <div className="rounded-xl border bg-card p-6">
+                  <h3 className="mb-4 text-lg font-semibold">Stats</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Total views</p>
+                      <p className="text-2xl font-semibold">{totalViews}</p>
+                    </div>
+                    <Separator />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Subscribers</p>
+                      <p className="text-2xl font-semibold">{fullSubscriberCount}</p>
+                    </div>
+                    <Separator />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Total videos</p>
+                      <p className="text-2xl font-semibold">{videoCount}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Channel Links */}
+                {channel.brandingSettings?.channel?.keywords && (
+                  <div className="rounded-xl border bg-card p-6">
+                    <h3 className="mb-4 text-lg font-semibold">Keywords</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {channel.brandingSettings.channel.keywords
+                        .split('"')
+                        .filter((_, i) => i % 2 === 1)
+                        .slice(0, 10)
+                        .map((keyword, index) => (
+                          <span
+                            key={index}
+                            className="rounded-full bg-secondary px-3 py-1 text-xs"
+                          >
+                            {keyword}
+                          </span>
+                        ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}

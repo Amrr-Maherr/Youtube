@@ -1,60 +1,10 @@
 import axios from "axios";
 import type { Video } from "@/types/Video";
+import type { Channel } from "@/types/Channel";
 
 const apiKey = import.meta.env.VITE_YOUTUB_API_KEY;
 
-export interface ChannelDetails {
-  kind: string;
-  etag: string;
-  id: string;
-  snippet: {
-    title: string;
-    description: string;
-    customUrl: string;
-    publishedAt: string;
-    thumbnails: {
-      default: {
-        url: string;
-        width: number;
-        height: number;
-      };
-      medium: {
-        url: string;
-        width: number;
-        height: number;
-      };
-      high: {
-        url: string;
-        width: number;
-        height: number;
-      };
-    };
-    localized: {
-      title: string;
-      description: string;
-    };
-    country: string;
-  };
-  statistics: {
-    viewCount: string;
-    subscriberCount: string;
-    hiddenSubscriberCount: boolean;
-    videoCount: string;
-  };
-  brandingSettings?: {
-    channel: {
-      title: string;
-      description: string;
-      keywords: string;
-      country: string;
-    };
-    image: {
-      bannerExternalUrl: string;
-    };
-  };
-}
-
-export const GetChannelDetails = async (channelId: string): Promise<ChannelDetails> => {
+export const GetChannelDetails = async (channelId: string): Promise<Channel> => {
   try {
     if (!channelId) {
       throw new Error("Channel ID is required");
@@ -106,7 +56,7 @@ export const GetChannelVideos = async (channelId: string, maxResults: number = 2
   }
 };
 
-export const GetChannelByCustomUrl = async (customUrl: string): Promise<ChannelDetails> => {
+export const GetChannelByCustomUrl = async (customUrl: string): Promise<Channel> => {
   try {
     if (!customUrl) {
       throw new Error("Channel custom URL is required");

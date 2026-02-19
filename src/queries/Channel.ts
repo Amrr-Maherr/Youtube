@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { GetChannelDetails, GetChannelVideos, GetChannelByCustomUrl } from "@/api/Channel";
-import type { ChannelDetails } from "@/api/Channel";
+import type { Channel } from "@/types/Channel";
 import type { Video } from "@/types/Video";
 
 export const FetchChannelDetails = (channelId: string) => {
-  return useQuery<ChannelDetails>({
+  return useQuery<Channel>({
     queryKey: ["channel-details", channelId],
     queryFn: () => GetChannelDetails(channelId),
     staleTime: 1000 * 60 * 10,
@@ -22,7 +22,7 @@ export const FetchChannelVideos = (channelId: string) => {
 };
 
 export const FetchChannelByCustomUrl = (customUrl: string) => {
-  return useQuery<ChannelDetails>({
+  return useQuery<Channel>({
     queryKey: ["channel-custom", customUrl],
     queryFn: () => GetChannelByCustomUrl(customUrl),
     staleTime: 1000 * 60 * 10,
