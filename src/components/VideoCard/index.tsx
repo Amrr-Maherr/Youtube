@@ -18,6 +18,7 @@ export default function VideoCard({ video }: VideoCardProps) {
   const thumbnail = getThumbnailUrl(video.snippet.thumbnails);
   const title = video.snippet.title;
   const channel = video.snippet.channelTitle;
+  const channelId = video.snippet.channelId;
   const publishedAt = video.snippet.publishedAt;
   const duration = formatDuration(video.contentDetails?.duration);
   const views = video.statistics?.viewCount;
@@ -36,6 +37,7 @@ export default function VideoCard({ video }: VideoCardProps) {
           <VideoInfo
             title={title}
             channel={channel}
+            channelId={channelId}
             views={views}
             publishedAt={publishedAt}
           />

@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { FetchVideoDetails, FetchRelatedVideos, FetchVideoComments } from "@/queries/VideoDetails";
+import { FetchChannelDetails } from "@/queries/Channel";
 import { formatDuration, formatViews, timeAgo, getThumbnailUrl } from "@/lib/video";
 import type { Video } from "@/types/Video";
 import type { CommentThread } from "@/types/Comment";
@@ -29,6 +30,7 @@ export default function VideoDetails() {
   const { data: video, isLoading: isLoadingVideo, error: videoError } = FetchVideoDetails(videoId);
   const { data: relatedVideos } = FetchRelatedVideos(videoId);
   const { data: commentsData } = FetchVideoComments(videoId);
+  const { data: channel } = FetchChannelDetails(video?.snippet.channelId || "");
 
   const handleSubscribe = () => {
     setIsSubscribed(!isSubscribed);
@@ -107,14 +109,26 @@ export default function VideoDetails() {
           <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             {/* Channel Info */}
             <div className="flex items-center gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold">
-                {video.snippet.channelTitle.charAt(0).toUpperCase()}
-              </div>
+              <button
+                onClick={() => navigate(`/channel?channelId=${video.snippet.channelId}`)}
+                className="shrink-0"
+              >
+                <img
+                  src={channel?.snippet.thumbnails.medium?.url || channel?.snippet.thumbnails.default?.url}
+                  alt={video.snippet.channelTitle}
+                  className="size-10 rounded-full"
+                />
+              </button>
               <div>
-                <p className="font-medium text-foreground">
+                <button
+                  onClick={() => navigate(`/channel?channelId=${video.snippet.channelId}`)}
+                  className="font-medium text-foreground hover:underline text-left"
+                >
                   {video.snippet.channelTitle}
+                </button>
+                <p className="text-xs text-muted-foreground">
+                  {channel?.statistics?.subscriberCount ? `${parseInt(channel.statistics.subscriberCount).toLocaleString()} subscribers` : "Subscribe"}
                 </p>
-                <p className="text-xs text-muted-foreground">1.2M subscribers</p>
               </div>
               <Button
                 variant={isSubscribed ? "outline" : "default"}

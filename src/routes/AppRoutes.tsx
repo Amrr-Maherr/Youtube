@@ -10,6 +10,7 @@ import Help from "@/pages/Help/Help";
 import SendFeedback from "@/pages/SendFeedback/SendFeedback";
 import SearchResults from "@/pages/SearchResults/SearchResults";
 import VideoDetails from "@/pages/VideoDetails/VideoDetails";
+import ChannelDetails from "@/pages/ChannelDetails/ChannelDetails";
 
 export default function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ export default function AppRoutes() {
           <Route index element={<HomePage />} />
           <Route path="results" element={<SearchResults />} />
           <Route path="watch" element={<VideoDetails />} />
+          <Route path="channel" element={<ChannelDetails />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
           <Route path="report" element={<ReportHistory />} />
