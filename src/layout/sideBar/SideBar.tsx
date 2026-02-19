@@ -35,10 +35,10 @@ import {
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { FetchCategories } from "@/queries/FetchCategories";
-import { useSelector, useDispatch } from "react-redux";
-import type { RootState, AppDispatch } from "@/store/Store";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store/Store";
 import type { VideoCategory } from "@/types/Category";
-import { SetCategory } from "@/store/CategorySlice";
+import { useNavigate } from "react-router-dom";
 
 const mainItems = [
   { icon: Home, label: "Home", href: "/" },
@@ -88,7 +88,7 @@ const categoryIcons: Record<string, React.ElementType> = {
 
 export function YouTubeSidebar() {
   const location = useLocation();
-  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const categoryId = useSelector((state: RootState) => state.category.value);
   const { data: categories } = FetchCategories();
 
@@ -99,7 +99,7 @@ export function YouTubeSidebar() {
   };
 
   const handleCategoryClick = (id: string) => {
-    dispatch(SetCategory(id));
+    navigate(`/category?id=${id}`);
   };
 
   return (
@@ -214,11 +214,10 @@ export function YouTubeSidebar() {
                   </div>
                   {categories.slice(0, 15).map((category: VideoCategory) => {
                     const Icon = getCategoryIcon(category.snippet.title);
-                    const isActiveCategory = categoryId === category.id;
                     return (
                       <SidebarMenuItem key={category.id}>
                         <SidebarMenuButton
-                          isActive={isActiveCategory}
+                          isActive={categoryId === category.id}
                           className="data-[active=true]:bg-gray-800 data-[active=true]:font-medium cursor-pointer"
                           onClick={() => handleCategoryClick(category.id)}
                         >

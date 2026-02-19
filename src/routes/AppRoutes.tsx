@@ -14,6 +14,7 @@ import ChannelDetails from "@/pages/ChannelDetails/ChannelDetails";
 import SignIn from "@/pages/Auth/SignIn";
 import SignUp from "@/pages/Auth/SignUp";
 import Notifications from "@/pages/Notifications/Notifications";
+import CategoryVideos from "@/pages/CategoryVideos/CategoryVideos";
 
 export default function AppRoutes() {
   return (
@@ -25,6 +26,7 @@ export default function AppRoutes() {
           <Route path="watch" element={<VideoDetails />} />
           <Route path="channel" element={<ChannelDetails />} />
           <Route path="notifications" element={<Notifications />} />
+          <Route path="category" element={<CategoryVideos />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
           <Route path="report" element={<ReportHistory />} />
