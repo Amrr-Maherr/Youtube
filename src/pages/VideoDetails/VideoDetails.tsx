@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   ThumbsUp,
   ThumbsDown,
@@ -16,7 +16,7 @@ import type { Video } from "@/types/Video";
 import type { CommentThread } from "@/types/Comment";
 
 export default function VideoDetails() {
-  const { videoId } = useParams<{ videoId: string }>();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -24,9 +24,10 @@ export default function VideoDetails() {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [commentText, setCommentText] = useState("");
 
-  const { data: video, isLoading: isLoadingVideo, error: videoError } = FetchVideoDetails(videoId || "");
-  const { data: relatedVideos } = FetchRelatedVideos(videoId || "");
-  const { data: commentsData } = FetchVideoComments(videoId || "");
+  const videoId = searchParams.get("v") || "";
+  const { data: video, isLoading: isLoadingVideo, error: videoError } = FetchVideoDetails(videoId);
+  const { data: relatedVideos } = FetchRelatedVideos(videoId);
+  const { data: commentsData } = FetchVideoComments(videoId);
 
   const handleSubscribe = () => {
     setIsSubscribed(!isSubscribed);
