@@ -10,80 +10,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { FetchVideoDetails, FetchRelatedVideos, FetchVideoComments } from "@/queries/VideoDetails";
+import { formatDuration, formatViews, timeAgo, getThumbnailUrl } from "@/lib/video";
 import type { Video } from "@/types/Video";
-
-// Mock data for demo - replace with actual API call
-const mockVideo: Video = {
-  kind: "youtube#video",
-  etag: "test",
-  id: "test123",
-  snippet: {
-    publishedAt: "2024-01-15T10:00:00Z",
-    channelId: "UC123",
-    title: "Amazing Video Title - You Won't Believe This!",
-    description: `This is the video description. It can contain multiple paragraphs.
-
-Links and more information:
-- Website: https://example.com
-- Social Media: @channel
-
-Don't forget to like and subscribe!`,
-    thumbnails: {
-      default: { url: "", width: 120, height: 90 },
-      medium: { url: "", width: 320, height: 180 },
-      high: { url: "", width: 480, height: 360 },
-    },
-    channelTitle: "Channel Name",
-    categoryId: "22",
-    liveBroadcastContent: "none",
-    localized: {
-      title: "Amazing Video Title",
-      description: "Description",
-    },
-  },
-  contentDetails: {
-    duration: "PT10M30S",
-    dimension: "2d",
-    definition: "hd",
-    caption: "false",
-    licensedContent: true,
-    contentRating: {},
-    projection: "rectangular",
-  },
-  statistics: {
-    viewCount: "1234567",
-    likeCount: "50000",
-    favoriteCount: "0",
-    commentCount: "1234",
-  },
-};
-
-const mockRelatedVideos: Video[] = Array(10).fill(mockVideo);
-
-function formatViews(views?: string): string {
-  if (!views) return "0 views";
-  const viewCount = parseInt(views);
-  if (viewCount >= 1000000) {
-    return `${(viewCount / 1000000).toFixed(1)}M views`;
-  }
-  if (viewCount >= 1000) {
-    return `${(viewCount / 1000).toFixed(1)}K views`;
-  }
-  return `${viewCount} views`;
-}
-
-function timeAgo(dateString?: string): string {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  const now = new Date();
-  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-  if (seconds < 60) return "just now";
-  if (seconds < 3600) return `${Math.floor(seconds / 60)} minutes ago`;
-  if (seconds < 86400) return `${Math.floor(seconds / 3600)} hours ago`;
-  if (seconds < 2592000) return `${Math.floor(seconds / 86400)} days ago`;
-  if (seconds < 31536000) return `${Math.floor(seconds / 2592000)} months ago`;
-  return `${Math.floor(seconds / 31536000)} years ago`;
-}
+import type { CommentThread } from "@/types/Comment";
 
 export default function VideoDetails() {
   const { videoId } = useParams<{ videoId: string }>();
@@ -94,8 +24,9 @@ export default function VideoDetails() {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [commentText, setCommentText] = useState("");
 
-  const video = mockVideo;
-  const relatedVideos = mockRelatedVideos;
+  const { data: video, isLoading: isLoadingVideo, error: videoError } = FetchVideoDetails(videoId || "");
+  const { data: relatedVideos } = FetchRelatedVideos(videoId || "");
+  const { data: commentsData } = FetchVideoComments(videoId || "");
 
   const handleSubscribe = () => {
     setIsSubscribed(!isSubscribed);
@@ -114,7 +45,7 @@ export default function VideoDetails() {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: video.snippet.title,
+        title: video?.snippet.title || "",
         url: window.location.href,
       });
     } else {
@@ -122,6 +53,34 @@ export default function VideoDetails() {
       alert("Link copied to clipboard!");
     }
   };
+
+  if (isLoadingVideo) {
+    return (
+      <div className="flex min-h-[600px] items-center justify-center">
+        <p className="text-muted-foreground">Loading video...</p>
+      </div>
+    );
+  }
+
+  if (videoError || !video) {
+    return (
+      <div className="flex min-h-[600px] flex-col items-center justify-center gap-4">
+        <div className="text-center">
+          <h3 className="text-lg font-medium">Video not found</h3>
+          <p className="text-muted-foreground text-sm">
+            The video you're looking for doesn't exist or has been removed
+          </p>
+        </div>
+        <Button onClick={() => navigate("/")}>Go Home</Button>
+      </div>
+    );
+  }
+
+  const duration = formatDuration(video.contentDetails?.duration);
+  const views = formatViews(video.statistics?.viewCount);
+  const publishedTime = timeAgo(video.snippet.publishedAt);
+  const likeCount = parseInt(video.statistics?.likeCount || "0").toLocaleString();
+  const commentCount = parseInt(video.statistics?.commentCount || "0").toLocaleString();
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -148,7 +107,7 @@ export default function VideoDetails() {
           <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             {/* Channel Info */}
             <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold">
                 {video.snippet.channelTitle.charAt(0).toUpperCase()}
               </div>
               <div>
@@ -184,7 +143,7 @@ export default function VideoDetails() {
                   onClick={handleLike}
                 >
                   <ThumbsUp className="mr-2 size-4" />
-                  {parseInt(video.statistics?.likeCount || "0").toLocaleString()}
+                  {likeCount}
                 </Button>
                 <Button
                   variant="ghost"
@@ -219,9 +178,15 @@ export default function VideoDetails() {
           {/* Video Description */}
           <div className="rounded-xl bg-secondary p-4">
             <div className="mb-2 flex items-center gap-2 text-sm font-medium">
-              <span>{formatViews(video.statistics?.viewCount)}</span>
+              <span>{views}</span>
               <span>•</span>
-              <span>{timeAgo(video.snippet.publishedAt)}</span>
+              <span>{publishedTime}</span>
+              {duration && (
+                <>
+                  <span>•</span>
+                  <span>{duration}</span>
+                </>
+              )}
             </div>
             <div
               className={`text-sm text-foreground ${showFullDescription ? "" : "line-clamp-2"}`}
@@ -244,7 +209,7 @@ export default function VideoDetails() {
           <div className="mt-6">
             <div className="mb-4 flex items-center gap-2">
               <h2 className="text-lg font-semibold">
-                {video.statistics?.commentCount || "0"} Comments
+                {commentCount} Comments
               </h2>
             </div>
 
@@ -278,79 +243,98 @@ export default function VideoDetails() {
               </div>
             </div>
 
-            {/* Sample Comments */}
-            <div className="space-y-4">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="flex gap-3">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-muted font-semibold">
-                    {String.fromCharCode(64 + i)}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium">User {i}</span>
-                      <span className="text-xs text-muted-foreground">
-                        {i} day{i > 1 ? "s" : ""} ago
-                      </span>
+            {/* Comments List */}
+            {commentsData && commentsData.length > 0 ? (
+              <div className="space-y-4">
+                {commentsData.map((commentThread: CommentThread) => {
+                  const comment = commentThread.snippet.topLevelComment;
+                  return (
+                    <div key={comment.id} className="flex gap-3">
+                      <img
+                        src={comment.snippet.authorProfileImageUrl}
+                        alt={comment.snippet.authorDisplayName}
+                        className="size-10 shrink-0 rounded-full"
+                      />
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-medium">
+                            {comment.snippet.authorDisplayName}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {timeAgo(comment.snippet.publishedAt)}
+                          </span>
+                        </div>
+                        <p
+                          className="mt-1 text-sm text-foreground"
+                          dangerouslySetInnerHTML={{ __html: comment.snippet.textDisplay }}
+                        />
+                        <div className="mt-2 flex items-center gap-4">
+                          <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
+                            <ThumbsUp className="size-3" />
+                            {comment.snippet.likeCount}
+                          </button>
+                          <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
+                            <ThumbsDown className="size-3" />
+                          </button>
+                          <button className="text-xs font-medium hover:text-foreground">
+                            Reply
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <p className="mt-1 text-sm text-foreground">
-                      Great video! Really enjoyed watching this. Keep up the good
-                      work! 👍
-                    </p>
-                    <div className="mt-2 flex items-center gap-4">
-                      <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
-                        <ThumbsUp className="size-3" />
-                        {i * 100}
-                      </button>
-                      <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
-                        <ThumbsDown className="size-3" />
-                      </button>
-                      <button className="text-xs font-medium hover:text-foreground">
-                        Reply
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-muted-foreground">
+                <p>No comments yet. Be the first to comment!</p>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Sidebar - Related Videos */}
         <div className="hidden w-[350px] shrink-0 lg:block">
           <h3 className="mb-4 text-lg font-semibold">Related Videos</h3>
-          <div className="flex flex-col gap-3">
-            {relatedVideos.map((video, index) => (
-              <div
-                key={index}
-                className="flex cursor-pointer gap-2"
-                onClick={() => navigate(`/watch?v=${video.id}`)}
-              >
-                <div className="relative aspect-video w-[168px] shrink-0 overflow-hidden rounded-lg">
-                  <img
-                    src={
-                      video.snippet.thumbnails.medium?.url ||
-                      video.snippet.thumbnails.default?.url
-                    }
-                    alt={video.snippet.title}
-                    className="size-full object-cover"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col">
-                  <h4 className="line-clamp-2 text-sm font-semibold">
-                    {video.snippet.title}
-                  </h4>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {video.snippet.channelTitle}
-                  </p>
-                  <div className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
-                    <span>{formatViews(video.statistics?.viewCount)}</span>
-                    <span>•</span>
-                    <span>{timeAgo(video.snippet.publishedAt)}</span>
+          {relatedVideos && relatedVideos.length > 0 ? (
+            <div className="flex flex-col gap-3">
+              {relatedVideos.map((relatedVideo: Video) => (
+                <div
+                  key={relatedVideo.id}
+                  className="flex cursor-pointer gap-2"
+                  onClick={() => navigate(`/watch?v=${relatedVideo.id}`)}
+                >
+                  <div className="relative aspect-video w-[168px] shrink-0 overflow-hidden rounded-lg">
+                    <img
+                      src={getThumbnailUrl(relatedVideo.snippet.thumbnails)}
+                      alt={relatedVideo.snippet.title}
+                      className="size-full object-cover"
+                    />
+                    {relatedVideo.contentDetails?.duration && (
+                      <div className="absolute bottom-2 right-2 rounded bg-black/80 px-1.5 py-0.5 text-xs font-medium text-white">
+                        {formatDuration(relatedVideo.contentDetails.duration)}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-1 flex-col">
+                    <h4 className="line-clamp-2 text-sm font-semibold">
+                      {relatedVideo.snippet.title}
+                    </h4>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {relatedVideo.snippet.channelTitle}
+                    </p>
+                    <div className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+                      <span>{formatViews(relatedVideo.statistics?.viewCount)}</span>
+                      <span>•</span>
+                      <span>{timeAgo(relatedVideo.snippet.publishedAt)}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-muted-foreground text-sm">No related videos found</p>
+          )}
         </div>
       </div>
     </div>
