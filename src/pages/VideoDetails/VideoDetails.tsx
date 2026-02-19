@@ -47,7 +47,7 @@ export default function VideoDetails() {
 
   if (videoError || !video) {
     return (
-      <div className="flex min-h-[600px] flex-col items-center justify-center gap-4">
+      <div className="flex min-h-[600px] flex-col items-center justify-center gap-4 p-4">
         <div className="text-center">
           <h3 className="text-lg font-medium">Video not found</h3>
           <p className="text-muted-foreground text-sm">
@@ -64,57 +64,70 @@ export default function VideoDetails() {
   const publishedTime = timeAgo(video.snippet.publishedAt);
   const likeCount = parseInt(video.statistics?.likeCount || "0").toLocaleString();
   const commentCount = parseInt(video.statistics?.commentCount || "0").toLocaleString();
-  const subscriberCount = formatFullSubscriberCount(channel?.statistics?.subscriberCount) + " subscribers";
+  const subscriberCount = channel?.statistics?.subscriberCount
+    ? `${formatFullSubscriberCount(channel.statistics.subscriberCount)} subscribers`
+    : "Subscribe";
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <div className="mx-auto flex w-full max-w-[1700px] gap-6 p-6">
-        <div className="flex-1">
-          <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
-            <iframe
-              src={`https://www.youtube.com/embed/${videoId}`}
-              title="Video player"
-              className="size-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+      <div className="mx-auto w-full max-w-[1700px] p-4 sm:p-6">
+        <div className="flex flex-col gap-6 lg:flex-row lg:gap-6">
+          {/* Main Content */}
+          <div className="flex-1 min-w-0">
+            {/* Video Player */}
+            <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+              <iframe
+                src={`https://www.youtube.com/embed/${videoId}`}
+                title="Video player"
+                className="size-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+
+            {/* Video Title */}
+            <h1 className="mt-4 text-lg sm:text-xl font-semibold text-foreground line-clamp-2">
+              {video.snippet.title}
+            </h1>
+
+            {/* Video Actions */}
+            <VideoActions
+              channelName={video.snippet.channelTitle}
+              channelAvatarUrl={channel?.snippet.thumbnails.medium?.url || channel?.snippet.thumbnails.default?.url || ""}
+              subscriberCount={subscriberCount}
+              likeCount={likeCount}
+              isLiked={isLiked}
+              isDisliked={isDisliked}
+              isSubscribed={isSubscribed}
+              onLike={handleLike}
+              onDislike={handleDislike}
+              onSubscribe={handleSubscribe}
+              onShare={handleShare}
+              onChannelClick={handleChannelClick}
+            />
+
+            {/* Video Description */}
+            <VideoDescription
+              views={views}
+              publishedTime={publishedTime}
+              duration={duration}
+              description={video.snippet.description}
+              showFull={showFullDescription}
+              onToggle={toggleDescription}
+            />
+
+            {/* Comments */}
+            <VideoComments
+              commentCount={commentCount}
+              comments={commentsData}
             />
           </div>
 
-          <h1 className="mt-4 text-xl font-semibold text-foreground">
-            {video.snippet.title}
-          </h1>
-
-          <VideoActions
-            channelName={video.snippet.channelTitle}
-            channelAvatarUrl={channel?.snippet.thumbnails.medium?.url || channel?.snippet.thumbnails.default?.url || ""}
-            subscriberCount={subscriberCount}
-            likeCount={likeCount}
-            isLiked={isLiked}
-            isDisliked={isDisliked}
-            isSubscribed={isSubscribed}
-            onLike={handleLike}
-            onDislike={handleDislike}
-            onSubscribe={handleSubscribe}
-            onShare={handleShare}
-            onChannelClick={handleChannelClick}
-          />
-
-          <VideoDescription
-            views={views}
-            publishedTime={publishedTime}
-            duration={duration}
-            description={video.snippet.description}
-            showFull={showFullDescription}
-            onToggle={toggleDescription}
-          />
-
-          <VideoComments
-            commentCount={commentCount}
-            comments={commentsData}
-          />
+          {/* Related Videos Sidebar */}
+          <div className="w-full lg:w-[350px] lg:shrink-0">
+            <RelatedVideos videos={relatedVideos} />
+          </div>
         </div>
-
-        <RelatedVideos videos={relatedVideos} />
       </div>
     </div>
   );

@@ -89,7 +89,7 @@ export default function ChannelDetails() {
         onError={() => {}}
       />
 
-      <div className="mx-auto max-w-6xl px-4 py-6">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 py-6">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
           <ChannelAvatar
             avatarUrl={channel.snippet.thumbnails.high?.url || channel.snippet.thumbnails.medium?.url}
@@ -114,7 +114,7 @@ export default function ChannelDetails() {
 
         <Separator className="my-6" />
 
-        <div className="flex gap-1 overflow-x-auto border-b">
+        <div className="flex gap-1 overflow-x-auto border-b scrollbar-thin">
           {tabs.map((tab) => (
             <ChannelTabButton
               key={tab.id}

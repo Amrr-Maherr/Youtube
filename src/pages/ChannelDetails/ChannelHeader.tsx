@@ -34,9 +34,9 @@ export function ChannelHeader({
     <div className="flex-1 pt-2">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2 flex-wrap">
             {channelName}
-            <svg className="size-5 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="size-4 sm:size-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
           </h1>
@@ -70,7 +70,7 @@ export function ChannelHeader({
             onClick={onShare}
           >
             <Share className="mr-2 size-4" />
-            Share
+            <span className="hidden sm:inline">Share</span>
           </Button>
           <Button variant="secondary" size="icon" className="rounded-full">
             <MoreVertical className="size-4" />
@@ -78,10 +78,10 @@ export function ChannelHeader({
         </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
+      <div className="mt-4 flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
         <span className="font-medium text-foreground">{fullSubscriberCount}</span>
         <span className="text-muted-foreground">{subscriberCount}</span>
-        <span className="text-muted-foreground">{videoCount} videos</span>
+        <span className="text-muted-foreground">{videoCount}</span>
         <span className="text-muted-foreground">{totalViews} views</span>
       </div>
 

@@ -20,7 +20,7 @@ export function ChannelBanner({
         />
       ) : (
         <div className="flex size-full items-center justify-center bg-gradient-to-r from-primary/20 to-primary/40">
-          <h1 className="text-2xl sm:text-4xl font-bold text-primary">
+          <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold text-primary px-4 text-center">
             {channelName}
           </h1>
         </div>
@@ -39,11 +39,11 @@ export function ChannelAvatar({
   channelName,
 }: ChannelAvatarProps) {
   return (
-    <div className="flex shrink-0 items-center justify-center -mt-16 sm:-mt-20">
+    <div className="flex shrink-0 items-center justify-center">
       <img
         src={avatarUrl}
         alt={channelName}
-        className="size-24 rounded-full sm:size-32 border-4 border-background"
+        className="size-20 sm:size-24 lg:size-32 rounded-full border-4 border-background"
       />
     </div>
   );

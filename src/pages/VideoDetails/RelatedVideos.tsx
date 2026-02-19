@@ -11,7 +11,7 @@ export function RelatedVideos({ videos }: RelatedVideosProps) {
 
   if (!videos || videos.length === 0) {
     return (
-      <div className="hidden w-[350px] shrink-0 lg:block">
+      <div className="w-full">
         <h3 className="mb-4 text-lg font-semibold">Related Videos</h3>
         <p className="text-muted-foreground text-sm">No related videos found</p>
       </div>
@@ -19,28 +19,28 @@ export function RelatedVideos({ videos }: RelatedVideosProps) {
   }
 
   return (
-    <div className="hidden w-[350px] shrink-0 lg:block">
-      <h3 className="mb-4 text-lg font-semibold">Related Videos</h3>
-      <div className="flex flex-col gap-3">
+    <div className="w-full">
+      <h3 className="mb-4 text-lg font-semibold hidden lg:block">Related Videos</h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
         {videos.map((video: Video) => (
           <div
             key={video.id}
             className="flex cursor-pointer gap-2"
             onClick={() => navigate(`/watch?v=${video.id}`)}
           >
-            <div className="relative aspect-video w-[168px] shrink-0 overflow-hidden rounded-lg">
+            <div className="relative aspect-video w-full sm:w-[168px] shrink-0 overflow-hidden rounded-lg">
               <img
                 src={getThumbnailUrl(video.snippet.thumbnails)}
                 alt={video.snippet.title}
                 className="size-full object-cover"
               />
               {video.contentDetails?.duration && (
-                <div className="absolute bottom-2 right-2 rounded bg-black/80 px-1.5 py-0.5 text-xs font-medium text-white">
+                <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 rounded bg-black/80 px-1 sm:px-1.5 py-0.5 text-xs font-medium text-white">
                   {formatDuration(video.contentDetails.duration)}
                 </div>
               )}
             </div>
-            <div className="flex flex-1 flex-col">
+            <div className="flex flex-1 flex-col min-w-0">
               <h4 className="line-clamp-2 text-sm font-semibold">
                 {video.snippet.title}
               </h4>
