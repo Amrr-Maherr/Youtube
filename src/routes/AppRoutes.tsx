@@ -8,6 +8,7 @@ import Settings from "@/pages/Settings/Settings";
 import ReportHistory from "@/pages/ReportHistory/ReportHistory";
 import Help from "@/pages/Help/Help";
 import SendFeedback from "@/pages/SendFeedback/SendFeedback";
+import SearchResults from "@/pages/SearchResults/SearchResults";
 
 export default function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function AppRoutes() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="results" element={<SearchResults />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
           <Route path="report" element={<ReportHistory />} />

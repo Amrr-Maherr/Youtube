@@ -1,9 +1,9 @@
-import { Menu, Search, Mic, Video, Bell, User } from "lucide-react";
+import { Menu, Search, Video, Bell, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import Logo from "@/components/shared/Logo";
 import Categories from "./Categories";
+import SearchBar from "./SearchBar";
 
 export default function Header() {
   return (
@@ -20,28 +20,7 @@ export default function Header() {
         </div>
 
         {/* Center Section - Search */}
-        <div className="flex-1 max-w-2xl mx-4 hidden md:flex items-center gap-2">
-          <div className="flex flex-1 items-center">
-            <div className="flex flex-1 items-center bg-[#121212] border border-gray-700 rounded-l-full px-4 py-2 focus-within:border-blue-500">
-              <Search className="h-4 w-4 text-gray-400 mr-2" />
-              <Input
-                type="text"
-                placeholder="Search"
-                className="flex-1 bg-transparent border-none outline-none text-white placeholder:text-gray-400 focus-visible:ring-0 focus-visible:border-none h-auto p-0"
-              />
-            </div>
-            <Button className="bg-gray-800 hover:bg-gray-700 rounded-l-none rounded-r-full px-5">
-              <Search className="h-4 w-4 text-white" />
-            </Button>
-          </div>
-          <Button
-            variant="secondary"
-            size="icon"
-            className="rounded-full bg-gray-800 hover:bg-gray-700"
-          >
-            <Mic className="h-4 w-4 text-white" />
-          </Button>
-        </div>
+        <SearchBar className="hidden md:flex" />
 
         {/* Right Section - Actions */}
         <div className="flex items-center gap-2">
@@ -75,23 +54,7 @@ export default function Header() {
 
       {/* Mobile Search Bar */}
       <div className="md:hidden px-4 pb-3">
-        <div className="flex items-center gap-2">
-          <div className="flex flex-1 items-center bg-[#121212] border border-gray-700 rounded-full px-4 py-2">
-            <Search className="h-4 w-4 text-gray-400 mr-2" />
-            <Input
-              type="text"
-              placeholder="Search"
-              className="flex-1 bg-transparent border-none outline-none text-white placeholder:text-gray-400 focus-visible:ring-0 focus-visible:border-none h-auto p-0"
-            />
-          </div>
-          <Button
-            variant="secondary"
-            size="icon"
-            className="rounded-full bg-gray-800 hover:bg-gray-700"
-          >
-            <Mic className="h-4 w-4 text-white" />
-          </Button>
-        </div>
+        <SearchBar className="flex" />
       </div>
 
       {/* Categories Bar */}
