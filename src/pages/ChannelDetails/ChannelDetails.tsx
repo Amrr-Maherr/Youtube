@@ -25,6 +25,7 @@ export default function ChannelDetails() {
   const [activeTab, setActiveTab] = useState<ChannelTab>("videos");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [bannerError, setBannerError] = useState(false);
   const channelId = searchParams.get("channelId") || "";
 
   const { data: channel, isLoading: isLoadingChannel, error: channelError } = FetchChannelDetails(channelId);
@@ -103,8 +104,6 @@ export default function ChannelDetails() {
     const emailMatch = description.match(/[\w.-]+@[\w.-]+\.\w+/);
     return emailMatch ? emailMatch[0] : null;
   };
-
-  const [bannerError, setBannerError] = useState(false);
 
   const email = extractEmail(channel.snippet.description);
 
