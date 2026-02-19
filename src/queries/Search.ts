@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { SearchVideos, GetSearchSuggestions, type SearchItem } from "@/api/Search";
+import { SearchVideos, GetSearchSuggestions } from "@/api/Search";
+import type { SearchItem } from "@/types/Search";
 
 export const FetchSearchResults = (query: string) => {
   return useQuery<SearchItem[]>({
