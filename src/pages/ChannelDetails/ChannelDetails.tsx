@@ -104,21 +104,27 @@ export default function ChannelDetails() {
     return emailMatch ? emailMatch[0] : null;
   };
 
+  const [bannerError, setBannerError] = useState(false);
+
   const email = extractEmail(channel.snippet.description);
-console.log(
-  channel.brandingSettings?.image?.bannerExternalUrl,
-  "channel.brandingSettings?.image?.bannerExternalUrl",
-);
+
+  // Try to get banner from different sources
+  const bannerUrl = 
+    channel.brandingSettings?.image?.bannerExternalUrl ||
+    null;
+
+  const showBanner = bannerUrl && !bannerError;
 
   return (
     <div className="min-h-screen bg-background">
       {/* Channel Banner */}
       <div className="relative h-32 w-full bg-muted sm:h-48 md:h-56 lg:h-64">
-        {channel.brandingSettings?.image?.bannerExternalUrl ? (
+        {showBanner ? (
           <img
-            src={channel.brandingSettings.image.bannerExternalUrl}
+            src={bannerUrl}
             alt="Channel banner"
             className="size-full object-cover"
+            onError={() => setBannerError(true)}
           />
         ) : (
           <div className="flex size-full items-center justify-center bg-gradient-to-r from-primary/20 to-primary/40">
