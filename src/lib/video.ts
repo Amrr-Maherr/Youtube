@@ -85,3 +85,68 @@ export function getChannelInitials(channelName?: string): string {
   if (!channelName) return "?";
   return channelName.charAt(0).toUpperCase();
 }
+
+/**
+ * Formats subscriber count to short format
+ * @example "12600000" -> "12.6M subscribers"
+ */
+export function formatSubscriberCount(count?: string): string {
+  if (!count) return "0 subscribers";
+  const num = parseInt(count);
+  if (num >= 1000000) {
+    return `${(num / 1000000).toFixed(1)}M subscribers`;
+  }
+  if (num >= 1000) {
+    return `${(num / 1000).toFixed(1)}K subscribers`;
+  }
+  return `${num} subscribers`;
+}
+
+/**
+ * Formats subscriber count to full number format
+ * @example "12600000" -> "12,600,000"
+ */
+export function formatFullSubscriberCount(count?: string): string {
+  if (!count) return "0";
+  return parseInt(count).toLocaleString();
+}
+
+/**
+ * Formats view count to full number format
+ * @example "5646798788" -> "5,646,798,788"
+ */
+export function formatFullViewCount(count?: string): string {
+  if (!count) return "0";
+  return parseInt(count).toLocaleString();
+}
+
+/**
+ * Formats video count with label
+ * @example "7039" -> "7,039 videos"
+ */
+export function formatVideoCount(count?: string): string {
+  if (!count) return "0 videos";
+  return `${parseInt(count).toLocaleString()} videos`;
+}
+
+/**
+ * Extracts email from channel description
+ * @returns Email address or null if not found
+ */
+export function extractEmail(description: string): string | null {
+  const emailMatch = description.match(/[\w.-]+@[\w.-]+\.\w+/);
+  return emailMatch ? emailMatch[0] : null;
+}
+
+/**
+ * Formats date to long format
+ * @example "2011-12-15T20:08:51Z" -> "December 15, 2011"
+ */
+export function formatDateLong(dateString?: string): string {
+  if (!dateString) return "";
+  return new Date(dateString).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  });
+}

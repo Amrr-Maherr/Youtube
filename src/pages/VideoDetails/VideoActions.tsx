@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 interface VideoActionsProps {
   channelName: string;
   channelAvatarUrl: string;
-  subscriberCount?: string;
+  subscriberCount: string;
   likeCount: string;
   isLiked: boolean;
   isDisliked: boolean;

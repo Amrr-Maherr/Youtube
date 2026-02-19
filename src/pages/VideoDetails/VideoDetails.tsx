@@ -2,7 +2,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FetchVideoDetails, FetchRelatedVideos, FetchVideoComments } from "@/queries/VideoDetails";
 import { FetchChannelDetails } from "@/queries/Channel";
-import { formatDuration, formatViews, timeAgo } from "@/lib/video";
+import { formatDuration, formatViews, timeAgo, formatFullSubscriberCount } from "@/lib/video";
 import { VideoActions } from "./VideoActions";
 import { VideoDescription } from "./VideoDescription";
 import { VideoComments } from "./VideoComments";
@@ -64,9 +64,7 @@ export default function VideoDetails() {
   const publishedTime = timeAgo(video.snippet.publishedAt);
   const likeCount = parseInt(video.statistics?.likeCount || "0").toLocaleString();
   const commentCount = parseInt(video.statistics?.commentCount || "0").toLocaleString();
-  const subscriberCount = channel?.statistics?.subscriberCount
-    ? `${parseInt(channel.statistics.subscriberCount).toLocaleString()} subscribers`
-    : undefined;
+  const subscriberCount = formatFullSubscriberCount(channel?.statistics?.subscriberCount) + " subscribers";
 
   return (
     <div className="flex min-h-screen flex-col bg-background">

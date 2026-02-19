@@ -8,6 +8,14 @@ import { ChannelHeader } from "./ChannelHeader";
 import { ChannelAbout } from "./ChannelAbout";
 import { ChannelTabs } from "./ChannelTabs";
 import type { ChannelTab } from "./ChannelTabs";
+import {
+  formatSubscriberCount,
+  formatFullSubscriberCount,
+  formatFullViewCount,
+  formatVideoCount,
+  extractEmail,
+  formatDateLong,
+} from "@/lib/video";
 
 export default function ChannelDetails() {
   const [searchParams] = useSearchParams();
@@ -36,36 +44,12 @@ export default function ChannelDetails() {
     }
   };
 
-  const formatSubscriberCount = (count?: string): string => {
-    if (!count) return "0 subscribers";
-    const num = parseInt(count);
-    if (num >= 1000000) {
-      return `${(num / 1000000).toFixed(1)}M subscribers`;
-    }
-    if (num >= 1000) {
-      return `${(num / 1000).toFixed(1)}K subscribers`;
-    }
-    return `${num} subscribers`;
-  };
-
-  const formatFullSubscriberCount = (count?: string): string => {
-    if (!count) return "0";
-    return parseInt(count).toLocaleString();
-  };
-
-  const extractEmail = (description: string): string | null => {
-    const emailMatch = description.match(/[\w.-]+@[\w.-]+\.\w+/);
-    return emailMatch ? emailMatch[0] : null;
-  };
-
-  const email = extractEmail(channel?.snippet.description || "");
-
-  const bannerUrl = channel?.brandingSettings?.image?.bannerExternalUrl || null;
-
   const subscriberCount = formatSubscriberCount(channel?.statistics?.subscriberCount);
   const fullSubscriberCount = formatFullSubscriberCount(channel?.statistics?.subscriberCount);
-  const videoCount = parseInt(channel?.statistics?.videoCount || "0").toLocaleString();
-  const totalViews = parseInt(channel?.statistics?.viewCount || "0").toLocaleString();
+  const videoCount = formatVideoCount(channel?.statistics?.videoCount);
+  const totalViews = formatFullViewCount(channel?.statistics?.viewCount);
+  const email = extractEmail(channel?.snippet.description || "");
+  const bannerUrl = channel?.brandingSettings?.image?.bannerExternalUrl || null;
 
   const tabs: { id: ChannelTab; label: string }[] = [
     { id: "videos", label: "Videos" },
@@ -146,11 +130,7 @@ export default function ChannelDetails() {
             description={channel.snippet.description}
             email={email}
             country={channel.snippet.country}
-            joinedDate={new Date(channel.snippet.publishedAt).toLocaleDateString('en-US', {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric'
-            })}
+            joinedDate={formatDateLong(channel.snippet.publishedAt)}
             totalViews={totalViews}
             fullSubscriberCount={fullSubscriberCount}
             videoCount={videoCount}
