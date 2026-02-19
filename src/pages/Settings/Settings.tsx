@@ -31,7 +31,6 @@ import {
   Sun,
   Moon,
   Monitor,
-  ChevronRight,
   Pencil,
 } from "lucide-react"
 import { cn } from "../../lib/utils"

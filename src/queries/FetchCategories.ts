@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetAllCategories, GetSingleCategory } from "@/api/Categories";
+import { GetAllCategories, GetSingleCategory, GetVideosByCategory } from "@/api/Categories";
 
 export const FetchCategories = () => {
   return useQuery({
@@ -9,10 +9,19 @@ export const FetchCategories = () => {
   });
 };
 
-export const FetchSingleCategory = ({id}: {id:string}) => {
+export const FetchSingleCategory = (id: string) => {
   return useQuery({
-    queryKey: ["Single categories",id],
-    queryFn: () => { GetSingleCategory({ id }) },
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    queryKey: ["Single categories", id],
+    queryFn: () => GetSingleCategory({ id }),
+    staleTime: 1000 * 60 * 5,
   });
 }
+
+export const FetchVideosByCategory = (categoryId: string) => {
+  return useQuery({
+    queryKey: ["videos", categoryId],
+    queryFn: () => GetVideosByCategory(categoryId),
+    staleTime: 1000 * 60 * 5,
+    enabled: !!categoryId,
+  });
+};

@@ -9,22 +9,26 @@ import { SetCategory } from '@/store/CategorySlice'
 
 export default function Categories() {
   const dispatch = useDispatch<AppDispatch>();
-  const categoryId = useSelector((state: RootState) => state.category);
+  const categoryId = useSelector((state: RootState) => state.category.value);
   const [selected, setSelected] = useState("All");
   const { isPending, error, data } = FetchCategories();
 
   useEffect(() => {
     if (data && data.length > 0) {
       setSelected(data[0].snippet.title);
+      // Set the first category ID as default
+      if (!categoryId) {
+        dispatch(SetCategory(data[0].id));
+      }
     }
-  }, [data]);
+  }, [data, dispatch, categoryId]);
 
   if (isPending || error || !data) return null;
 
   const HandelCategory = (category: VideoCategory) => {
     if (category) {
       setSelected(category.snippet.title);
-      dispatch(SetCategory([category.id]));
+      dispatch(SetCategory(category.id));
     }
   }
 

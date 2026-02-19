@@ -1,18 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface CategoryState {
-  value: string[]
+  value: string
 }
 
 const initialState: CategoryState = {
-  value: [],
+  value: '',
 }
 
 export const CategorySlice = createSlice({
   name: 'category',
   initialState,
   reducers: {
-    SetCategory: (state, action: PayloadAction<string[]>) => {
+    SetCategory: (state, action: PayloadAction<string>) => {
       state.value = action.payload
     },
   },

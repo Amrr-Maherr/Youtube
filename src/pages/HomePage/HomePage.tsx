@@ -1,7 +1,9 @@
-const HomePage = () => {
+import VideosSection from "@/components/VideosSection";
 
+const HomePage = () => {
   return (
     <>
+      <VideosSection />
     </>
   );
 };

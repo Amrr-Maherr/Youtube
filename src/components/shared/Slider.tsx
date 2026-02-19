@@ -49,7 +49,7 @@ export default function Slider({
           disableOnInteraction: false,
           ...(swiperOptions.autoplay as any),
         }}
-        loop={swiperOptions.loop ?? true}
+        loop={swiperOptions.loop ?? false}
         pagination={swiperOptions.pagination ?? false}
         speed={swiperOptions.speed ?? 800}
         effect={effect}
@@ -68,7 +68,7 @@ export default function Slider({
         {...swiperOptions}
       >
         {React.Children.map(children, (child, index) => (
-          <SwiperSlide key={index} className="flex justify-center">
+          <SwiperSlide key={index}>
             {child}
           </SwiperSlide>
         ))}
