@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Eye, EyeOff } from "lucide-react";
-import Header from "@/layout/header/Header";
+import AuthHeader from "./AuthHeader";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ export default function SignUp() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Header />
+      <AuthHeader />
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center p-6">
