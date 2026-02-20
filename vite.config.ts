@@ -12,6 +12,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
+      injectManifest: {
+        globPatterns: ['**/*.{js,css,html,ico,svg,png,webp}'],
+      },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,svg,png,webp}'],
         cleanupOutdatedCaches: true,
@@ -19,7 +22,7 @@ export default defineConfig({
         skipWaiting: true,
       },
       devOptions: {
-        enabled: false,  // Disabled in development to avoid errors
+        enabled: false,
         type: 'module',
       },
       manifest: {
@@ -29,8 +32,6 @@ export default defineConfig({
         theme_color: '#FF0000',
         background_color: '#0F0F0F',
         display: 'standalone',
-        orientation: 'portrait',
-        scope: '/',
         start_url: '/',
         icons: [
           {
