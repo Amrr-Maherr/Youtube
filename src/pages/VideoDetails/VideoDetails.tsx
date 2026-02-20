@@ -73,7 +73,6 @@ function VideoDetails() {
   const subscriberCount = channel?.statistics?.subscriberCount
     ? `${formatFullSubscriberCount(channel.statistics.subscriberCount)} subscribers`
     : "Subscribe";
-
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <PageHeader
