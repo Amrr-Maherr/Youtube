@@ -1,4 +1,5 @@
-import { User, PlayCircle, Clock } from "lucide-react";
+import { PlayCircle, Clock } from "lucide-react";
+import Avatar from "@/components/Avatar";
 
 const Profile = () => {
   return (
@@ -8,9 +9,7 @@ const Profile = () => {
 
       {/* Channel Info */}
       <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8 px-4">
-        <div className="w-32 h-32 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full flex items-center justify-center flex-shrink-0">
-          <User className="w-16 h-16 text-gray-400" />
-        </div>
+        <Avatar size="lg" alt="My Channel" />
         <div className="text-center md:text-left flex-1">
           <h1 className="text-3xl font-bold mb-2">My Channel</h1>
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-gray-400 text-sm mb-4">
@@ -72,9 +71,7 @@ const Profile = () => {
               </span>
             </div>
             <div className="flex gap-3">
-              <div className="w-9 h-9 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full flex-shrink-0 flex items-center justify-center">
-                <User className="w-5 h-5 text-gray-400" />
-              </div>
+              <Avatar size="sm" alt="My Channel" />
               <div className="flex-1">
                 <h3 className="font-medium text-sm line-clamp-2 mb-1 text-white">
                   Amazing Video Title {video} - Tutorial for Beginners 2026

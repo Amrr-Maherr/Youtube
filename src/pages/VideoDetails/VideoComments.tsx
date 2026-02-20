@@ -3,6 +3,7 @@ import { ThumbsUp, ThumbsDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { timeAgo } from "@/lib/video";
 import type { CommentThread } from "@/types/Comment";
+import Avatar from "@/components/Avatar";
 
 interface VideoCommentsProps {
   commentCount: string;
@@ -26,10 +27,10 @@ export function VideoComments({ commentCount, comments }: VideoCommentsProps) {
             const comment = commentThread.snippet.topLevelComment;
             return (
               <div key={comment.id} className="flex gap-3">
-                <img
+                <Avatar
                   src={comment.snippet.authorProfileImageUrl}
                   alt={comment.snippet.authorDisplayName}
-                  className="size-10 shrink-0 rounded-full"
+                  size="md"
                 />
                 <div>
                   <div className="flex items-center gap-2">
@@ -75,9 +76,7 @@ function AddComment() {
 
   return (
     <div className="mb-6 flex gap-3">
-      <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold">
-        U
-      </div>
+      <Avatar size="md" alt="User" />
       <div className="flex-1">
         <textarea
           value={commentText}
