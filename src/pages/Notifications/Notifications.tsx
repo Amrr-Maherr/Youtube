@@ -202,7 +202,7 @@ export default function Notifications() {
       </div>
 
       {/* Notifications List */}
-      <div className="max-w-4xl mx-auto">
+      <div className="mx-auto">
         {filteredNotifications.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 px-4">
             <div className="flex size-20 items-center justify-center rounded-full bg-muted mb-4">
