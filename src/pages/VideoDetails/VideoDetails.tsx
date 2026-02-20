@@ -19,6 +19,7 @@ import { RelatedVideos } from "./RelatedVideos";
 import Loader from "@/components/shared/loader";
 import { NotFound } from "@/components/shared/NotFound";
 import { useVideoActions } from "@/lib/useVideoActions";
+import { useSubscribe } from "@/hooks/useSubscribe";
 import PageHeader from "@/components/PageHeader";
 
 function VideoDetails() {
@@ -36,20 +37,31 @@ function VideoDetails() {
   const { data: channel } = FetchChannelDetails(video?.snippet.channelId || "");
 
   const {
-    isSubscribed,
     isLiked,
     isDisliked,
     showFullDescription,
-    handleSubscribe,
     handleLike,
     handleDislike,
     handleShare,
     toggleDescription,
   } = useVideoActions();
 
+  const { toggleSubscribe: toggleSubscription, isSubscribed: checkSubscription } = useSubscribe();
+
   const handleChannelClick = () => {
     if (video?.snippet.channelId) {
       navigate(`/channel?channelId=${video.snippet.channelId}`);
+    }
+  };
+
+  const handleToggleSubscribe = () => {
+    if (channel) {
+      toggleSubscription({
+        channelId: channel.id,
+        channelName: channel.snippet.title,
+        channelAvatar: channel.snippet.thumbnails.default?.url,
+        isSubscribed: !checkSubscription(channel.id),
+      });
     }
   };
 
@@ -111,10 +123,10 @@ function VideoDetails() {
               likeCount={likeCount}
               isLiked={isLiked}
               isDisliked={isDisliked}
-              isSubscribed={isSubscribed}
+              isSubscribed={checkSubscription(channel?.id || "")}
               onLike={handleLike}
               onDislike={handleDislike}
-              onSubscribe={handleSubscribe}
+              onSubscribe={handleToggleSubscribe}
               onShare={handleShare}
               onChannelClick={handleChannelClick}
             />
