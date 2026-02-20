@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import type { Video } from "@/types/Video";
-import { formatViews } from "@/lib/video";
 import { FetchShorts } from "@/queries/Shorts";
 import Loader from "@/components/shared/loader";
 import { Error } from "@/components/shared/Error";

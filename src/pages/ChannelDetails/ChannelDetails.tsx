@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 import { FetchChannelDetails, FetchChannelVideos } from "@/queries/Channel";
 import {
@@ -25,7 +25,6 @@ import {
 
 export default function ChannelDetails() {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<ChannelTab>("videos");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);

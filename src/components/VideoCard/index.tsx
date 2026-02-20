@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import type { Video } from "@/types/Video";
 import { formatDuration, getThumbnailUrl } from "@/lib/video";

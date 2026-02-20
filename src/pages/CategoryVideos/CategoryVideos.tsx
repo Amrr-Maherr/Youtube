@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { FetchCategories, FetchVideosByCategory } from "@/queries/FetchCategories";
 import VideoCard from "@/components/VideoCard";
 import type { VideoCategory } from "@/types/Category";
@@ -10,7 +10,6 @@ import Loader from "@/components/shared/loader";
 
 export default function CategoryVideos() {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const categoryId = searchParams.get("id") || "";
   const [category, setCategory] = useState<VideoCategory | null>(null);
 
