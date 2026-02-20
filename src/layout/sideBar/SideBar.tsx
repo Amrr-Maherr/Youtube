@@ -51,7 +51,7 @@ const libraryItems = [
   { icon: History, label: "History", href: "/history" },
   { icon: PlaySquare, label: "Your videos", href: "/videos" },
   { icon: Clock, label: "Watch later", href: "/watch-later" },
-  { icon: ThumbsUp, label: "Liked videos", href: "/liked" },
+  { icon: ThumbsUp, label: "Liked videos", href: "/library" },
 ];
 
 const exploreItems = [

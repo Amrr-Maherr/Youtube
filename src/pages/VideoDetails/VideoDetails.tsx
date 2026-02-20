@@ -20,6 +20,7 @@ import Loader from "@/components/shared/loader";
 import { NotFound } from "@/components/shared/NotFound";
 import { useVideoActions } from "@/lib/useVideoActions";
 import { useSubscribe } from "@/hooks/useSubscribe";
+import { useVideoInteractions } from "@/hooks/useVideoInteractions";
 import PageHeader from "@/components/PageHeader";
 
 function VideoDetails() {
@@ -37,16 +38,18 @@ function VideoDetails() {
   const { data: channel } = FetchChannelDetails(video?.snippet.channelId || "");
 
   const {
-    isLiked,
-    isDisliked,
     showFullDescription,
-    handleLike,
-    handleDislike,
     handleShare,
     toggleDescription,
   } = useVideoActions();
 
   const { toggleSubscribe: toggleSubscription, isSubscribed: checkSubscription } = useSubscribe();
+  const { 
+    toggleLike: toggleVideoLike, 
+    toggleDislike: toggleVideoDislike,
+    isLiked: checkLike,
+    isDisliked: checkDislike,
+  } = useVideoInteractions();
 
   const handleChannelClick = () => {
     if (video?.snippet.channelId) {
@@ -61,6 +64,34 @@ function VideoDetails() {
         channelName: channel.snippet.title,
         channelAvatar: channel.snippet.thumbnails.default?.url,
         isSubscribed: !checkSubscription(channel.id),
+      });
+    }
+  };
+
+  const handleToggleLike = () => {
+    if (video) {
+      toggleVideoLike({
+        videoId: video.id,
+        videoTitle: video.snippet.title,
+        videoThumbnail: video.snippet.thumbnails.default?.url,
+        channelName: video.snippet.channelTitle,
+        channelId: video.snippet.channelId,
+        isLiked: !checkLike(video.id),
+        isDisliked: checkDislike(video.id),
+      });
+    }
+  };
+
+  const handleToggleDislike = () => {
+    if (video) {
+      toggleVideoDislike({
+        videoId: video.id,
+        videoTitle: video.snippet.title,
+        videoThumbnail: video.snippet.thumbnails.default?.url,
+        channelName: video.snippet.channelTitle,
+        channelId: video.snippet.channelId,
+        isLiked: checkLike(video.id),
+        isDisliked: !checkDislike(video.id),
       });
     }
   };
@@ -121,11 +152,11 @@ function VideoDetails() {
               }
               subscriberCount={subscriberCount}
               likeCount={likeCount}
-              isLiked={isLiked}
-              isDisliked={isDisliked}
+              isLiked={checkLike(video.id)}
+              isDisliked={checkDislike(video.id)}
               isSubscribed={checkSubscription(channel?.id || "")}
-              onLike={handleLike}
-              onDislike={handleDislike}
+              onLike={handleToggleLike}
+              onDislike={handleToggleDislike}
               onSubscribe={handleToggleSubscribe}
               onShare={handleShare}
               onChannelClick={handleChannelClick}

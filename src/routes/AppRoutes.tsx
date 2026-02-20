@@ -17,6 +17,7 @@ import Notifications from "@/pages/Notifications/Notifications";
 import CategoryVideos from "@/pages/CategoryVideos/CategoryVideos";
 import Shorts from "@/pages/Shorts/Shorts";
 import Subscriptions from "@/pages/Subscriptions/Subscriptions";
+import Library from "@/pages/Library/Library";
 
 export default function AppRoutes() {
   return (
@@ -26,6 +27,7 @@ export default function AppRoutes() {
           <Route index element={<HomePage />} />
           <Route path="shorts" element={<Shorts />} />
           <Route path="subscriptions" element={<Subscriptions />} />
+          <Route path="library" element={<Library />} />
           <Route path="results" element={<SearchResults />} />
           <Route path="watch" element={<VideoDetails />} />
           <Route path="channel" element={<ChannelDetails />} />
