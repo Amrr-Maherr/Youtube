@@ -8,7 +8,7 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1-38B2AC?logo=tailwind-css&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Amrr-Maherr/Youtube)
+[![Deploy with Vercel](https://vercel.com/button)](https://youtube-omega-gilt-35.vercel.app/)
 
 ---
 
@@ -79,7 +79,7 @@ This YouTube clone is a **production-ready video platform interface** that repli
 
 ### Live Demo
 
-🔗 [https://youtube-clone-your-domain.vercel.app](https://youtube-clone-your-domain.vercel.app)
+🔗 [https://youtube-omega-gilt-35.vercel.app/](https://youtube-omega-gilt-35.vercel.app/)
 
 ---
 
