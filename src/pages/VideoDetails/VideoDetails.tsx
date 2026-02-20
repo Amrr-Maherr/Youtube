@@ -133,7 +133,7 @@ function VideoDetails() {
           </div>
 
           {/* Related Videos Sidebar */}
-          <div className="w-full lg:w-[350px] lg:shrink-0">
+          <div className="w-full hidden md:block lg:w-[350px] lg:shrink-0">
             <RelatedVideos videos={relatedVideos} />
           </div>
         </div>
