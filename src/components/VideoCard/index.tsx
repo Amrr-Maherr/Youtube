@@ -1,9 +1,7 @@
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import type { Video } from "@/types/Video";
-import {
-  formatDuration,
-  getThumbnailUrl,
-} from "@/lib/video";
+import { formatDuration, getThumbnailUrl } from "@/lib/video";
 import { VideoThumbnail } from "./VideoThumbnail";
 import { ChannelAvatar } from "./ChannelAvatar";
 import { VideoInfo } from "./VideoInfo";
@@ -13,7 +11,7 @@ interface VideoCardProps {
   video: Video;
 }
 
-export default function VideoCard({ video }: VideoCardProps) {
+function VideoCard({ video }: VideoCardProps) {
   const videoId = video.id;
   const thumbnail = getThumbnailUrl(video.snippet.thumbnails);
   const title = video.snippet.title;
@@ -47,3 +45,4 @@ export default function VideoCard({ video }: VideoCardProps) {
     </Link>
   );
 }
+export default memo(VideoCard)
