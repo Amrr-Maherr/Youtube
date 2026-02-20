@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { FetchChannelDetails, FetchChannelVideos } from "@/queries/Channel";
 import {
@@ -12,6 +11,8 @@ import { ChannelHeader } from "./ChannelHeader";
 import { ChannelAbout } from "./ChannelAbout";
 import { ChannelTabs } from "./ChannelTabs";
 import type { ChannelTab } from "./ChannelTabs";
+import { NotFound } from "@/components/shared/NotFound";
+import Loader from "@/components/shared/loader";
 import {
   formatSubscriberCount,
   formatFullSubscriberCount,
@@ -73,24 +74,15 @@ export default function ChannelDetails() {
   ];
 
   if (isLoadingChannel) {
-    return (
-      <div className="flex min-h-[600px] items-center justify-center">
-        <p className="text-muted-foreground">Loading channel...</p>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (channelError || !channel) {
     return (
-      <div className="flex min-h-[600px] flex-col items-center justify-center gap-4">
-        <div className="text-center">
-          <h3 className="text-lg font-medium">Channel not found</h3>
-          <p className="text-muted-foreground text-sm">
-            The channel you're looking for doesn't exist or has been removed
-          </p>
-        </div>
-        <Button onClick={() => navigate("/")}>Go Home</Button>
-      </div>
+      <NotFound
+        message="Channel not found"
+        description="The channel you're looking for doesn't exist or has been removed"
+      />
     );
   }
 

@@ -1,21 +1,35 @@
+import React, { memo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { FetchVideoDetails, FetchRelatedVideos, FetchVideoComments } from "@/queries/VideoDetails";
+import {
+  FetchVideoDetails,
+  FetchRelatedVideos,
+  FetchVideoComments,
+} from "@/queries/VideoDetails";
 import { FetchChannelDetails } from "@/queries/Channel";
-import { formatDuration, formatViews, timeAgo, formatFullSubscriberCount } from "@/lib/video";
+import {
+  formatDuration,
+  formatViews,
+  timeAgo,
+  formatFullSubscriberCount,
+} from "@/lib/video";
 import { VideoActions } from "./VideoActions";
 import { VideoDescription } from "./VideoDescription";
 import { VideoComments } from "./VideoComments";
 import { RelatedVideos } from "./RelatedVideos";
-import { useVideoActions } from "../../lib/useVideoActions";
 import Loader from "@/components/shared/loader";
+import { NotFound } from "@/components/shared/NotFound";
+import { useVideoActions } from "@/lib/useVideoActions";
 
-export default function VideoDetails() {
+function VideoDetails() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const videoId = searchParams.get("v") || "";
 
-  const { data: video, isLoading: isLoadingVideo, error: videoError } = FetchVideoDetails(videoId);
+  const {
+    data: video,
+    isLoading: isLoadingVideo,
+    error: videoError,
+  } = FetchVideoDetails(videoId);
   const { data: relatedVideos } = FetchRelatedVideos(videoId);
   const { data: commentsData } = FetchVideoComments(videoId);
   const { data: channel } = FetchChannelDetails(video?.snippet.channelId || "");
@@ -43,24 +57,18 @@ export default function VideoDetails() {
   }
 
   if (videoError || !video) {
-    return (
-      <div className="flex min-h-[600px] flex-col items-center justify-center gap-4 p-4">
-        <div className="text-center">
-          <h3 className="text-lg font-medium">Video not found</h3>
-          <p className="text-muted-foreground text-sm">
-            The video you're looking for doesn't exist or has been removed
-          </p>
-        </div>
-        <Button onClick={() => navigate("/")}>Go Home</Button>
-      </div>
-    );
+    return <NotFound />;
   }
 
   const duration = formatDuration(video.contentDetails?.duration);
   const views = formatViews(video.statistics?.viewCount);
   const publishedTime = timeAgo(video.snippet.publishedAt);
-  const likeCount = parseInt(video.statistics?.likeCount || "0").toLocaleString();
-  const commentCount = parseInt(video.statistics?.commentCount || "0").toLocaleString();
+  const likeCount = parseInt(
+    video.statistics?.likeCount || "0",
+  ).toLocaleString();
+  const commentCount = parseInt(
+    video.statistics?.commentCount || "0",
+  ).toLocaleString();
   const subscriberCount = channel?.statistics?.subscriberCount
     ? `${formatFullSubscriberCount(channel.statistics.subscriberCount)} subscribers`
     : "Subscribe";
@@ -90,7 +98,11 @@ export default function VideoDetails() {
             {/* Video Actions */}
             <VideoActions
               channelName={video.snippet.channelTitle}
-              channelAvatarUrl={channel?.snippet.thumbnails.medium?.url || channel?.snippet.thumbnails.default?.url || ""}
+              channelAvatarUrl={
+                channel?.snippet.thumbnails.medium?.url ||
+                channel?.snippet.thumbnails.default?.url ||
+                ""
+              }
               subscriberCount={subscriberCount}
               likeCount={likeCount}
               isLiked={isLiked}
@@ -129,3 +141,4 @@ export default function VideoDetails() {
     </div>
   );
 }
+export default memo(VideoDetails);

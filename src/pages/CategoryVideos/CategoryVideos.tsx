@@ -5,6 +5,7 @@ import VideoCard from "@/components/VideoCard";
 import type { VideoCategory } from "@/types/Category";
 import type { Video } from "@/types/Video";
 import { Separator } from "@/components/ui/separator";
+import { NotFound } from "@/components/shared/NotFound";
 import Loader from "@/components/shared/loader";
 
 export default function CategoryVideos() {
@@ -27,20 +28,10 @@ export default function CategoryVideos() {
 
   if (!categoryId) {
     return (
-      <div className="flex min-h-[600px] flex-col items-center justify-center gap-4 p-6">
-        <div className="text-center">
-          <h3 className="text-lg font-medium">No category selected</h3>
-          <p className="text-muted-foreground text-sm">
-            Please select a category from the sidebar
-          </p>
-        </div>
-        <button
-          onClick={() => navigate("/")}
-          className="text-primary hover:underline text-sm"
-        >
-          Go Home
-        </button>
-      </div>
+      <NotFound
+        message="No category selected"
+        description="Please select a category from the sidebar"
+      />
     );
   }
 
@@ -50,20 +41,10 @@ export default function CategoryVideos() {
 
   if (error || !videos) {
     return (
-      <div className="flex min-h-[600px] flex-col items-center justify-center gap-4 p-6">
-        <div className="text-center">
-          <h3 className="text-lg font-medium">Failed to load videos</h3>
-          <p className="text-muted-foreground text-sm">
-            Please try again later
-          </p>
-        </div>
-        <button
-          onClick={() => navigate("/")}
-          className="text-primary hover:underline text-sm"
-        >
-          Go Home
-        </button>
-      </div>
+      <NotFound
+        message="Failed to load videos"
+        description="Please try again later"
+      />
     );
   }
 

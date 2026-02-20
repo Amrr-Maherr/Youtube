@@ -6,6 +6,7 @@ import { GetShorts } from "@/api/Categories";
 import type { Video } from "@/types/Video";
 import { formatViews } from "@/lib/video";
 import { useQuery } from "@tanstack/react-query";
+import Loader from "@/components/shared/loader";
 
 interface ShortCardProps {
   short: Video;
@@ -104,11 +105,7 @@ export default function Shorts() {
   ];
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-muted-foreground">Loading Shorts...</p>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (error || !shorts || shorts.length === 0) {
