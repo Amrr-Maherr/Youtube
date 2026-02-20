@@ -7,7 +7,7 @@ import { VideoActions } from "./VideoActions";
 import { VideoDescription } from "./VideoDescription";
 import { VideoComments } from "./VideoComments";
 import { RelatedVideos } from "./RelatedVideos";
-import { useVideoActions } from "./useVideoActions";
+import { useVideoActions } from "../../lib/useVideoActions";
 import Loader from "@/components/shared/loader";
 
 export default function VideoDetails() {
