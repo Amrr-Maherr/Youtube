@@ -13,6 +13,7 @@ import { ChannelTabs } from "./ChannelTabs";
 import type { ChannelTab } from "./ChannelTabs";
 import { NotFound } from "@/components/shared/NotFound";
 import Loader from "@/components/shared/loader";
+import PageHeader from "@/components/PageHeader";
 import {
   formatSubscriberCount,
   formatFullSubscriberCount,
@@ -88,6 +89,10 @@ export default function ChannelDetails() {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageHeader
+        title={`${channel.snippet.title} - YouTube Channel`}
+        description={channel.snippet.description || `Watch videos from ${channel.snippet.title}`}
+      />
       <ChannelBanner
         bannerUrl={bannerUrl}
         channelName={channel.snippet.title}

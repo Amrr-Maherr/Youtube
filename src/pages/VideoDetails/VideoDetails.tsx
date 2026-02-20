@@ -19,6 +19,7 @@ import { RelatedVideos } from "./RelatedVideos";
 import Loader from "@/components/shared/loader";
 import { NotFound } from "@/components/shared/NotFound";
 import { useVideoActions } from "@/lib/useVideoActions";
+import PageHeader from "@/components/PageHeader";
 
 function VideoDetails() {
   const [searchParams] = useSearchParams();
@@ -75,6 +76,10 @@ function VideoDetails() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <PageHeader
+        title={`${video.snippet.title} - YouTube`}
+        description={video.snippet.description}
+      />
       <div className="mx-auto w-full max-w-[1700px] p-4 sm:p-6">
         <div className="flex flex-col gap-6 lg:flex-row lg:gap-6">
           {/* Main Content */}
