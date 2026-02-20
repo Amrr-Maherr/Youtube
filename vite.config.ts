@@ -13,13 +13,13 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
+        globPatterns: ['**/*.{js,css,html,ico,svg,png,webp}'],
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         skipWaiting: true,
       },
       devOptions: {
-        enabled: false,
+        enabled: false,  // Disabled in development to avoid errors
         type: 'module',
       },
       manifest: {
@@ -44,20 +44,6 @@ export default defineConfig({
             sizes: '512x512',
             type: 'image/svg+xml',
             purpose: 'any maskable'
-          }
-        ],
-        screenshots: [
-          {
-            src: '/screenshots/home.png',
-            sizes: '1280x720',
-            type: 'image/png',
-            form_factor: 'wide'
-          },
-          {
-            src: '/screenshots/mobile.png',
-            sizes: '750x1334',
-            type: 'image/png',
-            form_factor: 'narrow'
           }
         ],
         categories: ['video', 'entertainment', 'social'],

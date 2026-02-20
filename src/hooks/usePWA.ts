@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 
 export function usePWA() {
   useEffect(() => {
-    // Register service worker
-    if ('serviceWorker' in navigator) {
+    // Register service worker (only in production)
+    if ('serviceWorker' in navigator && import.meta.env.PROD) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
           .then(registration => {
@@ -16,9 +16,9 @@ export function usePWA() {
     }
   }, [])
 
-  // Listen for updates
+  // Listen for updates (only in production)
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && import.meta.env.PROD) {
       navigator.serviceWorker.ready.then(registration => {
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing
