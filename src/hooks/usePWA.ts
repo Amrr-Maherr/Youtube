@@ -2,21 +2,21 @@ import { useEffect } from 'react'
 
 export function usePWA() {
   useEffect(() => {
-    // Check if service workers are supported
+    // Register service worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
           .then(registration => {
-            console.log('SW registered:', registration.scope)
+            console.log('✅ SW registered:', registration.scope)
           })
           .catch(error => {
-            console.log('SW registration failed:', error)
+            console.error('❌ SW registration failed:', error)
           })
       })
     }
   }, [])
 
-  // Check for updates
+  // Listen for updates
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.ready.then(registration => {
@@ -25,10 +25,8 @@ export function usePWA() {
           if (newWorker) {
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                // New content available
-                if (confirm('New version available! Reload to update?')) {
-                  window.location.reload()
-                }
+                // New content available - dispatch custom event
+                window.dispatchEvent(new CustomEvent('swUpdate', { detail: { registration } }))
               }
             })
           }
