@@ -1,3 +1,4 @@
+import { memo, useMemo } from "react";
 import { Bell, Share, MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -16,7 +17,7 @@ interface ChannelHeaderProps {
   onToggleDescription: () => void;
 }
 
-export function ChannelHeader({
+export const ChannelHeader = memo(function ChannelHeader({
   channelName,
   customUrl,
   subscriberCount,
@@ -30,6 +31,15 @@ export function ChannelHeader({
   onShare,
   onToggleDescription,
 }: ChannelHeaderProps) {
+  const statsItems = useMemo(() => [
+    { value: fullSubscriberCount, type: "primary" },
+    { value: subscriberCount, type: "muted" },
+    { value: videoCount, type: "muted" },
+    { value: totalViews, type: "muted", suffix: " views" },
+  ], [fullSubscriberCount, subscriberCount, videoCount, totalViews]);
+
+  const showMoreButton = description.length > 200;
+
   return (
     <div className="flex-1 pt-2">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -79,10 +89,14 @@ export function ChannelHeader({
       </div>
 
       <div className="mt-4 flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
-        <span className="font-medium text-foreground">{fullSubscriberCount}</span>
-        <span className="text-muted-foreground">{subscriberCount}</span>
-        <span className="text-muted-foreground">{videoCount}</span>
-        <span className="text-muted-foreground">{totalViews} views</span>
+        {statsItems.map((item, index) => (
+          <span
+            key={index}
+            className={item.type === "primary" ? "font-medium text-foreground" : "text-muted-foreground"}
+          >
+            {item.value}{item.suffix}
+          </span>
+        ))}
       </div>
 
       <div
@@ -92,7 +106,7 @@ export function ChannelHeader({
           {description}
         </pre>
       </div>
-      {description.length > 200 && (
+      {showMoreButton && (
         <Button
           variant="link"
           size="sm"
@@ -104,4 +118,4 @@ export function ChannelHeader({
       )}
     </div>
   );
-}
+});

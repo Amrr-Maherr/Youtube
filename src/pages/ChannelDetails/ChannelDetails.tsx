@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback, memo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 import { FetchChannelDetails, FetchChannelVideos } from "@/queries/Channel";
@@ -23,7 +23,7 @@ import {
   formatDateLong,
 } from "@/lib/video";
 
-export default function ChannelDetails() {
+function ChannelDetails() {
   const [searchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState<ChannelTab>("videos");
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -38,11 +38,11 @@ export default function ChannelDetails() {
   const { data: videos, isLoading: isLoadingVideos } =
     FetchChannelVideos(channelId);
 
-  const handleSubscribe = () => {
-    setIsSubscribed(!isSubscribed);
-  };
+  const handleSubscribe = useCallback(() => {
+    setIsSubscribed(prev => !prev);
+  }, []);
 
-  const handleShare = () => {
+  const handleShare = useCallback(() => {
     if (navigator.share) {
       navigator.share({
         title: channel?.snippet.title || "",
@@ -52,26 +52,41 @@ export default function ChannelDetails() {
       navigator.clipboard.writeText(window.location.href);
       alert("Link copied to clipboard!");
     }
-  };
+  }, [channel?.snippet.title]);
 
-  const subscriberCount = formatSubscriberCount(
-    channel?.statistics?.subscriberCount,
-  );
-  const fullSubscriberCount = formatFullSubscriberCount(
-    channel?.statistics?.subscriberCount,
-  );
-  const videoCount = formatVideoCount(channel?.statistics?.videoCount);
-  const totalViews = formatFullViewCount(channel?.statistics?.viewCount);
-  const email = extractEmail(channel?.snippet.description || "");
-  const bannerUrl = channel?.brandingSettings?.image?.bannerExternalUrl || null;
+  const handleToggleDescription = useCallback(() => {
+    setShowFullDescription(prev => !prev);
+  }, []);
 
-  const tabs: { id: ChannelTab; label: string }[] = [
-    { id: "videos", label: "Videos" },
-    { id: "shorts", label: "Shorts" },
-    { id: "playlists", label: "Playlists" },
-    { id: "community", label: "Community" },
-    { id: "about", label: "About" },
-  ];
+  const handleTabChange = useCallback((tab: ChannelTab) => {
+    setActiveTab(tab);
+  }, []);
+
+  const {
+    subscriberCount,
+    fullSubscriberCount,
+    videoCount,
+    totalViews,
+    email,
+    bannerUrl,
+    tabs,
+  } = useMemo(() => {
+    return {
+      subscriberCount: formatSubscriberCount(channel?.statistics?.subscriberCount),
+      fullSubscriberCount: formatFullSubscriberCount(channel?.statistics?.subscriberCount),
+      videoCount: formatVideoCount(channel?.statistics?.videoCount),
+      totalViews: formatFullViewCount(channel?.statistics?.viewCount),
+      email: extractEmail(channel?.snippet.description || ""),
+      bannerUrl: channel?.brandingSettings?.image?.bannerExternalUrl || null,
+      tabs: [
+        { id: "videos" as ChannelTab, label: "Videos" },
+        { id: "shorts" as ChannelTab, label: "Shorts" },
+        { id: "playlists" as ChannelTab, label: "Playlists" },
+        { id: "community" as ChannelTab, label: "Community" },
+        { id: "about" as ChannelTab, label: "About" },
+      ] as { id: ChannelTab; label: string }[],
+    };
+  }, [channel]);
 
   if (isLoadingChannel) {
     return <Loader />;
@@ -120,9 +135,7 @@ export default function ChannelDetails() {
             description={channel.snippet.description}
             onSubscribe={handleSubscribe}
             onShare={handleShare}
-            onToggleDescription={() =>
-              setShowFullDescription(!showFullDescription)
-            }
+            onToggleDescription={handleToggleDescription}
           />
         </div>
 
@@ -134,7 +147,7 @@ export default function ChannelDetails() {
               key={tab.id}
               tab={tab}
               isActive={activeTab === tab.id}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => handleTabChange(tab.id)}
             />
           ))}
         </div>
@@ -161,3 +174,5 @@ export default function ChannelDetails() {
     </div>
   );
 }
+
+export default memo(ChannelDetails);

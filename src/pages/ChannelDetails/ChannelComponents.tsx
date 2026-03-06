@@ -1,10 +1,12 @@
+import { memo } from "react";
+
 interface ChannelBannerProps {
   bannerUrl: string | null;
   channelName: string;
   onError: () => void;
 }
 
-export function ChannelBanner({
+export const ChannelBanner = memo(function ChannelBanner({
   bannerUrl,
   channelName,
   onError,
@@ -27,14 +29,14 @@ export function ChannelBanner({
       )}
     </div>
   );
-}
+});
 
 interface ChannelAvatarProps {
   avatarUrl: string;
   channelName: string;
 }
 
-export function ChannelAvatar({
+export const ChannelAvatar = memo(function ChannelAvatar({
   avatarUrl,
   channelName,
 }: ChannelAvatarProps) {
@@ -47,7 +49,7 @@ export function ChannelAvatar({
       />
     </div>
   );
-}
+});
 
 interface ChannelStatsProps {
   fullSubscriberCount: string;
@@ -56,7 +58,7 @@ interface ChannelStatsProps {
   totalViews: string;
 }
 
-export function ChannelStats({
+export const ChannelStats = memo(function ChannelStats({
   fullSubscriberCount,
   subscriberCount,
   videoCount,
@@ -70,7 +72,7 @@ export function ChannelStats({
       <span className="text-muted-foreground">{totalViews} views</span>
     </div>
   );
-}
+});
 
 interface ChannelTabButtonProps {
   tab: { id: string; label: string };
@@ -78,7 +80,7 @@ interface ChannelTabButtonProps {
   onClick: () => void;
 }
 
-export function ChannelTabButton({
+export const ChannelTabButton = memo(function ChannelTabButton({
   tab,
   isActive,
   onClick,
@@ -98,4 +100,4 @@ export function ChannelTabButton({
       )}
     </button>
   );
-}
+});
