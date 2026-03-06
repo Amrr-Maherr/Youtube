@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { ThumbsUp, ThumbsDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { timeAgo } from "@/lib/video";
@@ -11,6 +11,53 @@ interface VideoCommentsProps {
 }
 
 export function VideoComments({ commentCount, comments }: VideoCommentsProps) {
+  const renderedComments = useMemo(() => {
+    if (!comments || comments.length === 0) return null;
+    
+    return (
+      <div className="space-y-4 mt-6">
+        {comments.map((commentThread: CommentThread) => {
+          const comment = commentThread.snippet.topLevelComment;
+          return (
+            <div key={comment.id} className="flex gap-3">
+              <Avatar
+                src={comment.snippet.authorProfileImageUrl}
+                alt={comment.snippet.authorDisplayName}
+                size="md"
+              />
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">
+                    {comment.snippet.authorDisplayName}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {timeAgo(comment.snippet.publishedAt)}
+                  </span>
+                </div>
+                <div
+                  className="mt-1 text-sm text-foreground"
+                  dangerouslySetInnerHTML={{ __html: comment.snippet.textDisplay }}
+                />
+                <div className="mt-2 flex items-center gap-4">
+                  <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
+                    <ThumbsUp className="size-3" />
+                    {comment.snippet.likeCount}
+                  </button>
+                  <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
+                    <ThumbsDown className="size-3" />
+                  </button>
+                  <button className="text-xs font-medium hover:text-foreground">
+                    Reply
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }, [comments]);
+
   return (
     <div className="mt-6">
       <div className="mb-4 flex items-center gap-2">
@@ -21,48 +68,7 @@ export function VideoComments({ commentCount, comments }: VideoCommentsProps) {
 
       <AddComment />
 
-      {comments && comments.length > 0 ? (
-        <div className="space-y-4 mt-6">
-          {comments.map((commentThread: CommentThread) => {
-            const comment = commentThread.snippet.topLevelComment;
-            return (
-              <div key={comment.id} className="flex gap-3">
-                <Avatar
-                  src={comment.snippet.authorProfileImageUrl}
-                  alt={comment.snippet.authorDisplayName}
-                  size="md"
-                />
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium">
-                      {comment.snippet.authorDisplayName}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {timeAgo(comment.snippet.publishedAt)}
-                    </span>
-                  </div>
-                  <div
-                    className="mt-1 text-sm text-foreground"
-                    dangerouslySetInnerHTML={{ __html: comment.snippet.textDisplay }}
-                  />
-                  <div className="mt-2 flex items-center gap-4">
-                    <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
-                      <ThumbsUp className="size-3" />
-                      {comment.snippet.likeCount}
-                    </button>
-                    <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
-                      <ThumbsDown className="size-3" />
-                    </button>
-                    <button className="text-xs font-medium hover:text-foreground">
-                      Reply
-                    </button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
+      {renderedComments || (
         <div className="text-center py-8 text-muted-foreground">
           <p>No comments yet. Be the first to comment!</p>
         </div>
@@ -74,13 +80,21 @@ export function VideoComments({ commentCount, comments }: VideoCommentsProps) {
 function AddComment() {
   const [commentText, setCommentText] = useState("");
 
+  const handleCommentChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCommentText(e.target.value);
+  }, []);
+
+  const handleClear = useCallback(() => {
+    setCommentText("");
+  }, []);
+
   return (
     <div className="mb-6 flex gap-3">
       <Avatar size="md" alt="User" />
       <div className="flex-1">
         <textarea
           value={commentText}
-          onChange={(e) => setCommentText(e.target.value)}
+          onChange={handleCommentChange}
           placeholder="Add a comment..."
           className="w-full resize-none rounded-lg border border-input bg-background p-3 text-sm outline-none focus:border-ring min-h-[100px]"
         />
@@ -88,7 +102,7 @@ function AddComment() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => setCommentText("")}
+            onClick={handleClear}
           >
             Cancel
           </Button>

@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { useMemo } from "react";
 
 interface VideoDescriptionProps {
   views: string;
@@ -18,21 +19,24 @@ export function VideoDescription({
   showFull,
   onToggle,
 }: VideoDescriptionProps) {
+  const metadataItems = useMemo(() => {
+    const items = [views, publishedTime];
+    if (duration) items.push(duration);
+    return items;
+  }, [views, publishedTime, duration]);
+
   return (
     <>
       <Separator className="my-4" />
 
       <div className="rounded-xl bg-secondary p-4">
         <div className="mb-2 flex items-center gap-2 text-sm font-medium flex-wrap">
-          <span>{views}</span>
-          <span>•</span>
-          <span>{publishedTime}</span>
-          {duration && (
+          {metadataItems.map((item, index) => (
             <>
-              <span>•</span>
-              <span>{duration}</span>
+              {index > 0 && <span>•</span>}
+              <span key={index}>{item}</span>
             </>
-          )}
+          ))}
         </div>
         <div className={`text-sm text-foreground ${showFull ? "" : "line-clamp-2"}`}>
           <pre className="whitespace-pre-wrap font-sans">

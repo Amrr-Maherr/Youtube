@@ -1,6 +1,6 @@
 import { ThumbsUp, ThumbsDown, Share, Download, MoreVertical, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 interface VideoActionsProps {
   channelName: string;
@@ -34,17 +34,17 @@ export function VideoActions({
   const [likeAnimation, setLikeAnimation] = useState(false);
   const [dislikeAnimation, setDislikeAnimation] = useState(false);
 
-  const handleLikeClick = () => {
+  const handleLikeClick = useCallback(() => {
     setLikeAnimation(true);
     onLike();
     setTimeout(() => setLikeAnimation(false), 300);
-  };
+  }, [onLike]);
 
-  const handleDislikeClick = () => {
+  const handleDislikeClick = useCallback(() => {
     setDislikeAnimation(true);
     onDislike();
     setTimeout(() => setDislikeAnimation(false), 300);
-  };
+  }, [onDislike]);
 
   return (
     <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

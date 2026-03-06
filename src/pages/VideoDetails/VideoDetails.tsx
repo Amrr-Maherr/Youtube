@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo, useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   FetchVideoDetails,
@@ -44,20 +44,20 @@ function VideoDetails() {
   } = useVideoActions();
 
   const { toggleSubscribe: toggleSubscription, isSubscribed: checkSubscription } = useSubscribe();
-  const { 
-    toggleLike: toggleVideoLike, 
+  const {
+    toggleLike: toggleVideoLike,
     toggleDislike: toggleVideoDislike,
     isLiked: checkLike,
     isDisliked: checkDislike,
   } = useVideoInteractions();
 
-  const handleChannelClick = () => {
+  const handleChannelClick = useCallback(() => {
     if (video?.snippet.channelId) {
       navigate(`/channel?channelId=${video.snippet.channelId}`);
     }
-  };
+  }, [video?.snippet.channelId, navigate]);
 
-  const handleToggleSubscribe = () => {
+  const handleToggleSubscribe = useCallback(() => {
     if (channel) {
       toggleSubscription({
         channelId: channel.id,
@@ -66,9 +66,9 @@ function VideoDetails() {
         isSubscribed: !checkSubscription(channel.id),
       });
     }
-  };
+  }, [channel, toggleSubscription, checkSubscription]);
 
-  const handleToggleLike = () => {
+  const handleToggleLike = useCallback(() => {
     if (video) {
       toggleVideoLike({
         videoId: video.id,
@@ -80,9 +80,9 @@ function VideoDetails() {
         isDisliked: checkDislike(video.id),
       });
     }
-  };
+  }, [video, toggleVideoLike, checkLike, checkDislike]);
 
-  const handleToggleDislike = () => {
+  const handleToggleDislike = useCallback(() => {
     if (video) {
       toggleVideoDislike({
         videoId: video.id,
@@ -94,7 +94,7 @@ function VideoDetails() {
         isDisliked: !checkDislike(video.id),
       });
     }
-  };
+  }, [video, toggleVideoDislike, checkLike, checkDislike]);
 
   if (isLoadingVideo) {
     return <Loader />;
@@ -104,18 +104,18 @@ function VideoDetails() {
     return <NotFound />;
   }
 
-  const duration = formatDuration(video.contentDetails?.duration);
-  const views = formatViews(video.statistics?.viewCount);
-  const publishedTime = timeAgo(video.snippet.publishedAt);
-  const likeCount = parseInt(
-    video.statistics?.likeCount || "0",
-  ).toLocaleString();
-  const commentCount = parseInt(
-    video.statistics?.commentCount || "0",
-  ).toLocaleString();
-  const subscriberCount = channel?.statistics?.subscriberCount
-    ? `${formatFullSubscriberCount(channel.statistics.subscriberCount)} subscribers`
-    : "Subscribe";
+  const { duration, views, publishedTime, likeCount, commentCount, subscriberCount } = useMemo(() => {
+    return {
+      duration: formatDuration(video.contentDetails?.duration),
+      views: formatViews(video.statistics?.viewCount),
+      publishedTime: timeAgo(video.snippet.publishedAt),
+      likeCount: parseInt(video.statistics?.likeCount || "0", 10).toLocaleString(),
+      commentCount: parseInt(video.statistics?.commentCount || "0", 10).toLocaleString(),
+      subscriberCount: channel?.statistics?.subscriberCount
+        ? `${formatFullSubscriberCount(channel.statistics.subscriberCount)} subscribers`
+        : "Subscribe",
+    };
+  }, [video, channel]);
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <PageHeader
