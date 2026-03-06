@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "../layout/MainLayout/MainLayout";
 import { TooltipProvider } from "../components/ui/tooltip";
+import ErrorBoundaryWrapper from "../components/ErrorBoundaryWrapper/ErrorBoundaryWrapper";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
@@ -30,29 +31,31 @@ const LoadingFallback = () => (
 export default function AppRoutes() {
   return (
     <TooltipProvider>
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path="shorts" element={<Shorts />} />
-            <Route path="subscriptions" element={<Subscriptions />} />
-            <Route path="library" element={<Library />} />
-            <Route path="results" element={<SearchResults />} />
-            <Route path="watch" element={<VideoDetails />} />
-            <Route path="channel" element={<ChannelDetails />} />
-            <Route path="notifications" element={<Notifications />} />
-            <Route path="category" element={<CategoryVideos />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="report" element={<ReportHistory />} />
-            <Route path="help" element={<Help />} />
-            <Route path="feedback" element={<SendFeedback />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-      </Suspense>
+      <ErrorBoundaryWrapper>
+        <Suspense fallback={<LoadingFallback />}>
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              <Route index element={<HomePage />} />
+              <Route path="shorts" element={<Shorts />} />
+              <Route path="subscriptions" element={<Subscriptions />} />
+              <Route path="library" element={<Library />} />
+              <Route path="results" element={<SearchResults />} />
+              <Route path="watch" element={<VideoDetails />} />
+              <Route path="channel" element={<ChannelDetails />} />
+              <Route path="notifications" element={<Notifications />} />
+              <Route path="category" element={<CategoryVideos />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="report" element={<ReportHistory />} />
+              <Route path="help" element={<Help />} />
+              <Route path="feedback" element={<SendFeedback />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Routes>
+        </Suspense>
+      </ErrorBoundaryWrapper>
     </TooltipProvider>
   );
 }
