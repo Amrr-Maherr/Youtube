@@ -12,52 +12,25 @@
 
 ---
 
-## 🎯 Project Description
-
-### What is This Project?
-
-This is **not just a simple clone** - it's a comprehensive video streaming platform that demonstrates enterprise-level React development practices. Built from the ground up with modern web technologies, it showcases:
-
-- **Real-world API integration** with YouTube Data API v3
-- **Production-grade architecture** with clean separation of concerns
-- **Type-safe development** with comprehensive TypeScript coverage
-- **Performance-optimized** data fetching with React Query
-- **Accessible UI components** following industry best practices
-- **Responsive design** that works seamlessly across all devices
-
-### Why This Project Exists
-
-This project serves multiple purposes:
-
-1. **Learning Resource** - Demonstrates modern React patterns and best practices
-2. **Portfolio Piece** - Showcases full-stack development capabilities
-3. **Starter Template** - Provides a solid foundation for video-based applications
-4. **Technical Exploration** - Explores complex UI/UX challenges in video platforms
-
-### Who Is This For?
-
-- **Developers** looking to learn modern React ecosystem
-- **Companies** building video-centric platforms
-- **Students** studying web application architecture
-- **Open Source Contributors** interested in video technologies
-
----
-
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
+- [Live Demo](#-live-demo)
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
 - [Architecture](#-architecture)
 - [Project Structure](#-project-structure)
-- [Screenshots](#-screenshots)
 - [Installation](#-installation)
 - [Environment Setup](#-environment-setup)
 - [Usage](#-usage)
 - [API Reference](#-api-reference)
-- [Available Scripts](#-available-scripts)
+- [State Management](#-state-management)
+- [Key Components](#-key-components)
+- [Routing](#-routing)
+- [PWA Features](#-pwa-features)
 - [Contributing](#-contributing)
 - [License](#-license)
+- [Acknowledgments](#-acknowledgments)
 
 ---
 
@@ -76,10 +49,13 @@ This YouTube clone is a **production-ready video platform interface** that repli
 - **SEO optimization** with dynamic meta tags and semantic HTML
 - **Type-safe codebase** with comprehensive TypeScript coverage
 - **Performance-optimized** with React Query caching and background refetching
+- **PWA support** for installable, offline-capable experience
 
-### Live Demo
+---
 
-🔗 [https://youtube-omega-gilt-35.vercel.app/](https://youtube-omega-gilt-35.vercel.app/)
+## 🔗 Live Demo
+
+🔗 **[https://youtube-omega-gilt-35.vercel.app/](https://youtube-omega-gilt-35.vercel.app/)**
 
 ---
 
@@ -90,9 +66,10 @@ This YouTube clone is a **production-ready video platform interface** that repli
 | Feature | Description |
 |---------|-------------|
 | **Real-time Search** | Instant search results as you type with debouncing |
-| **Search Suggestions** | Autocomplete powered by Google Suggestions API |
+| **Search Suggestions** | Autocomplete powered by Google Suggestions API (JSONP) |
 | **Search Results Page** | Dedicated page with filtered video results |
 | **Keyboard Navigation** | Arrow keys support in search dropdown |
+| **Clear Button** | Quick clear search input with X button |
 
 ### 📺 Video Features
 
@@ -100,11 +77,12 @@ This YouTube clone is a **production-ready video platform interface** that repli
 |---------|-------------|
 | **Video Playback** | Embedded YouTube player with full controls |
 | **Video Details Page** | Complete video information, stats, and metadata |
-| **Like/Dislike System** | Interactive engagement buttons with state management |
+| **Like/Dislike System** | Interactive engagement buttons with Redux state management |
 | **Share Functionality** | Web Share API or clipboard copy fallback |
 | **Expandable Description** | Show more/less functionality with smooth transitions |
 | **Duration Badge** | Video duration overlay on thumbnails (ISO 8601 parsing) |
 | **View Count & Publish Date** | Real-time formatted statistics |
+| **Related Videos** | Sidebar with related content from same category |
 
 ### 👥 Channel Features
 
@@ -117,7 +95,6 @@ This YouTube clone is a **production-ready video platform interface** that repli
 | **Channel Stats** | Subscribers, total views, video count (formatted) |
 | **Channel Tabs** | Videos, Shorts, Playlists, Community, About |
 | **Channel Details** | Email extraction, country, join date, keywords |
-| **Related Videos** | Sidebar with related content from same category |
 
 ### 🏷️ Categories & Navigation
 
@@ -127,6 +104,18 @@ This YouTube clone is a **production-ready video platform interface** that repli
 | **Category Filter Bar** | Horizontal scrollable category chips |
 | **Active State Highlighting** | Visual feedback for selected category |
 | **Sidebar Navigation** | Collapsible navigation with multiple sections |
+| **Category Videos Page** | Dedicated page for browsing videos by category |
+
+### 📱 PWA Features
+
+| Feature | Description |
+|---------|-------------|
+| **Installable App** | Can be installed on Android, iOS, and Desktop |
+| **Offline Support** | Works without internet connection (cached resources) |
+| **Auto-Update** | Service Worker automatically updates |
+| **App Shortcuts** | Quick access to Home, Shorts, Subscriptions, Library |
+| **Manifest** | Complete PWA manifest with icons and metadata |
+| **Theme Color** | YouTube red (#FF0000) themed status bars |
 
 ### 🎨 UI/UX
 
@@ -134,10 +123,22 @@ This YouTube clone is a **production-ready video platform interface** that repli
 |---------|-------------|
 | **Dark Theme** | YouTube-inspired dark color scheme |
 | **Responsive Design** | Mobile-first approach with Tailwind breakpoints |
-| **Smooth Animations** | Transitions and hover effects |
+| **Smooth Animations** | Transitions and hover effects with Motion |
 | **Loading States** | Progress bar loader and skeleton screens |
-| **Error Handling** | Graceful error states with recovery options |
+| **Error Handling** | Error boundaries with graceful error states |
 | **Custom Scrollbars** | Thin, styled scrollbars |
+| **Tooltips** | Accessible tooltips using Radix UI |
+
+### 💝 User Interactions
+
+| Feature | Description |
+|---------|-------------|
+| **Liked Videos Library** | Dedicated page for liked videos |
+| **Disliked Videos** | Track disliked videos separately |
+| **Mutual Exclusion** | Like automatically removes dislike and vice versa |
+| **Timestamps** | Track when you interacted with videos |
+| **Subscription Management** | Subscribe/unsubscribe from channels |
+| **Subscriptions Feed** | View content from subscribed channels |
 
 ---
 
@@ -174,6 +175,7 @@ This YouTube clone is a **production-ready video platform interface** that repli
 | **UI Components** | [shadcn/ui](https://ui.shadcn.com/) | Latest | Accessible, customizable components |
 | **Icons** | [Lucide React](https://lucide.dev/) | 0.574 | Tree-shakable icon library |
 | **Animations** | [Motion](https://motion.dev/) | 12.34 | Smooth animations and transitions |
+| **Radix UI** | [Radix](https://www.radix-ui.com/) | 1.4 | Unstyled, accessible primitives |
 
 ### Utilities & Optimization
 
@@ -182,49 +184,10 @@ This YouTube clone is a **production-ready video platform interface** that repli
 | **Class Names** | [clsx](https://github.com/lukeed/clsx) | 2.1 | Conditional class names |
 | **Tailwind Merge** | [tailwind-merge](https://github.com/dcastil/tailwind-merge) | 3.4 | Merge Tailwind classes efficiently |
 | **SEO** | [React Helmet](https://github.com/nfl/react-helmet) | 6.1 | Dynamic meta tags and SEO |
-
----
-
-## 💡 Technical Highlights
-
-### Architecture Patterns
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Presentation Layer                        │
-│  Pages (Features) → Layouts → Components (UI/Shared)        │
-└─────────────────────────────────────────────────────────────┘
-                            ↓
-┌─────────────────────────────────────────────────────────────┐
-│                    Business Logic Layer                      │
-│  Custom Hooks → Providers → State Management                │
-└─────────────────────────────────────────────────────────────┘
-                            ↓
-┌─────────────────────────────────────────────────────────────┐
-│                    Data Access Layer                         │
-│  React Query → API Functions → YouTube Data API             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Key Technical Decisions
-
-| Decision | Technology | Rationale |
-|----------|------------|-----------|
-| **Server State** | TanStack Query | Automatic caching, background refetching, optimistic updates |
-| **Type Safety** | TypeScript | Catch errors at compile time, better DX, self-documenting code |
-| **Styling** | Tailwind CSS | Rapid development, consistent design system, small bundle |
-| **Component Library** | shadcn/ui | Copy-paste components, full control, no runtime dependency |
-| **Build Tool** | Vite | Instant HMR, fast builds, modern ES modules |
-
-### Code Quality Features
-
-- ✅ **Strict TypeScript** configuration with no implicit any
-- ✅ **ESLint** with React hooks and best practices rules
-- ✅ **Memoization** with React.memo and useMemo/useCallback
-- ✅ **Custom Hooks** for reusable logic (useVideoActions, etc.)
-- ✅ **Utility Functions** for consistent formatting (dates, numbers, durations)
-- ✅ **Error Boundaries** for graceful error handling
-- ✅ **Loading States** with skeleton loaders and progress indicators
+| **Error Handling** | [React Error Boundary](https://github.com/bvaughn/react-error-boundary) | 6.1 | Graceful error recovery |
+| **Virtualization** | [React Virtuoso](https://virtuoso.dev/) | 4.18 | Efficient list rendering |
+| **PWA** | [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) | 1.2 | Service Worker and manifest generation |
+| **Minification** | [Terser](https://terser.org/) | 5.46 | Production build optimization |
 
 ---
 
@@ -260,7 +223,7 @@ const { data: video, isLoading, error } = FetchVideoDetails(videoId);
 ```
 
 **Benefits:**
-- Automatic caching with configurable stale time
+- Automatic caching with configurable stale time (5 minutes)
 - Background refetching for fresh data
 - Built-in loading and error states
 - Request deduplication
@@ -275,9 +238,9 @@ dispatch(SetCategory(categoryId));
 
 **Benefits:**
 - Centralized state management
-- Time-travel debugging
-- Predictable state updates
-- Easy to test
+- Predictable state updates via slices
+- Easy to test and debug
+- Persistent across sessions
 
 ---
 
@@ -287,29 +250,120 @@ dispatch(SetCategory(categoryId));
 youtube/
 ├── src/
 │   ├── api/                    # API integration layer
-│   ├── components/
-│   │   ├── Avatar/             # Avatar component
+│   │   ├── Categories.ts       # Category API functions
+│   │   ├── Channel.ts          # Channel API functions
+│   │   ├── Search.ts           # Search API functions
+│   │   └── VideoDetails.ts     # Video details API functions
+│   │
+│   ├── components/             # React components
+│   │   ├── Avatar/             # Avatar component with fallback
+│   │   ├── ErrorBoundaryWrapper/  # Error boundary HOC
 │   │   ├── PageHeader/         # SEO meta tags component
-│   │   ├── ShortCard/          # Shorts video card
 │   │   ├── shared/             # Reusable shared components
+│   │   │   ├── Logo.tsx        # YouTube logo
+│   │   │   ├── Loader.tsx      # Loading spinner
+│   │   │   └── Error.tsx       # Error display
+│   │   ├── ShortCard/          # Shorts video card
 │   │   ├── ui/                 # shadcn/ui components
+│   │   │   ├── button.tsx      # Button variants
+│   │   │   ├── card.tsx        # Card component
+│   │   │   ├── input.tsx       # Input field
+│   │   │   ├── sidebar.tsx     # Sidebar layout
+│   │   │   ├── skeleton.tsx    # Loading skeleton
+│   │   │   └── tooltip.tsx     # Tooltip component
 │   │   ├── VideoCard/          # Video card (modular)
+│   │   │   ├── ChannelAvatar.tsx
+│   │   │   ├── index.tsx
+│   │   │   ├── MoreOptionsButton.tsx
+│   │   │   ├── VideoInfo.tsx
+│   │   │   └── VideoThumbnail.tsx
 │   │   └── VideosSection/      # Video grid section
-│   ├── layout/
+│   │
+│   ├── hooks/                  # Custom React hooks
+│   │   ├── use-mobile.ts       # Mobile detection hook
+│   │   ├── usePWA.ts           # PWA installation hook
+│   │   ├── useSubscribe.ts     # Subscription management
+│   │   └── useVideoInteractions.ts  # Like/dislike logic
+│   │
+│   ├── layout/                 # Layout components
 │   │   ├── header/
+│   │   │   ├── Categories.tsx  # Category filter bar
+│   │   │   ├── Header.tsx      # Main header
+│   │   │   └── SearchBar.tsx   # Search with suggestions
 │   │   ├── MainLayout/
+│   │   │   └── MainLayout.tsx  # App shell layout
 │   │   └── sideBar/
+│   │       └── SideBar.tsx     # Navigation sidebar
+│   │
 │   ├── lib/                    # Utility functions
-│   ├── pages/                  # Page components
+│   │   ├── useVideoActions.ts  # Video action helpers
+│   │   ├── utils.ts            # cn() utility for classes
+│   │   └── video.ts            # Video formatting utilities
+│   │
+│   ├── pages/                  # Page components (features)
+│   │   ├── Auth/               # Sign in/up pages
+│   │   ├── CategoryVideos/     # Category browsing page
+│   │   ├── ChannelDetails/     # Channel profile page
+│   │   ├── Help/               # Help page
+│   │   ├── HomePage/           # Home feed page
+│   │   ├── Library/            # Liked videos page
+│   │   ├── LoadTimeout/        # Timeout error page
+│   │   ├── NotFound/           # 404 page
+│   │   ├── Notifications/      # Notifications page
+│   │   ├── Profile/            # User profile page
+│   │   ├── ReportHistory/      # Report history page
+│   │   ├── SearchResults/      # Search results page
+│   │   ├── SendFeedback/       # Feedback page
+│   │   ├── Settings/           # Settings page
+│   │   ├── Shorts/             # Shorts feed page
+│   │   ├── Subscriptions/      # Subscriptions feed
+│   │   └── VideoDetails/       # Video watch page
+│   │
 │   ├── providers/              # App providers
+│   │   └── providers.tsx       # Redux + Query client
+│   │
 │   ├── queries/                # React Query hooks
+│   │   ├── Channel.ts          # Channel queries
+│   │   ├── FetchCategories.ts  # Category queries
+│   │   ├── Search.ts           # Search queries
+│   │   ├── Shorts.ts           # Shorts queries
+│   │   └── VideoDetails.ts     # Video queries
+│   │
 │   ├── routes/                 # Route configuration
+│   │   └── AppRoutes.tsx       # Main routing setup
+│   │
 │   ├── store/                  # Redux store
+│   │   ├── CategorySlice.ts    # Category state
+│   │   ├── Store.ts            # Store configuration
+│   │   ├── SubscribeSlice.ts   # Subscription state
+│   │   └── VideoInteractionsSlice.ts  # Like/dislike state
+│   │
 │   ├── types/                  # TypeScript types
-│   └── App.tsx                 # Root component
+│   │   ├── Category.ts         # Category types
+│   │   ├── Channel.ts          # Channel types
+│   │   ├── ChildrenTypes.ts    # Children prop types
+│   │   ├── Comment.ts          # Comment types
+│   │   ├── Search.ts           # Search types
+│   │   └── Video.ts            # Video types
+│   │
+│   ├── App.css                 # Global styles
+│   ├── App.tsx                 # Root component
+│   ├── index.css               # Base styles
+│   └── main.tsx                # Entry point
+│
+├── public/                     # Static assets
+│   └── vite.svg                # App icon
+│
 ├── .env                        # Environment variables
+├── .gitignore                  # Git ignore rules
+├── components.json             # shadcn/ui config
+├── eslint.config.js            # ESLint configuration
+├── index.html                  # HTML entry point
 ├── package.json                # Dependencies
 ├── tsconfig.json               # TypeScript config
+├── tsconfig.app.json           # App TypeScript config
+├── tsconfig.node.json          # Node TypeScript config
+├── vercel.json                 # Vercel deployment config
 ├── vite.config.ts              # Vite configuration
 └── README.md                   # Documentation
 ```
@@ -334,14 +388,25 @@ youtube/
 ![Search Results](./screenshots/search.png)
 *Search results with suggestions dropdown*
 
+### Shorts Feed
+![Shorts](./screenshots/shorts.png)
+*Short-form vertical videos feed*
+
+### Library (Liked Videos)
+![Library](./screenshots/library.png)
+*User's liked videos collection*
+
 ---
 
 ## 🚀 Installation
 
 ### Prerequisites
 
-- **Node.js** 18+ and **npm**
-- **YouTube Data API v3** key
+Before you begin, ensure you have the following installed:
+
+- **Node.js** 18+ ([Download](https://nodejs.org/))
+- **npm** or **yarn** package manager
+- **Git** for version control
 
 ### Step-by-Step Guide
 
@@ -375,15 +440,20 @@ youtube/
    npm run build
    ```
 
+6. **Preview production build**
+   ```bash
+   npm run preview
+   ```
+
 ---
 
 ## ⚙️ Environment Setup
 
 ### Required Variables
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `VITE_YOUTUB_API_KEY` | YouTube Data API v3 key | ✅ Yes |
+| Variable | Description | Required | Example |
+|----------|-------------|----------|---------|
+| `VITE_YOUTUB_API_KEY` | YouTube Data API v3 key | ✅ Yes | `AIzaSyD...` |
 
 ### Getting YouTube API Key
 
@@ -394,22 +464,50 @@ youtube/
 5. Go to **Credentials** → **Create Credentials** → **API Key**
 6. Copy the generated key to your `.env` file
 
+> ⚠️ **Important:** Never commit your `.env` file to version control. It's already included in `.gitignore`.
+
+### API Quota Limits
+
+The YouTube Data API has daily quota limits:
+
+| Quota Type | Default Limit |
+|------------|---------------|
+| Daily quota | 10,000 units |
+| Read operations | ~1-50 units each |
+| Write operations | ~50-1600 units each |
+
+**Cost Examples:**
+- `videos.list` - 1 unit
+- `search.list` - 100 units
+- `channels.list` - 1 unit
+
 ---
 
 ## 💻 Usage
 
-### Development
+### Development Commands
 
 ```bash
-# Start development server
+# Start development server with hot reload
 npm run dev
-```
 
-### Building
-
-```bash
 # Build for production
 npm run build
+
+# Preview production build locally
+npm run preview
+
+# Run ESLint for code quality
+npm run lint
+```
+
+### Building for Production
+
+```bash
+# Create optimized production build
+npm run build
+
+# Output: dist/ folder with minified assets
 ```
 
 ### Deployment
@@ -417,135 +515,375 @@ npm run build
 #### Vercel (Recommended)
 
 ```bash
+# Install Vercel CLI
 npm i -g vercel
+
+# Deploy
 vercel
 ```
 
 #### Manual Hosting
 
 ```bash
+# Build the project
 npm run build
-# Upload dist/ folder to any static hosting
+
+# Upload dist/ folder to any static hosting:
+# - Netlify
+# - GitHub Pages
+# - AWS S3 + CloudFront
+# - Firebase Hosting
 ```
 
 ---
 
 ## 🔌 API Reference
 
-### YouTube Data API v3 Endpoints
+### YouTube Data API v3 Endpoints Used
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/videoCategories` | GET | Fetch all video categories |
-| `/videos` | GET | Get video details by ID |
-| `/videos?chart=mostPopular` | GET | Get popular videos by category |
-| `/search` | GET | Search videos by query |
-| `/channels` | GET | Get channel details by ID |
-| `/commentThreads` | GET | Get video comments |
+| Endpoint | Method | Description | Quota Cost |
+|----------|--------|-------------|------------|
+| `/videoCategories` | GET | Fetch all video categories | 1 unit |
+| `/videos` | GET | Get video details by ID | 1 unit |
+| `/videos?chart=mostPopular` | GET | Get popular videos by category | 1 unit |
+| `/search` | GET | Search videos by query | 100 units |
+| `/channels` | GET | Get channel details by ID | 1 unit |
+| `/commentThreads` | GET | Get video comments | 1 unit |
 
----
+### API Functions
 
-## 📦 Available Scripts
+#### Categories API (`src/api/Categories.ts`)
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
+```typescript
+// Get all video categories
+GetAllCategories(): Promise<Category[]>
 
----
-
-## 🔮 Future Enhancements
-
-### Planned Features
-
-- [ ] User Authentication (OAuth 2.0)
-- [ ] Video Upload
-- [ ] Playlist Management
-- [ ] Watch History
-- [ ] Comments System
-- [ ] Subscriptions Feed
-- [ ] Dark/Light Theme Toggle
-
----
-
-## 🆕 Recent Updates & New Features
-
-### 📱 PWA Support (Latest)
-- ✅ **Installable App** - Can be installed on Android, iOS, and Desktop
-- ✅ **Offline Support** - Works without internet connection
-- ✅ **Auto-Update** - Service Worker automatically updates
-- ✅ **App Shortcuts** - Quick access to Home, Shorts, Subscriptions, Library
-- ✅ **Manifest** - Complete PWA manifest with icons and metadata
-- ✅ **Terser Minification** - Optimized production builds with console removal
-
-### 💝 Video Interactions System
-- ✅ **Like/Dislike System** - Full Redux-based video interactions
-- ✅ **Library Page** - Dedicated page for liked and disliked videos
-- ✅ **Mutual Exclusion** - Like automatically removes dislike and vice versa
-- ✅ **Timestamps** - Track when you interacted with videos
-- ✅ **Tab Navigation** - Easy switching between liked and disliked videos
-- ✅ **Animations** - Smooth scale and bounce animations on interactions
-
-### 🔔 Subscription Management
-- ✅ **SubscribeSlice** - Redux-based subscription management
-- ✅ **Subscriptions Page** - View all subscribed channels
-- ✅ **Channel Management** - Subscribe/Unsubscribe from channels
-- ✅ **Bulk Actions** - Unsubscribe from all channels option
-- ✅ **Channel Cards** - Beautiful cards showing channel info
-- ✅ **Empty States** - Clear UI when no subscriptions
-
-### 🎨 UI/UX Improvements
-- ✅ **Avatar Component** - Reusable avatar with fallback icon
-- ✅ **PageHeader Component** - SEO meta tags for all pages
-- ✅ **Error Component** - Consistent error handling across app
-- ✅ **Loader Component** - Unified loading indicator
-- ✅ **Button Animations** - Hover and active states on all buttons
-- ✅ **Responsive Design** - Fully responsive on all devices
-
-### 🏗️ Architecture Improvements
-- ✅ **Feature-Based Structure** - Organized by features/pages
-- ✅ **Custom Hooks** - useSubscribe, useVideoInteractions, usePWA
-- ✅ **Redux Slices** - CategorySlice, SubscribeSlice, VideoInteractionsSlice
-- ✅ **React Query** - Server state management with caching
-- ✅ **Type Safety** - Full TypeScript coverage
-- ✅ **Code Quality** - ESLint, TypeScript strict mode
-
----
-
-## 📊 Technical Achievements
-
-| Category | Achievement | Status |
-|----------|-------------|--------|
-| **PWA** | Installable, offline-capable | ✅ Complete |
-| **State Management** | Redux Toolkit + React Query | ✅ Complete |
-| **Video Interactions** | Like/Dislike with persistence | ✅ Complete |
-| **Subscriptions** | Channel subscription system | ✅ Complete |
-| **UI Components** | Reusable, accessible | ✅ Complete |
-| **Performance** | Terser minification, caching | ✅ Complete |
-| **SEO** | Dynamic meta tags | ✅ Complete |
-| **TypeScript** | Full type safety | ✅ Complete |
-
----
-
-## 🚀 Performance Metrics
-
-### Production Build
-```bash
-Bundle Size (JS):     691.19 kB (gzipped: 209.91 kB)
-Bundle Size (CSS):    140.23 kB (gzipped: 23.37 kB)
-PWA Manifest:         0.91 kB
-Service Worker:       Auto-generated
-Build Time:           ~15 seconds
+// Get videos by category ID
+GetVideosByCategory(categoryId: string): Promise<Video[]>
 ```
 
-### Optimizations
-- ✅ **Terser Minification** - Removes console.logs, better compression
-- ✅ **React Query Caching** - Reduces API calls
-- ✅ **React.memo** - Component memoization
-- ✅ **Code Splitting** - Route-based splitting (planned)
-- ✅ **Lazy Loading** - Components loaded on demand (planned)
+#### Videos API (`src/api/VideoDetails.ts`)
+
+```typescript
+// Get video details
+GetVideoDetails(videoId: string): Promise<Video>
+
+// Get related videos
+GetRelatedVideos(videoId: string, maxResults?: number): Promise<Video[]>
+
+// Get video comments
+GetVideoComments(videoId: string, maxResults?: number): Promise<Comment[]>
+```
+
+#### Channels API (`src/api/Channel.ts`)
+
+```typescript
+// Get channel details
+GetChannelDetails(channelId: string): Promise<Channel>
+
+// Get channel videos
+GetChannelVideos(channelId: string, maxResults?: number): Promise<Video[]>
+```
+
+#### Search API (`src/api/Search.ts`)
+
+```typescript
+// Search videos
+SearchVideos(query: string, maxResults?: number): Promise<SearchItem[]>
+
+// Get search suggestions (Google Suggestions API)
+GetSearchSuggestions(query: string): Promise<string[]>
+```
+
+### Request/Response Examples
+
+#### Get Video Details
+
+**Request:**
+```
+GET https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=dQw4w9WgXcQ&key=YOUR_API_KEY
+```
+
+**Response:**
+```json
+{
+  "kind": "youtube#videoListResponse",
+  "items": [
+    {
+      "id": "dQw4w9WgXcQ",
+      "snippet": {
+        "title": "Video Title",
+        "description": "Video description...",
+        "thumbnails": {
+          "high": {
+            "url": "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelId": "UC...",
+        "channelTitle": "Channel Name",
+        "publishedAt": "2024-01-01T00:00:00Z"
+      },
+      "contentDetails": {
+        "duration": "PT3M32S",
+        "definition": "hd"
+      },
+      "statistics": {
+        "viewCount": "1000000",
+        "likeCount": "50000"
+      }
+    }
+  ]
+}
+```
+
+---
+
+## 🗄️ State Management
+
+### Redux Slices
+
+#### Category Slice (`src/store/CategorySlice.ts`)
+
+Manages the currently selected video category.
+
+```typescript
+interface CategoryState {
+  value: string; // Selected category ID
+}
+```
+
+**Actions:**
+- `SetCategory(categoryId: string)` - Set active category
+
+#### Subscribe Slice (`src/store/SubscribeSlice.ts`)
+
+Manages user subscriptions to channels.
+
+```typescript
+interface Subscription {
+  channelId: string;
+  channelName: string;
+  channelAvatar?: string;
+  isSubscribed: boolean;
+  subscribedAt?: string;
+}
+
+interface SubscribeState {
+  subscriptions: Subscription[];
+  subscribedChannelIds: Record<string, boolean>;
+}
+```
+
+**Actions:**
+- `subscribe(subscription: Subscription)` - Subscribe to channel
+- `unsubscribe(channelId: string)` - Unsubscribe from channel
+- `toggleSubscribe(subscription: Subscription)` - Toggle subscription
+- `setSubscriptions(subscriptions: Subscription[])` - Bulk set
+
+#### Video Interactions Slice (`src/store/VideoInteractionsSlice.ts`)
+
+Manages liked and disliked videos.
+
+```typescript
+interface VideoInteraction {
+  videoId: string;
+  videoTitle: string;
+  videoThumbnail?: string;
+  channelName: string;
+  channelId: string;
+  isLiked: boolean;
+  isDisliked: boolean;
+  interactedAt?: string;
+}
+
+interface VideoInteractionsState {
+  likedVideos: VideoInteraction[];
+  dislikedVideos: VideoInteraction[];
+  likedVideoIds: Record<string, boolean>;
+  dislikedVideoIds: Record<string, boolean>;
+}
+```
+
+**Actions:**
+- `likeVideo(video: VideoInteraction)` - Like a video
+- `unlikeVideo(videoId: string)` - Remove like
+- `dislikeVideo(video: VideoInteraction)` - Dislike a video
+- `removeDislike(videoId: string)` - Remove dislike
+- `toggleLike(video: VideoInteraction)` - Toggle like status
+- `toggleDislike(video: VideoInteraction)` - Toggle dislike status
+
+### Custom Hooks
+
+#### useVideoInteractions
+
+```typescript
+const {
+  likedVideos,
+  dislikedVideos,
+  likedVideoIds,
+  dislikedVideoIds,
+  toggleLike,
+  toggleDislike,
+  isLiked,
+  isDisliked,
+} = useVideoInteractions();
+```
+
+#### useSubscribe
+
+```typescript
+const {
+  subscriptions,
+  subscribedChannelIds,
+  subscribe,
+  unsubscribe,
+  toggleSubscribe,
+  isSubscribed,
+} = useSubscribe();
+```
+
+---
+
+## 🧩 Key Components
+
+### Layout Components
+
+#### MainLayout
+The main application shell containing the header and sidebar.
+
+```tsx
+<SidebarProvider>
+  <YouTubeSidebar />
+  <SidebarInset>
+    <Header />
+    <Outlet />
+  </SidebarInset>
+</SidebarProvider>
+```
+
+#### Header
+Top navigation bar with logo, search, and user actions.
+
+**Features:**
+- Collapsible sidebar trigger
+- Search bar with suggestions
+- Notifications bell
+- User profile button
+
+#### SideBar
+Navigation sidebar with main links, library, explore, and categories.
+
+**Sections:**
+- Main (Home, Shorts, Subscriptions)
+- Library (Your channel, History, Liked videos)
+- Explore (News, Learning, Fashion)
+- Categories (Dynamic from API)
+- Settings (Settings, Help, Feedback)
+
+### Feature Components
+
+#### VideoCard
+Modular video card component with thumbnail, title, channel info, and duration.
+
+**Sub-components:**
+- `VideoThumbnail` - Thumbnail with duration badge
+- `ChannelAvatar` - Channel avatar with name
+- `VideoInfo` - Title, views, publish date
+- `MoreOptionsButton` - Options menu trigger
+
+#### SearchBar
+Search input with real-time suggestions.
+
+**Features:**
+- Debounced input
+- Google Suggestions API integration
+- Keyboard navigation (Arrow keys, Enter, Escape)
+- Clear button
+- Mobile responsive
+
+#### VideosSection
+Grid section for displaying videos.
+
+**Features:**
+- Responsive grid layout
+- Virtual scrolling support
+- Loading skeletons
+
+---
+
+## 🛣️ Routing
+
+### Route Configuration (`src/routes/AppRoutes.tsx`)
+
+| Path | Component | Description |
+|------|-----------|-------------|
+| `/` | HomePage | Main feed with category filter |
+| `/shorts` | Shorts | Short-form videos feed |
+| `/subscriptions` | Subscriptions | Subscribed channels feed |
+| `/library` | Library | Liked videos collection |
+| `/results` | SearchResults | Search results page |
+| `/watch` | VideoDetails | Video watch page |
+| `/channel` | ChannelDetails | Channel profile page |
+| `/category` | CategoryVideos | Category browsing page |
+| `/profile` | Profile | User profile page |
+| `/settings` | Settings | Settings page |
+| `/notifications` | Notifications | Notifications page |
+| `/report` | ReportHistory | Report history page |
+| `/help` | Help | Help page |
+| `/feedback` | SendFeedback | Send feedback page |
+| `/signin` | SignIn | Sign in page |
+| `/signup` | SignUp | Sign up page |
+| `*` | NotFound | 404 page |
+
+### Lazy Loading
+
+All routes use React.lazy() with Suspense for code splitting:
+
+```tsx
+const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
+
+<Suspense fallback={<LoadingFallback />}>
+  <Routes>
+    <Route path="/" element={<HomePage />} />
+  </Routes>
+</Suspense>
+```
+
+---
+
+## 📱 PWA Features
+
+### Configuration (`vite.config.ts`)
+
+```typescript
+VitePWA({
+  registerType: 'autoUpdate',
+  injectRegister: 'auto',
+  manifest: {
+    name: 'YouTube Clone - Video Streaming Platform',
+    short_name: 'YouTube',
+    theme_color: '#FF0000',
+    background_color: '#0F0F0F',
+    display: 'standalone',
+    icons: [...],
+    shortcuts: [
+      { name: 'Home', url: '/' },
+      { name: 'Shorts', url: '/shorts' },
+      { name: 'Subscriptions', url: '/subscriptions' },
+      { name: 'Library', url: '/library' }
+    ]
+  }
+})
+```
+
+### Features
+
+- **Auto-update**: Service Worker updates automatically
+- **Offline support**: Cached resources work offline
+- **App shortcuts**: Right-click app icon for quick actions
+- **Installable**: Add to home screen on mobile/desktop
 
 ---
 
@@ -554,19 +892,39 @@ Build Time:           ~15 seconds
 We welcome contributions! Please follow these steps:
 
 1. **Fork the repository**
+   ```bash
+   git fork https://github.com/Amrr-Maherr/Youtube.git
+   ```
+
 2. **Create a feature branch**
    ```bash
    git checkout -b feature/amazing-feature
    ```
-3. **Commit your changes**
+
+3. **Make your changes**
+   - Follow existing code style
+   - Add TypeScript types
+   - Test your changes
+
+4. **Commit your changes**
    ```bash
    git commit -m 'feat: add amazing feature'
    ```
-4. **Push to the branch**
+
+5. **Push to the branch**
    ```bash
    git push origin feature/amazing-feature
    ```
-5. **Open a Pull Request**
+
+6. **Open a Pull Request**
+
+### Contribution Guidelines
+
+- Use meaningful commit messages (Conventional Commits)
+- Write clear, concise code with proper TypeScript types
+- Test your changes thoroughly
+- Update documentation if needed
+- Be respectful and constructive in discussions
 
 ---
 
@@ -574,26 +932,52 @@ We welcome contributions! Please follow these steps:
 
 This project is licensed under the **MIT License**.
 
+```
+MIT License
+
+Copyright (c) 2024 Amrr Maherr
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
 **Disclaimer:** YouTube is a trademark of Google LLC. This project is for educational purposes only and is not affiliated with or endorsed by Google.
-
----
-
-## 👨‍💻 Author
-
-**Amrr Maherr**
-
-- GitHub: [@Amrr-Maherr](https://github.com/Amrr-Maherr)
-- Project: [YouTube Clone](https://github.com/Amrr-Maherr/Youtube)
 
 ---
 
 ## 🙏 Acknowledgments
 
-- [YouTube Data API v3](https://developers.google.com/youtube/v3)
-- [shadcn/ui](https://ui.shadcn.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Vite](https://vitejs.dev/)
-- [TanStack Query](https://tanstack.com/query)
+- [YouTube Data API v3](https://developers.google.com/youtube/v3) - Video content API
+- [shadcn/ui](https://ui.shadcn.com/) - Beautiful, accessible UI components
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Vite](https://vitejs.dev/) - Next generation frontend tooling
+- [TanStack Query](https://tanstack.com/query) - Powerful data synchronization
+- [Redux Toolkit](https://redux-toolkit.js.org/) - State management
+- [React Router](https://reactrouter.com/) - Declarative routing
+- [Lucide Icons](https://lucide.dev/) - Beautiful icons
+- [Motion](https://motion.dev/) - Animation library
+
+---
+
+## 📞 Support
+
+- **Issues:** [GitHub Issues](https://github.com/Amrr-Maherr/Youtube/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/Amrr-Maherr/Youtube/discussions)
 
 ---
 
@@ -602,5 +986,7 @@ This project is licensed under the **MIT License**.
 **Made with ❤️ using React, TypeScript, and Tailwind CSS**
 
 ⭐ Star this repo if you find it helpful!
+
+[Report a Bug](https://github.com/Amrr-Maherr/Youtube/issues) · [Request Feature](https://github.com/Amrr-Maherr/Youtube/issues) · [Discussions](https://github.com/Amrr-Maherr/Youtube/discussions)
 
 </div>
