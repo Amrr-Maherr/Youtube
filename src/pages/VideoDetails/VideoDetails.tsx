@@ -96,6 +96,29 @@ function VideoDetails() {
     }
   }, [video, toggleVideoDislike, checkLike, checkDislike]);
 
+  const { duration, views, publishedTime, likeCount, commentCount, subscriberCount } = useMemo(() => {
+    if (!video || !channel) {
+      return {
+        duration: undefined,
+        views: "",
+        publishedTime: "",
+        likeCount: "",
+        commentCount: "",
+        subscriberCount: "Subscribe",
+      };
+    }
+    return {
+      duration: formatDuration(video.contentDetails?.duration),
+      views: formatViews(video.statistics?.viewCount),
+      publishedTime: timeAgo(video.snippet.publishedAt),
+      likeCount: parseInt(video.statistics?.likeCount || "0", 10).toLocaleString(),
+      commentCount: parseInt(video.statistics?.commentCount || "0", 10).toLocaleString(),
+      subscriberCount: channel.statistics?.subscriberCount
+        ? `${formatFullSubscriberCount(channel.statistics.subscriberCount)} subscribers`
+        : "Subscribe",
+    };
+  }, [video, channel]);
+
   if (isLoadingVideo) {
     return <Loader />;
   }
@@ -103,19 +126,6 @@ function VideoDetails() {
   if (videoError || !video) {
     return <NotFound />;
   }
-
-  const { duration, views, publishedTime, likeCount, commentCount, subscriberCount } = useMemo(() => {
-    return {
-      duration: formatDuration(video.contentDetails?.duration),
-      views: formatViews(video.statistics?.viewCount),
-      publishedTime: timeAgo(video.snippet.publishedAt),
-      likeCount: parseInt(video.statistics?.likeCount || "0", 10).toLocaleString(),
-      commentCount: parseInt(video.statistics?.commentCount || "0", 10).toLocaleString(),
-      subscriberCount: channel?.statistics?.subscriberCount
-        ? `${formatFullSubscriberCount(channel.statistics.subscriberCount)} subscribers`
-        : "Subscribe",
-    };
-  }, [video, channel]);
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <PageHeader
