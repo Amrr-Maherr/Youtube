@@ -86,7 +86,7 @@ const categoryIcons: Record<string, React.ElementType> = {
   "Fitness": Dumbbell,
 };
 
-export function YouTubeSidebar() {
+export default function YouTubeSidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const categoryId = useSelector((state: RootState) => state.category.value);
