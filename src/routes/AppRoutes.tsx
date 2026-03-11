@@ -1,9 +1,9 @@
 import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import MainLayout from "../layout/MainLayout/MainLayout";
 import { TooltipProvider } from "../components/ui/tooltip";
 import ErrorBoundaryWrapper from "../components/ErrorBoundaryWrapper/ErrorBoundaryWrapper";
 
+const MainLayout = lazy(() => import("../layout/MainLayout/MainLayout"));
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
 const NotFound = lazy(() => import("@/pages/NotFound/NotFound"));
