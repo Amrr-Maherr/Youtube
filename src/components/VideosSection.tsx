@@ -1,10 +1,10 @@
+import { lazy } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store/Store";
 import { FetchVideosByCategory } from "@/queries/FetchCategories";
-import VideoCard from "./VideoCard";
 import type { Video } from "@/types/Video";
 import Loader from "./shared/loader";
-
+const VideoCard = lazy(() => import("./VideoCard"));
 export default function VideosSection() {
   const categoryId = useSelector((state: RootState) => state.category.value);
   const { isPending, error, data } = FetchVideosByCategory(categoryId);
