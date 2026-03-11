@@ -1,5 +1,6 @@
-import VideosSection from "@/components/VideosSection";
+import { lazy } from "react";
 
+const VideosSection = lazy(() => import("@/components/VideosSection"));
 const HomePage = () => {
   return (
     <>
