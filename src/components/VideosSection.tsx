@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/Store";
 import { FetchVideosByCategory } from "@/queries/FetchCategories";
 import type { Video } from "@/types/Video";
-import Loader from "./shared/loader";
+const Loader = lazy(() => import("./shared/loader"));
 const VideoCard = lazy(() => import("./VideoCard"));
 export default function VideosSection() {
   const categoryId = useSelector((state: RootState) => state.category.value);
