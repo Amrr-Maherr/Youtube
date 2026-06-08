@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -75,7 +76,13 @@ export default defineConfig({
           }
         ]
       }
-    })
+    }),
+    visualizer({
+      filename: 'dist/stats.html',
+      open: false,
+      gzipSize: true,
+      brotliSize: true,
+    }),
   ],
   resolve: {
     alias: {
@@ -83,11 +90,27 @@ export default defineConfig({
     },
   },
   build: {
-    minify: 'terser',
+    minify: 'esbuild',
+    target: 'esnext',
+    chunkSizeWarningLimit: 500,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Vendor chunks for better caching
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'redux-vendor': ['react-redux', '@reduxjs/toolkit'],
+          'lucide-vendor': ['lucide-react'],
+        },
+      },
+    },
     terserOptions: {
       compress: {
         drop_console: true,
+        drop_debugger: true,
       },
     },
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom', 'react-redux'],
   },
 })
