@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { formatViews, timeAgo, getThumbnailUrl, formatDuration } from "@/lib/video";
 import { useMemo, useCallback } from "react";
 import type { Video } from "@/types/Video";
+import { getVideoUrl } from "@/lib/slug";
 
 interface RelatedVideosProps {
   videos?: Video[];
@@ -10,8 +11,8 @@ interface RelatedVideosProps {
 export function RelatedVideos({ videos }: RelatedVideosProps) {
   const navigate = useNavigate();
 
-  const handleVideoClick = useCallback((videoId: string) => {
-    navigate(`/watch?v=${videoId}`);
+  const handleVideoClick = useCallback((video: Video) => {
+    navigate(getVideoUrl(video.id, video.snippet.title));
   }, [navigate]);
 
   const renderedVideos = useMemo(() => {
@@ -32,7 +33,7 @@ export function RelatedVideos({ videos }: RelatedVideosProps) {
             <div
               key={video.id}
               className="flex cursor-pointer gap-2"
-              onClick={() => handleVideoClick(video.id)}
+              onClick={() => handleVideoClick(video)}
             >
               <div className="relative aspect-video w-full sm:w-[168px] shrink-0 overflow-hidden rounded-lg">
                 <img

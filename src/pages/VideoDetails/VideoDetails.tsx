@@ -1,5 +1,6 @@
-import { memo, useMemo, useCallback } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { memo, useMemo, useCallback, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { generateSlug } from "@/lib/slug";
 import {
   FetchVideoDetails,
   FetchRelatedVideos,
@@ -24,9 +25,9 @@ import { useVideoInteractions } from "@/hooks/useVideoInteractions";
 import PageHeader from "@/components/PageHeader";
 
 function VideoDetails() {
-  const [searchParams] = useSearchParams();
+  const { slug, id } = useParams<{ slug: string; id: string }>();
   const navigate = useNavigate();
-  const videoId = searchParams.get("v") || "";
+  const videoId = id || "";
 
   const {
     data: video,
@@ -36,6 +37,12 @@ function VideoDetails() {
   const { data: relatedVideos } = FetchRelatedVideos(videoId);
   const { data: commentsData } = FetchVideoComments(videoId);
   const { data: channel } = FetchChannelDetails(video?.snippet.channelId || "");
+
+  useEffect(() => {
+    if (video && slug !== generateSlug(video.snippet.title)) {
+      navigate(`/${generateSlug(video.snippet.title)}/${id}`, { replace: true });
+    }
+  }, [video, slug, id, navigate]);
 
   const {
     showFullDescription,

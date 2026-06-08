@@ -40,7 +40,7 @@ export default function AppRoutes() {
               <Route path="subscriptions" element={<Subscriptions />} />
               <Route path="library" element={<Library />} />
               <Route path="results" element={<SearchResults />} />
-              <Route path="watch" element={<VideoDetails />} />
+              <Route path=":slug/:id" element={<VideoDetails />} />
               <Route path="channel" element={<ChannelDetails />} />
               <Route path="notifications" element={<Notifications />} />
               <Route path="category" element={<CategoryVideos />} />

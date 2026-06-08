@@ -5,7 +5,7 @@ import { Error } from "@/components/shared/Error";
 
 interface ShortCardProps {
   short?: Video | null;
-  onClick: (videoId: string) => void;
+  onClick: (video: Video) => void;
 }
 
 export default function ShortCard({ short, onClick }: ShortCardProps) {
@@ -24,7 +24,7 @@ export default function ShortCard({ short, onClick }: ShortCardProps) {
   return (
     <div
       className="cursor-pointer group"
-      onClick={() => onClick(short.id)}
+      onClick={() => onClick(short)}
     >
       <div className="relative aspect-[9/16] overflow-hidden rounded-xl bg-muted">
         {/* Thumbnail */}

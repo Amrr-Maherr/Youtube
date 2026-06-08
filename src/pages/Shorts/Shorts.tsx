@@ -6,6 +6,7 @@ import { FetchShorts } from "@/queries/Shorts";
 import Loader from "@/components/shared/loader";
 import { Error } from "@/components/shared/Error";
 import ShortCard from "@/components/ShortCard";
+import { getVideoUrl } from "@/lib/slug";
 
 export default function Shorts() {
   const navigate = useNavigate();
@@ -13,8 +14,8 @@ export default function Shorts() {
 
   const { data: shorts, isLoading, error } = FetchShorts(100);
 
-  const handleShortClick = (videoId: string) => {
-    navigate(`/watch?v=${videoId}`);
+  const handleShortClick = (video: Video) => {
+    navigate(getVideoUrl(video.id, video.snippet.title));
   };
 
   const categories = [

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Bell, Check, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { timeAgo } from "@/lib/video";
+import { getVideoUrl } from "@/lib/slug";
 
 type NotificationType = "all" | "unread" | "seen" | "mentions";
 
@@ -230,7 +231,7 @@ export default function Notifications() {
                 onMarkAsRead={() => markAsRead(notification.id)}
                 onDelete={() => deleteNotification(notification.id)}
                 onChannelClick={(channelId) => navigate(`/channel?channelId=${channelId}`)}
-                onVideoClick={(videoId) => navigate(`/watch?v=${videoId}`)}
+                onVideoClick={(videoId, title) => navigate(getVideoUrl(videoId, title))}
               />
             ))}
           </div>
@@ -245,7 +246,7 @@ interface NotificationItemProps {
   onMarkAsRead: () => void;
   onDelete: () => void;
   onChannelClick: (channelId: string) => void;
-  onVideoClick: (videoId: string) => void;
+  onVideoClick: (videoId: string, title: string) => void;
 }
 
 function NotificationItem({
@@ -307,7 +308,7 @@ function NotificationItem({
       className={`flex gap-3 sm:gap-4 p-3 sm:p-4 hover:bg-accent/50 transition-colors cursor-pointer ${
         !read ? "bg-accent/30" : ""
       }`}
-      onClick={() => videoId && onVideoClick(videoId)}
+      onClick={() => videoId && onVideoClick(videoId, title)}
     >
       {/* Icon/Avatar */}
       <div className="shrink-0">
@@ -376,7 +377,7 @@ function NotificationItem({
             className="mt-3 relative aspect-video w-full sm:w-40 overflow-hidden rounded-lg"
             onClick={(e) => {
               e.stopPropagation();
-              if (videoId) onVideoClick(videoId);
+              if (videoId) onVideoClick(videoId, title);
             }}
           >
             <img
