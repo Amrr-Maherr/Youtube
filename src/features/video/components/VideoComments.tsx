@@ -1,9 +1,9 @@
 import { useState, useMemo, useCallback } from "react";
 import { ThumbsUp, ThumbsDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { timeAgo } from "@/lib/video";
-import type { CommentThread } from "@/types/Comment";
-import Avatar from "@/components/Avatar";
+import { Button } from "@/shared/components/ui/button";
+import { timeAgo } from "@/shared/lib/video";
+import type { CommentThread } from "@/shared/types/Comment";
+import Avatar from "@/shared/components/Avatar";
 
 interface VideoCommentsProps {
   commentCount: string;
@@ -117,3 +117,4 @@ function AddComment() {
     </div>
   );
 }
+

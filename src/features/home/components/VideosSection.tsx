@@ -1,11 +1,11 @@
 import { lazy, Suspense, memo } from "react";
 import { useSelector } from "react-redux";
-import type { RootState } from "@/store/Store";
-import { FetchVideosByCategory } from "@/queries/FetchCategories";
-import type { Video } from "@/types/Video";
+import type { RootState } from "@/app/store/Store";
+import { FetchVideosByCategory } from "@/features/category/queries/FetchCategories";
+import type { Video } from "@/shared/types/Video";
 
-const Loader = lazy(() => import("./shared/loader"));
-const VideoCard = lazy(() => import("./VideoCard"));
+const Loader = lazy(() => import("@/shared/components/loader"));
+const VideoCard = lazy(() => import("@/features/video/components/VideoCard"));
 
 const LoadingFallback = memo(() => (
   <div className="flex min-h-[400px] items-center justify-center">

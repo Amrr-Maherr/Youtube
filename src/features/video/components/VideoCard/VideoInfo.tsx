@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { formatViews, timeAgo } from "@/lib/video";
+import { cn } from "@/shared/lib/utils";
+import { formatViews, timeAgo } from "@/shared/lib/video";
 
 interface VideoInfoProps {
   title: string;
@@ -58,3 +58,4 @@ export function VideoInfo({
     </div>
   );
 }
+

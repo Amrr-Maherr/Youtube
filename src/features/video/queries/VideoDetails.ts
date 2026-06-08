@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetVideoDetails, GetRelatedVideos, GetVideoComments } from "@/api/VideoDetails";
-import type { Video } from "@/types/Video";
+import { GetVideoDetails, GetRelatedVideos, GetVideoComments } from "@/features/video/api/VideoDetails";
+import type { Video } from "@/shared/types/Video";
 
 export const FetchVideoDetails = (videoId: string) => {
   return useQuery<Video>({
@@ -28,3 +28,4 @@ export const FetchVideoComments = (videoId: string) => {
     enabled: !!videoId,
   });
 };
+

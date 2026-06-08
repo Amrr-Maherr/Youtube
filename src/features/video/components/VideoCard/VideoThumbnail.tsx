@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 
 interface VideoThumbnailProps {
   thumbnailUrl: string;
@@ -32,3 +32,4 @@ export function VideoThumbnail({
     </div>
   );
 }
+

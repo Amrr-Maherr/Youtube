@@ -1,8 +1,8 @@
 import { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
-import type { Video } from "@/types/Video";
-import { formatDuration, getThumbnailUrl } from "@/lib/video";
-import { getVideoUrl } from "@/lib/slug";
+import type { Video } from "@/shared/types/Video";
+import { formatDuration, getThumbnailUrl } from "@/shared/lib/video";
+import { getVideoUrl } from "@/shared/lib/slug";
 import { VideoThumbnail } from "./VideoThumbnail";
 import { ChannelAvatar } from "./ChannelAvatar";
 import { VideoInfo } from "./VideoInfo";

@@ -1,7 +1,7 @@
 import { Play, ThumbsUp, MessageSquare, Share2, MoreVertical } from "lucide-react";
-import type { Video } from "@/types/Video";
-import { formatViews } from "@/lib/video";
-import { Error } from "@/components/shared/Error";
+import type { Video } from "@/shared/types/Video";
+import { formatViews } from "@/shared/lib/video";
+import { Error } from "@/shared/components/Error";
 
 interface ShortCardProps {
   short?: Video | null;
@@ -85,3 +85,4 @@ export default function ShortCard({ short, onClick }: ShortCardProps) {
     </div>
   );
 }
+

@@ -1,28 +1,28 @@
 import { memo, useMemo, useCallback, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { generateSlug } from "@/lib/slug";
+import { generateSlug } from "@/shared/lib/slug";
 import {
   FetchVideoDetails,
   FetchRelatedVideos,
   FetchVideoComments,
-} from "@/queries/VideoDetails";
-import { FetchChannelDetails } from "@/queries/Channel";
+} from "@/features/video/queries/VideoDetails";
+import { FetchChannelDetails } from "@/features/channel/queries/Channel";
 import {
   formatDuration,
   formatViews,
   timeAgo,
   formatFullSubscriberCount,
-} from "@/lib/video";
-import { VideoActions } from "./VideoActions";
-import { VideoDescription } from "./VideoDescription";
-import { VideoComments } from "./VideoComments";
-import { RelatedVideos } from "./RelatedVideos";
-import Loader from "@/components/shared/loader";
-import { NotFound } from "@/components/shared/NotFound";
-import { useVideoActions } from "@/lib/useVideoActions";
-import { useSubscribe } from "@/hooks/useSubscribe";
-import { useVideoInteractions } from "@/hooks/useVideoInteractions";
-import PageHeader from "@/components/PageHeader";
+} from "@/shared/lib/video";
+import { VideoActions } from "../components/VideoActions";
+import { VideoDescription } from "../components/VideoDescription";
+import { VideoComments } from "../components/VideoComments";
+import { RelatedVideos } from "../components/RelatedVideos";
+import Loader from "@/shared/components/loader";
+import { NotFound } from "@/shared/components/NotFound";
+import { useVideoActions } from "@/shared/lib/useVideoActions";
+import { useSubscribe } from "@/shared/hooks/useSubscribe";
+import { useVideoInteractions } from "@/shared/hooks/useVideoInteractions";
+import PageHeader from "@/shared/components/PageHeader";
 
 function VideoDetails() {
   const { slug, id } = useParams<{ slug: string; id: string }>();

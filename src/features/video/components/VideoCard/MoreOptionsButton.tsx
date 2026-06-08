@@ -1,5 +1,5 @@
 import { MoreVertical } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 
 interface MoreOptionsButtonProps {
   onClick?: (e: React.MouseEvent) => void;
@@ -21,3 +21,4 @@ export function MoreOptionsButton({ onClick, className }: MoreOptionsButtonProps
     </button>
   );
 }
+

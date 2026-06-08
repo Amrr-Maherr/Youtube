@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { getChannelInitials } from "@/lib/video";
+import { cn } from "@/shared/lib/utils";
+import { getChannelInitials } from "@/shared/lib/video";
 
 interface ChannelAvatarProps {
   channelName: string;
@@ -20,3 +20,4 @@ export function ChannelAvatar({ channelName, className }: ChannelAvatarProps) {
     </div>
   );
 }
+

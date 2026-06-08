@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { formatViews, timeAgo, getThumbnailUrl, formatDuration } from "@/lib/video";
+import { formatViews, timeAgo, getThumbnailUrl, formatDuration } from "@/shared/lib/video";
 import { useMemo, useCallback } from "react";
-import type { Video } from "@/types/Video";
-import { getVideoUrl } from "@/lib/slug";
+import type { Video } from "@/shared/types/Video";
+import { getVideoUrl } from "@/shared/lib/slug";
 
 interface RelatedVideosProps {
   videos?: Video[];
@@ -69,3 +69,4 @@ export function RelatedVideos({ videos }: RelatedVideosProps) {
 
   return renderedVideos;
 }
+

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import type { Video } from "@/types/Video";
-import { FetchShorts } from "@/queries/Shorts";
-import Loader from "@/components/shared/loader";
-import { Error } from "@/components/shared/Error";
-import ShortCard from "@/components/ShortCard";
-import { getVideoUrl } from "@/lib/slug";
+import { Button } from "@/shared/components/ui/button";
+import type { Video } from "@/shared/types/Video";
+import { FetchShorts } from "@/features/shorts/queries/Shorts";
+import Loader from "@/shared/components/loader";
+import { Error } from "@/shared/components/Error";
+import ShortCard from "@/features/shorts/components/ShortCard";
+import { getVideoUrl } from "@/shared/lib/slug";
 
 export default function Shorts() {
   const navigate = useNavigate();
@@ -76,3 +76,4 @@ export default function Shorts() {
     </div>
   );
 }
+

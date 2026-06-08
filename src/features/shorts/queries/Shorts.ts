@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetShorts } from "@/api/Categories";
-import type { Video } from "@/types/Video";
+import { GetShorts } from "@/features/category/api/Categories";
+import type { Video } from "@/shared/types/Video";
 
 export const FetchShorts = (maxResults: number = 30) => {
   return useQuery<Video[]>({
@@ -9,3 +9,4 @@ export const FetchShorts = (maxResults: number = 30) => {
     staleTime: 1000 * 60 * 30,
   });
 };
+

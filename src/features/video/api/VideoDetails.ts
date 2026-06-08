@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { Video } from "@/types/Video";
+import type { Video } from "@/shared/types/Video";
 
 const apiKey = import.meta.env.VITE_YOUTUB_API_KEY;
 
@@ -70,3 +70,4 @@ export const GetVideoComments = async (videoId: string, maxResults: number = 20)
     return [];
   }
 };
+

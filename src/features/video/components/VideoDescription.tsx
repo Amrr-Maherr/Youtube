@@ -1,5 +1,5 @@
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
+import { Separator } from "@/shared/components/ui/separator";
+import { Button } from "@/shared/components/ui/button";
 import { useMemo } from "react";
 
 interface VideoDescriptionProps {
@@ -55,3 +55,4 @@ export function VideoDescription({
     </>
   );
 }
+

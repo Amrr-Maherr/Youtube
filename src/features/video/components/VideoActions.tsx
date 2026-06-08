@@ -1,5 +1,5 @@
 import { ThumbsUp, ThumbsDown, Share, Download, MoreVertical, Bell } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/components/ui/button";
 import { useState, useCallback } from "react";
 
 interface VideoActionsProps {
@@ -136,3 +136,4 @@ export function VideoActions({
     </div>
   );
 }
+
