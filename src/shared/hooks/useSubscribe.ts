@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
-import type { RootState, AppDispatch } from '@/store/Store'
-import type { Subscription } from '@/store/SubscribeSlice'
-import { subscribe, unsubscribe, toggleSubscribe, setSubscriptions } from '@/store/SubscribeSlice'
+import type { RootState, AppDispatch } from '@/app/store/Store'
+import type { Subscription } from '@/app/store/slices/SubscribeSlice'
+import { subscribe, unsubscribe, toggleSubscribe, setSubscriptions } from '@/app/store/slices/SubscribeSlice'
 
 export function useSubscribe() {
   const dispatch = useDispatch<AppDispatch>()
@@ -38,3 +38,4 @@ export function useSubscribe() {
     isSubscribed,
   }
 }
+

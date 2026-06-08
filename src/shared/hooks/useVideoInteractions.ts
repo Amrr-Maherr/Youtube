@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux'
-import type { RootState, AppDispatch } from '@/store/Store'
-import type { VideoInteraction } from '@/store/VideoInteractionsSlice'
+import type { RootState, AppDispatch } from '@/app/store/Store'
+import type { VideoInteraction } from '@/app/store/slices/VideoInteractionsSlice'
 import { 
   toggleLike, 
   toggleDislike,
   setLikedVideos,
   setDislikedVideos,
-} from '@/store/VideoInteractionsSlice'
+} from '@/app/store/slices/VideoInteractionsSlice'
 
 export function useVideoInteractions() {
   const dispatch = useDispatch<AppDispatch>()
@@ -52,3 +52,4 @@ export function useVideoInteractions() {
     isDisliked,
   }
 }
+
