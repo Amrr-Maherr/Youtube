@@ -1,19 +1,19 @@
 import { useState, useMemo, useCallback, memo } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Separator } from "@/components/ui/separator";
-import { FetchChannelDetails, FetchChannelVideos } from "@/queries/Channel";
+import { Separator } from "@/shared/components/ui/separator";
+import { FetchChannelDetails, FetchChannelVideos } from "@/features/channel/queries/Channel";
 import {
   ChannelBanner,
   ChannelAvatar,
   ChannelTabButton,
-} from "./ChannelComponents";
-import { ChannelHeader } from "./ChannelHeader";
-import { ChannelAbout } from "./ChannelAbout";
-import { ChannelTabs } from "./ChannelTabs";
-import type { ChannelTab } from "./ChannelTabs";
-import { NotFound } from "@/components/shared/NotFound";
-import Loader from "@/components/shared/loader";
-import PageHeader from "@/components/PageHeader";
+} from "../components/ChannelComponents";
+import { ChannelHeader } from "../components/ChannelHeader";
+import { ChannelAbout } from "../components/ChannelAbout";
+import { ChannelTabs } from "../components/ChannelTabs";
+import type { ChannelTab } from "../components/ChannelTabs";
+import { NotFound } from "@/shared/components/NotFound";
+import Loader from "@/shared/components/loader";
+import PageHeader from "@/shared/components/PageHeader";
 import {
   formatSubscriberCount,
   formatFullSubscriberCount,
@@ -21,7 +21,7 @@ import {
   formatVideoCount,
   extractEmail,
   formatDateLong,
-} from "@/lib/video";
+} from "@/shared/lib/video";
 
 function ChannelDetails() {
   const [searchParams] = useSearchParams();
@@ -176,3 +176,4 @@ function ChannelDetails() {
 }
 
 export default memo(ChannelDetails);
+

@@ -1,6 +1,6 @@
 import axios from "axios";
-import type { Video } from "@/types/Video";
-import type { Channel } from "@/types/Channel";
+import type { Video } from "@/shared/types/Video";
+import type { Channel } from "@/shared/types/Channel";
 
 const apiKey = import.meta.env.VITE_YOUTUB_API_KEY;
 
@@ -76,3 +76,4 @@ export const GetChannelByCustomUrl = async (customUrl: string): Promise<Channel>
     throw error;
   }
 };
+

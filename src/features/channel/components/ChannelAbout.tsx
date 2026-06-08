@@ -1,6 +1,6 @@
 import { memo, useMemo } from "react";
 import { Mail, Globe, Calendar } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/shared/components/ui/separator";
 
 interface ChannelAboutProps {
   description: string;
@@ -107,3 +107,4 @@ export const ChannelAbout = memo(function ChannelAbout({
     </div>
   );
 });
+

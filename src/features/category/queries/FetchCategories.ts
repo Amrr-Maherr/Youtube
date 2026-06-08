@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetAllCategories, GetSingleCategory, GetVideosByCategory } from "@/api/Categories";
+import { GetAllCategories, GetSingleCategory, GetVideosByCategory } from "@/features/category/api/Categories";
 
 export const FetchCategories = () => {
   return useQuery({

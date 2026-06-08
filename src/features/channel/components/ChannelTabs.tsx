@@ -1,8 +1,8 @@
 import { memo, useMemo } from "react";
 import { PlaySquare, Grid3X3, List } from "lucide-react";
-import VideoCard from "@/components/VideoCard";
-import type { Video } from "@/types/Video";
-import Loader from "@/components/shared/loader";
+import VideoCard from "@/features/video/components/VideoCard";
+import type { Video } from "@/shared/types/Video";
+import Loader from "@/shared/components/loader";
 
 export type ChannelTab = "videos" | "shorts" | "playlists" | "community" | "about";
 
@@ -106,3 +106,4 @@ function EmptyState({ icon: Icon, title, description }: { icon: React.ElementTyp
     </div>
   );
 }
+

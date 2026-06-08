@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { FetchSearchResults } from "@/queries/Search";
-import VideoCard from "@/components/VideoCard";
-import type { Video } from "@/types/Video";
+import { FetchSearchResults } from "@/features/search/queries/Search";
+import VideoCard from "@/features/video/components/VideoCard";
+import type { Video } from "@/shared/types/Video";
 import { Search } from "lucide-react";
-import Loader from "@/components/shared/loader";
+import Loader from "@/shared/components/loader";
 
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
@@ -125,3 +125,4 @@ export default function SearchResults() {
     </div>
   );
 }
+

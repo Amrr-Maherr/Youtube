@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { FetchCategories, FetchVideosByCategory } from "@/queries/FetchCategories";
-import VideoCard from "@/components/VideoCard";
-import type { VideoCategory } from "@/types/Category";
-import type { Video } from "@/types/Video";
-import { Separator } from "@/components/ui/separator";
-import { NotFound } from "@/components/shared/NotFound";
-import Loader from "@/components/shared/loader";
+import { FetchCategories, FetchVideosByCategory } from "@/features/category/queries/FetchCategories";
+import VideoCard from "@/features/video/components/VideoCard";
+import type { VideoCategory } from "@/shared/types/Category";
+import type { Video } from "@/shared/types/Video";
+import { Separator } from "@/shared/components/ui/separator";
+import { NotFound } from "@/shared/components/NotFound";
+import Loader from "@/shared/components/loader";
 
 export default function CategoryVideos() {
   const [searchParams] = useSearchParams();
@@ -85,3 +85,4 @@ export default function CategoryVideos() {
     </div>
   );
 }
+

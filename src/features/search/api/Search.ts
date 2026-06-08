@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { SearchItem } from "@/types/Search";
+import type { SearchItem } from "@/shared/types/Search";
 
 const apiKey = import.meta.env.VITE_YOUTUB_API_KEY;
 
@@ -55,3 +55,4 @@ export const GetSearchSuggestions = async (query: string): Promise<string[]> => 
     return [];
   }
 };
+

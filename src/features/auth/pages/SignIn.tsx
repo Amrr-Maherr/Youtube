@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import AuthHeader from "./AuthHeader";
+import { Button } from "@/shared/components/ui/button";
+import { Input } from "@/shared/components/ui/input";
+import { Label } from "@/shared/components/ui/label";
+import { Separator } from "@/shared/components/ui/separator";
+import AuthHeader from "../components/AuthHeader";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -106,3 +106,4 @@ export default function SignIn() {
     </div>
   );
 }
+

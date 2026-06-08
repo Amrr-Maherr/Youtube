@@ -1,6 +1,6 @@
 import { memo, useMemo } from "react";
 import { Bell, Share, MoreVertical } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/components/ui/button";
 
 interface ChannelHeaderProps {
   channelName: string;
@@ -119,3 +119,4 @@ export const ChannelHeader = memo(function ChannelHeader({
     </div>
   );
 });
+

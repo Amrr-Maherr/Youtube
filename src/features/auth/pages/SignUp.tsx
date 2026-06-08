@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "@/shared/components/ui/button";
+import { Input } from "@/shared/components/ui/input";
+import { Label } from "@/shared/components/ui/label";
+import { Separator } from "@/shared/components/ui/separator";
 import { Eye, EyeOff } from "lucide-react";
-import AuthHeader from "./AuthHeader";
+import AuthHeader from "../components/AuthHeader";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -197,3 +197,4 @@ export default function SignUp() {
     </div>
   );
 }
+

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { SearchVideos, GetSearchSuggestions } from "@/api/Search";
-import type { SearchItem } from "@/types/Search";
+import { SearchVideos, GetSearchSuggestions } from "@/features/search/api/Search";
+import type { SearchItem } from "@/shared/types/Search";
 
 export const FetchSearchResults = (query: string) => {
   return useQuery<SearchItem[]>({
@@ -19,3 +19,4 @@ export const FetchSearchSuggestions = (query: string) => {
     enabled: !!query && query.trim().length > 0,
   });
 };
+

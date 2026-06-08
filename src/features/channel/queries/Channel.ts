@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetChannelDetails, GetChannelVideos, GetChannelByCustomUrl } from "@/api/Channel";
-import type { Channel } from "@/types/Channel";
-import type { Video } from "@/types/Video";
+import { GetChannelDetails, GetChannelVideos, GetChannelByCustomUrl } from "@/features/channel/api/Channel";
+import type { Channel } from "@/shared/types/Channel";
+import type { Video } from "@/shared/types/Video";
 
 export const FetchChannelDetails = (channelId: string) => {
   return useQuery<Channel>({
@@ -29,3 +29,4 @@ export const FetchChannelByCustomUrl = (customUrl: string) => {
     enabled: !!customUrl,
   });
 };
+

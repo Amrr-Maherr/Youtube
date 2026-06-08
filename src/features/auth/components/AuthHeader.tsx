@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/components/ui/button";
 import { Menu, User } from "lucide-react";
-import Logo from "@/components/shared/Logo";
+import Logo from "@/shared/components/Logo";
 
 export default function AuthHeader() {
   const navigate = useNavigate();
@@ -42,3 +42,4 @@ export default function AuthHeader() {
     </header>
   );
 }
+
