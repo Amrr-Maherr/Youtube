@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { Menu, Search, Video, Bell, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import Logo from "@/components/shared/Logo";
+import { Button } from "@/shared/components/ui/button";
+import { SidebarTrigger } from "@/shared/components/ui/sidebar";
+import Logo from "@/shared/components/Logo";
 import Categories from "./Categories";
 import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
@@ -94,3 +94,4 @@ export default memo(function Header() {
     </header>
   );
 });
+

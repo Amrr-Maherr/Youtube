@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, Mic, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { FetchSearchSuggestions } from "@/queries/Search";
-import { cn } from "@/lib/utils";
+import { Button } from "@/shared/components/ui/button";
+import { Input } from "@/shared/components/ui/input";
+import { FetchSearchSuggestions } from "@/features/search/queries/Search";
+import { cn } from "@/shared/lib/utils";
 
 interface SearchBarProps {
   className?: string;
@@ -146,3 +146,4 @@ export default function SearchBar({ className }: SearchBarProps) {
     </div>
   );
 }
+

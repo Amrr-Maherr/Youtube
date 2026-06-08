@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import CategoryReducer from './CategorySlice'
-import SubscribeReducer from './SubscribeSlice'
-import VideoInteractionsReducer from './VideoInteractionsSlice'
+import CategoryReducer from './slices/CategorySlice'
+import SubscribeReducer from './slices/SubscribeSlice'
+import VideoInteractionsReducer from './slices/VideoInteractionsSlice'
 
 export const store = configureStore({
   reducer: {

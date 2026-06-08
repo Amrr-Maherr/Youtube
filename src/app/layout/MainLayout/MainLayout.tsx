@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from "@/shared/components/ui/sidebar";
 import { Suspense, lazy } from "react";
-import Loader from "@/components/shared/loader";
+import Loader from "@/shared/components/loader";
 
 // Lazy load components
 const Header = lazy(() => import("../header/Header"));
@@ -34,3 +34,4 @@ export default function MainLayout() {
     </SidebarProvider>
   );
 }
+

@@ -32,12 +32,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
-import { FetchCategories } from "@/queries/FetchCategories";
+} from "@/shared/components/ui/sidebar";
+import { Separator } from "@/shared/components/ui/separator";
+import { FetchCategories } from "@/features/category/queries/FetchCategories";
 import { useSelector } from "react-redux";
-import type { RootState } from "@/store/Store";
-import type { VideoCategory } from "@/types/Category";
+import type { RootState } from "@/app/store/Store";
+import type { VideoCategory } from "@/shared/types/Category";
 import { useNavigate } from "react-router-dom";
 
 const mainItems = [

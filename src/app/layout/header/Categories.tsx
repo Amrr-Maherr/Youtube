@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import Slider from "@/components/shared/Slider";
-import { FetchCategories } from "@/queries/FetchCategories";
-import type { VideoCategory } from "@/types/Category";
+import { Button } from "@/shared/components/ui/button";
+import Slider from "@/shared/components/Slider";
+import { FetchCategories } from "@/features/category/queries/FetchCategories";
+import type { VideoCategory } from "@/shared/types/Category";
 import { useDispatch, useSelector } from 'react-redux'
-import type { RootState, AppDispatch } from '@/store/Store'
-import { SetCategory } from '@/store/CategorySlice'
+import type { RootState, AppDispatch } from '@/app/store/Store'
+import { SetCategory } from '@/app/store/slices/CategorySlice'
 
 export default function Categories() {
   const dispatch = useDispatch<AppDispatch>();
@@ -66,3 +66,4 @@ export default function Categories() {
     </div>
   );
 }
+
