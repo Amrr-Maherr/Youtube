@@ -2,8 +2,8 @@ import { FileWarning } from "lucide-react"
 import {
   Card,
   CardContent,
-} from "../../components/ui/card"
-import { Separator } from "../../components/ui/separator"
+} from "../../../shared/components/ui/card"
+import { Separator } from "../../../shared/components/ui/separator"
 
 export default function ReportHistory() {
   return (

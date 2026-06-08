@@ -1,20 +1,20 @@
 import { memo } from "react";
-import { Button } from "../../../components/ui/button";
-import { Separator } from "../../../components/ui/separator";
+import { Button } from "../../../../shared/components/ui/button";
+import { Separator } from "../../../../shared/components/ui/separator";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-} from "../../../components/ui/card";
+} from "../../../../shared/components/ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../components/ui/select";
+} from "../../../../shared/components/ui/select";
 import { Camera, Mail, Key, Globe, Pencil } from "lucide-react";
 
 interface AccountSectionProps {
@@ -138,10 +138,10 @@ export default memo(function AccountSection({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="en">English</SelectItem>
-                <SelectItem value="es">Español</SelectItem>
-                <SelectItem value="fr">Français</SelectItem>
+                <SelectItem value="es">EspaÃƒÆ’Ã‚Â±ol</SelectItem>
+                <SelectItem value="fr">FranÃƒÆ’Ã‚Â§ais</SelectItem>
                 <SelectItem value="de">Deutsch</SelectItem>
-                <SelectItem value="ja">日本語</SelectItem>
+                <SelectItem value="ja">ÃƒÂ¦Ã¢â‚¬â€Ã‚Â¥ÃƒÂ¦Ã…â€œÃ‚Â¬ÃƒÂ¨Ã‚ÂªÃ…Â¾</SelectItem>
               </SelectContent>
             </Select>
           </CardContent>

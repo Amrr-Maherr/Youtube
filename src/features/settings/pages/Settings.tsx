@@ -1,14 +1,14 @@
 import { useState, memo, lazy, Suspense, useCallback } from "react";
-import { Button } from "../../components/ui/button";
-import { Separator } from "../../components/ui/separator";
+import { Button } from "../../../shared/components/ui/button";
+import { Separator } from "../../../shared/components/ui/separator";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-} from "../../components/ui/card";
-import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
+} from "../../../shared/components/ui/card";
+import { RadioGroup, RadioGroupItem } from "../../../shared/components/ui/radio-group";
 import {
   User,
   Bell,
@@ -21,7 +21,7 @@ import {
   Moon,
   Monitor,
 } from "lucide-react";
-import { cn } from "../../lib/utils";
+import { cn } from "../../../shared/lib/utils";
 
 // Lazy-load individual settings sections
 const AccountSection = lazy(() => import("./settings/AccountSection"));

@@ -6,9 +6,9 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-} from "../../components/ui/card"
-import { Input } from "../../components/ui/input"
-import { Separator } from "../../components/ui/separator"
+} from "../../../shared/components/ui/card"
+import { Input } from "../../../shared/components/ui/input"
+import { Separator } from "../../../shared/components/ui/separator"
 import {
   Wrench,
   PlayCircle,
@@ -17,7 +17,7 @@ import {
   Video,
   BookOpen,
 } from "lucide-react"
-import { cn } from "../../lib/utils"
+import { cn } from "../../../shared/lib/utils"
 
 interface HelpTopic {
   id: string

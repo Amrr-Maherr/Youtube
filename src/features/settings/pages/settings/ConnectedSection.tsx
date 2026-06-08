@@ -1,15 +1,15 @@
 import { memo } from "react";
-import { Card, CardContent } from "../../../components/ui/card";
-import { Separator } from "../../../components/ui/separator";
+import { Card, CardContent } from "../../../../shared/components/ui/card";
+import { Separator } from "../../../../shared/components/ui/separator";
 import { Settings2 } from "lucide-react";
 
-export default memo(function NotificationsSection() {
+export default memo(function ConnectedSection() {
   return (
     <div className="flex flex-col gap-6">
       <div className="space-y-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Notifications</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Connected apps</h1>
         <p className="text-muted-foreground text-sm">
-          Manage your notification preferences
+          Manage apps connected to your account
         </p>
       </div>
       <Separator />

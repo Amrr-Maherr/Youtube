@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bell, Check, Trash2, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { timeAgo } from "@/lib/video";
-import { getVideoUrl } from "@/lib/slug";
+import { Button } from "@/shared/components/ui/button";
+import { timeAgo } from "@/shared/lib/video";
+import { getVideoUrl } from "@/shared/lib/slug";
 
 type NotificationType = "all" | "unread" | "seen" | "mentions";
 
@@ -51,7 +51,7 @@ const mockNotifications: Notification[] = [
     type: "comment",
     read: false,
     title: "Jane Smith commented on your video",
-    description: "Great content! Keep it up 🔥",
+    description: "Great content! Keep it up ðŸ”¥",
     thumbnail: "https://i.ytimg.com/vi/xyz789/mqdefault.jpg",
     channelName: "Jane Smith",
     channelAvatar: "",

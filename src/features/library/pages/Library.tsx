@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useVideoInteractions } from "@/hooks/useVideoInteractions";
+import { useVideoInteractions } from "@/shared/hooks/useVideoInteractions";
 import { ThumbsUp, ThumbsDown, Clock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import VideoCard from "@/components/VideoCard";
-import type { VideoInteraction } from "@/store/VideoInteractionsSlice";
+import { Button } from "@/shared/components/ui/button";
+import { Separator } from "@/shared/components/ui/separator";
+import VideoCard from "@/features/video/components/VideoCard";
+import type { VideoInteraction } from "@/app/store/slices/VideoInteractionsSlice";
 import { useState } from "react";
 
 export default function Library() {
@@ -101,7 +101,7 @@ export default function Library() {
                 Your Library
               </h1>
               <p className="text-sm text-muted-foreground">
-                {likedVideos.length} liked • {dislikedVideos.length} disliked
+                {likedVideos.length} liked ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ {dislikedVideos.length} disliked
               </p>
             </div>
           </div>

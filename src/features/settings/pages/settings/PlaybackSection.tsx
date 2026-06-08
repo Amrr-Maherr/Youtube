@@ -1,15 +1,15 @@
 import { memo } from "react";
-import { Card, CardContent } from "../../../components/ui/card";
-import { Separator } from "../../../components/ui/separator";
+import { Card, CardContent } from "../../../../shared/components/ui/card";
+import { Separator } from "../../../../shared/components/ui/separator";
 import { Settings2 } from "lucide-react";
 
-export default memo(function AdvancedSection() {
+export default memo(function PlaybackSection() {
   return (
     <div className="flex flex-col gap-6">
       <div className="space-y-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Advanced settings</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Playback and performance</h1>
         <p className="text-muted-foreground text-sm">
-          Advanced configuration options
+          Adjust playback settings and performance options
         </p>
       </div>
       <Separator />

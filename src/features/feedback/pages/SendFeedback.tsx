@@ -6,14 +6,14 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "../../components/ui/card"
-import { Textarea } from "../../components/ui/textarea"
-import { Checkbox } from "../../components/ui/checkbox"
-import { Label } from "../../components/ui/label"
-import { Button } from "../../components/ui/button"
-import { Separator } from "../../components/ui/separator"
+} from "../../../shared/components/ui/card"
+import { Textarea } from "../../../shared/components/ui/textarea"
+import { Checkbox } from "../../../shared/components/ui/checkbox"
+import { Label } from "../../../shared/components/ui/label"
+import { Button } from "../../../shared/components/ui/button"
+import { Separator } from "../../../shared/components/ui/separator"
 import { ImagePlus, X } from "lucide-react"
-import { cn } from "../../lib/utils"
+import { cn } from "../../../shared/lib/utils"
 
 export default function SendFeedback() {
   const [feedback, setFeedback] = useState("")

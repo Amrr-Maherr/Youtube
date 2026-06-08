@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useSubscribe } from "@/hooks/useSubscribe";
+import { useSubscribe } from "@/shared/hooks/useSubscribe";
 import { Bell, Video, Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import Avatar from "@/components/Avatar";
+import { Button } from "@/shared/components/ui/button";
+import { Separator } from "@/shared/components/ui/separator";
+import Avatar from "@/shared/components/Avatar";
 
 export default function Subscriptions() {
   const navigate = useNavigate();
@@ -141,3 +141,4 @@ export default function Subscriptions() {
     </div>
   );
 }
+

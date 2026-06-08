@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { Card, CardContent } from "../../../components/ui/card";
-import { Separator } from "../../../components/ui/separator";
+import { Card, CardContent } from "../../../../shared/components/ui/card";
+import { Separator } from "../../../../shared/components/ui/separator";
 import { Settings2 } from "lucide-react";
 
 export default memo(function PrivacySection() {

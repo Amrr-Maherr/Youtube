@@ -1,5 +1,5 @@
 import { PlayCircle, Clock } from "lucide-react";
-import Avatar from "@/components/Avatar";
+import Avatar from "@/shared/components/Avatar";
 
 const Profile = () => {
   return (
@@ -14,9 +14,9 @@ const Profile = () => {
           <h1 className="text-3xl font-bold mb-2">My Channel</h1>
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-gray-400 text-sm mb-4">
             <span>@mychannel</span>
-            <span>•</span>
+            <span>â€¢</span>
             <span>1.2M subscribers</span>
-            <span>•</span>
+            <span>â€¢</span>
             <span>245 videos</span>
           </div>
           <p className="text-gray-300 max-w-2xl mb-4">
@@ -79,7 +79,7 @@ const Profile = () => {
                 <p className="text-gray-400 text-xs hover:text-white transition-colors">My Channel</p>
                 <div className="flex items-center gap-1 text-gray-400 text-xs">
                   <span>125K views</span>
-                  <span>•</span>
+                  <span>â€¢</span>
                   <span className="flex items-center gap-1">
                     <Clock className="w-3 h-3" />
                     {video} days ago
