@@ -7,6 +7,7 @@ import {
   CardDescription,
   CardContent,
 } from "../../../shared/components/ui/card"
+import PageHeader from "../../../shared/components/PageHeader"
 import { Input } from "../../../shared/components/ui/input"
 import { Separator } from "../../../shared/components/ui/separator"
 import {
@@ -74,7 +75,12 @@ export default function Help() {
   )
 
   return (
-    <main className="flex-1 overflow-auto">
+    <>
+      <PageHeader
+        title="Help | YouTube"
+        description="Get help and support for YouTube. Find answers to common questions, troubleshooting guides, and community resources."
+      />
+      <main className="flex-1 overflow-auto">
       <div className="mx-auto max-w-5xl p-4 sm:p-6 lg:p-8">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">Help</h1>
@@ -134,5 +140,6 @@ export default function Help() {
         )}
       </div>
     </main>
+    </>
   )
 }

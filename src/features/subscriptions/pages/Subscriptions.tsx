@@ -4,6 +4,7 @@ import { Bell, Video, Users } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
 import Avatar from "@/shared/components/Avatar";
+import PageHeader from "@/shared/components/PageHeader";
 
 export default function Subscriptions() {
   const navigate = useNavigate();
@@ -19,7 +20,12 @@ export default function Subscriptions() {
 
   if (subscriptions.length === 0) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <>
+        <PageHeader
+          title="Subscriptions | YouTube"
+          description="Manage your YouTube subscriptions and see the latest videos from your favorite channels in one place."
+        />
+        <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center max-w-md px-4">
           <div className="flex size-20 items-center justify-center rounded-full bg-muted mx-auto mb-4">
             <Users className="size-10 text-muted-foreground" />
@@ -33,11 +39,17 @@ export default function Subscriptions() {
           </Button>
         </div>
       </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <PageHeader
+        title="Subscriptions | YouTube"
+        description="Manage your YouTube subscriptions and see the latest videos from your favorite channels in one place."
+      />
+      <div className="min-h-screen bg-background">
       <div className="mx-auto w-full px-4 sm:px-6 py-6">
         {/* Header */}
         <div className="mb-6">
@@ -139,6 +151,7 @@ export default function Subscriptions() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

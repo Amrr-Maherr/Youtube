@@ -1,9 +1,15 @@
 import { PlayCircle, Clock } from "lucide-react";
 import Avatar from "@/shared/components/Avatar";
+import PageHeader from "@/shared/components/PageHeader";
 
 const Profile = () => {
   return (
-    <div className="mx-auto">
+    <>
+      <PageHeader
+        title="My Channel | YouTube"
+        description="View your YouTube channel profile, manage your videos, and customize your channel presence."
+      />
+      <div className="mx-auto">
       {/* Channel Banner */}
       <div className="h-48 md:h-64 bg-gradient-to-r from-red-600 via-red-500 to-red-700 rounded-xl mb-6" />
 
@@ -91,6 +97,7 @@ const Profile = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

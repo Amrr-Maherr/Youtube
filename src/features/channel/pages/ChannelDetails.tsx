@@ -104,8 +104,9 @@ function ChannelDetails() {
   return (
     <div className="min-h-screen bg-background">
       <PageHeader
-        title={`${channel.snippet.title} - YouTube Channel`}
+        title={`${channel.snippet.title} | YouTube`}
         description={channel.snippet.description || `Watch videos from ${channel.snippet.title}`}
+        image={channel.snippet.thumbnails.high?.url || channel.snippet.thumbnails.medium?.url}
       />
       <ChannelBanner
         bannerUrl={bannerUrl}

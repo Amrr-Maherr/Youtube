@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/shared/components/ui/button";
+import PageHeader from "@/shared/components/PageHeader";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12">
+    <>
+      <PageHeader
+        title="Page Not Found | YouTube"
+        description="The requested page could not be found on YouTube. The video may have been removed or the link may be broken."
+      />
+      <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12">
       <div
         className={`max-w-lg w-full text-center transition-opacity duration-500 ease-out opacity-100`}
       >
@@ -97,6 +103,7 @@ export default function NotFound() {
         </Link>
       </div>
     </div>
+    </>
   );
 }
 

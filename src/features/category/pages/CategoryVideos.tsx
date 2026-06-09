@@ -7,6 +7,7 @@ import type { Video } from "@/shared/types/Video";
 import { Separator } from "@/shared/components/ui/separator";
 import { NotFound } from "@/shared/components/NotFound";
 import Loader from "@/shared/components/loader";
+import PageHeader from "@/shared/components/PageHeader";
 
 export default function CategoryVideos() {
   const [searchParams] = useSearchParams();
@@ -25,30 +26,49 @@ export default function CategoryVideos() {
     }
   }, [categories, categoryId]);
 
+  const categoryTitle = category?.snippet.title || "Category";
+  const pageTitle = `${categoryTitle} | YouTube`;
+  const pageDescription = category
+    ? `Browse ${category.snippet.title} videos on YouTube. Discover the best content in this category.`
+    : "Browse videos by category on YouTube. Explore different topics and find content you love.";
+
   if (!categoryId) {
     return (
-      <NotFound
-        message="No category selected"
-        description="Please select a category from the sidebar"
-      />
+      <>
+        <PageHeader title={pageTitle} description={pageDescription} />
+        <NotFound
+          message="No category selected"
+          description="Please select a category from the sidebar"
+        />
+      </>
     );
   }
 
   if (isLoading) {
-    return <Loader />;
+    return (
+      <>
+        <PageHeader title={pageTitle} description={pageDescription} />
+        <Loader />
+      </>
+    );
   }
 
   if (error || !videos) {
     return (
-      <NotFound
-        message="Failed to load videos"
-        description="Please try again later"
-      />
+      <>
+        <PageHeader title={pageTitle} description={pageDescription} />
+        <NotFound
+          message="Failed to load videos"
+          description="Please try again later"
+        />
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <PageHeader title={pageTitle} description={pageDescription} />
+      <div className="min-h-screen bg-background">
       <div className="mx-auto w-full px-4 sm:px-6 py-6">
         {/* Header */}
         <div className="mb-6">
@@ -83,6 +103,7 @@ export default function CategoryVideos() {
         )}
       </div>
     </div>
+    </>
   );
 }
 

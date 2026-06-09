@@ -5,6 +5,7 @@ import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
 import { Separator } from "@/shared/components/ui/separator";
 import AuthHeader from "../components/AuthHeader";
+import PageHeader from "@/shared/components/PageHeader";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -26,7 +27,12 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <>
+      <PageHeader
+        title="Sign In | YouTube"
+        description="Sign in to your YouTube account to access your subscriptions, library, and personalized recommendations."
+      />
+      <div className="min-h-screen flex flex-col bg-background">
       <AuthHeader />
 
       {/* Main Content */}
@@ -104,6 +110,7 @@ export default function SignIn() {
         </div>
       </main>
     </div>
+    </>
   );
 }
 

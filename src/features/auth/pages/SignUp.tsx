@@ -6,6 +6,7 @@ import { Label } from "@/shared/components/ui/label";
 import { Separator } from "@/shared/components/ui/separator";
 import { Eye, EyeOff } from "lucide-react";
 import AuthHeader from "../components/AuthHeader";
+import PageHeader from "@/shared/components/PageHeader";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -52,7 +53,12 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <>
+      <PageHeader
+        title="Sign Up | YouTube"
+        description="Create a new YouTube account to start watching, liking, and sharing videos. Join the YouTube community today."
+      />
+      <div className="min-h-screen flex flex-col bg-background">
       <AuthHeader />
 
       {/* Main Content */}
@@ -195,6 +201,7 @@ export default function SignUp() {
         </div>
       </main>
     </div>
+    </>
   );
 }
 

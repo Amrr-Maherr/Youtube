@@ -6,6 +6,7 @@ import { Separator } from "@/shared/components/ui/separator";
 import VideoCard from "@/features/video/components/VideoCard";
 import type { VideoInteraction } from "@/app/store/slices/VideoInteractionsSlice";
 import { useState } from "react";
+import PageHeader from "@/shared/components/PageHeader";
 
 export default function Library() {
   const navigate = useNavigate();
@@ -70,7 +71,12 @@ export default function Library() {
 
   if (!hasAnyVideos) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <>
+        <PageHeader
+          title="Library | YouTube"
+          description="Access your liked and disliked videos in your YouTube library. Keep track of videos you've interacted with."
+        />
+        <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center max-w-md px-4">
           <div className="flex size-20 items-center justify-center rounded-full bg-muted mx-auto mb-4">
             <ThumbsUp className="size-10 text-muted-foreground" />
@@ -84,11 +90,17 @@ export default function Library() {
           </Button>
         </div>
       </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <PageHeader
+        title="Library | YouTube"
+        description="Access your liked and disliked videos in your YouTube library. Keep track of videos you've interacted with."
+      />
+      <div className="min-h-screen bg-background">
       <div className="mx-auto w-full px-4 sm:px-6 py-6">
         {/* Header */}
         <div className="mb-6">
@@ -195,5 +207,6 @@ export default function Library() {
         </div>
       </div>
     </div>
+    </>
   );
 }

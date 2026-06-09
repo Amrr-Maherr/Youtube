@@ -4,10 +4,16 @@ import {
   CardContent,
 } from "../../../shared/components/ui/card"
 import { Separator } from "../../../shared/components/ui/separator"
+import PageHeader from "../../../shared/components/PageHeader"
 
 export default function ReportHistory() {
   return (
-    <main className="flex-1 overflow-auto">
+    <>
+      <PageHeader
+        title="Report History | YouTube"
+        description="View and manage your submitted reports on YouTube. Track the status of your reports and feedback."
+      />
+      <main className="flex-1 overflow-auto">
       <div className="mx-auto max-w-3xl p-4 sm:p-6 lg:p-8">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">Report history</h1>
@@ -33,5 +39,6 @@ export default function ReportHistory() {
         </Card>
       </div>
     </main>
+    </>
   )
 }

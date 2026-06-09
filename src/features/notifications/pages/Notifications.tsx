@@ -4,6 +4,7 @@ import { Bell, Check, Trash2, X } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { timeAgo } from "@/shared/lib/video";
 import { getVideoUrl } from "@/shared/lib/slug";
+import PageHeader from "@/shared/components/PageHeader";
 
 type NotificationType = "all" | "unread" | "seen" | "mentions";
 
@@ -129,7 +130,12 @@ export default function Notifications() {
   const unreadCount = notifications.filter(n => !n.read).length;
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <PageHeader
+        title="Notifications | YouTube"
+        description="View your YouTube notifications including new video uploads, comments, likes, and mentions from your favorite channels."
+      />
+      <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="sticky top-0 z-10 bg-background border-b px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between">
@@ -238,6 +244,7 @@ export default function Notifications() {
         )}
       </div>
     </div>
+    </>
   );
 }
 

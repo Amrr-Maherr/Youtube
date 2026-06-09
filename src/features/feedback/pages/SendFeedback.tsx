@@ -7,6 +7,7 @@ import {
   CardContent,
   CardFooter,
 } from "../../../shared/components/ui/card"
+import PageHeader from "../../../shared/components/PageHeader"
 import { Textarea } from "../../../shared/components/ui/textarea"
 import { Checkbox } from "../../../shared/components/ui/checkbox"
 import { Label } from "../../../shared/components/ui/label"
@@ -32,7 +33,12 @@ export default function SendFeedback() {
   }
 
   return (
-    <main className="flex-1 overflow-auto">
+    <>
+      <PageHeader
+        title="Send Feedback | YouTube"
+        description="Help improve YouTube by sharing your feedback, suggestions, and reporting issues you've encountered."
+      />
+      <main className="flex-1 overflow-auto">
       <div className="mx-auto max-w-2xl p-4 sm:p-6 lg:p-8">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">Send feedback</h1>
@@ -124,5 +130,6 @@ export default function SendFeedback() {
         </form>
       </div>
     </main>
+    </>
   )
 }

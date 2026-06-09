@@ -1,5 +1,6 @@
 import { useState, memo, lazy, Suspense, useCallback } from "react";
 import { Button } from "../../../shared/components/ui/button";
+import PageHeader from "../../../shared/components/PageHeader";
 import { Separator } from "../../../shared/components/ui/separator";
 import {
   Card,
@@ -202,7 +203,12 @@ export default memo(function Settings() {
   };
 
   return (
-    <main className="flex-1 overflow-auto">
+    <>
+      <PageHeader
+        title="Settings | YouTube"
+        description="Manage your YouTube account settings, notifications, playback preferences, privacy, and connected apps."
+      />
+      <main className="flex-1 overflow-auto">
       <div className="mx-auto p-4 sm:p-6 lg:p-8">
         <div className="mb-6">
           <div className="flex flex-wrap gap-2">
@@ -224,5 +230,6 @@ export default memo(function Settings() {
         </div>
       </div>
     </main>
+    </>
   );
 });

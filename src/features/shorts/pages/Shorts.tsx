@@ -7,6 +7,7 @@ import Loader from "@/shared/components/loader";
 import { Error } from "@/shared/components/Error";
 import ShortCard from "@/features/shorts/components/ShortCard";
 import { getVideoUrl } from "@/shared/lib/slug";
+import PageHeader from "@/shared/components/PageHeader";
 
 export default function Shorts() {
   const navigate = useNavigate();
@@ -40,7 +41,12 @@ export default function Shorts() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <PageHeader
+        title="Shorts | YouTube"
+        description="Browse YouTube Shorts - quick, entertaining videos in a vertical format. Discover short-form content from creators worldwide."
+      />
+      <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="sticky top-14 z-10 bg-background/95 backdrop-blur border-b px-4 sm:px-6 py-3">
 
@@ -74,6 +80,7 @@ export default function Shorts() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
