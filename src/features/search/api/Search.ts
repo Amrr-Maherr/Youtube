@@ -3,14 +3,25 @@ import type { SearchItem } from "@/shared/types/Search";
 
 const apiKey = import.meta.env.VITE_YOUTUB_API_KEY;
 
-export const SearchVideos = async (query: string, maxResults: number = 100): Promise<SearchItem[]> => {
+// YouTube Data API v3 search.list accepts maxResults from 0 to 50.
+export const SEARCH_MAX_RESULTS_LIMIT = 50;
+
+export const clampSearchMaxResults = (value: number): number => {
+  if (!Number.isFinite(value)) return SEARCH_MAX_RESULTS_LIMIT;
+  return Math.min(Math.max(Math.trunc(value), 1), SEARCH_MAX_RESULTS_LIMIT);
+};
+
+export const SearchVideos = async (
+  query: string,
+  maxResults: number = SEARCH_MAX_RESULTS_LIMIT
+): Promise<SearchItem[]> => {
   try {
     if (!query.trim()) {
       return [];
     }
 
     const response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=${maxResults}&regionCode=US&key=${apiKey}`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=${clampSearchMaxResults(maxResults)}&regionCode=US&key=${apiKey}`
     );
     return response.data.items || [];
   } catch (error) {
@@ -55,4 +66,3 @@ export const GetSearchSuggestions = async (query: string): Promise<string[]> => 
     return [];
   }
 };
-
