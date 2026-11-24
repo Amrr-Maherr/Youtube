@@ -373,28 +373,24 @@ youtube/
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page](./screenshots/home.png)
+![Home Page](./screenshots/home.svg)
 *Home page with category filter and video grid*
 
 ### Video Details
-![Video Details](./screenshots/video-details.png)
-*Video playback page with comments and related videos*
-
-### Channel Page
-![Channel Page](./screenshots/channel.png)
-*Channel profile with tabs and videos*
+![Video Details](./screenshots/video-details.svg)
+*Video page with player, like/share actions, description, comment count and related videos*
 
 ### Search Results
-![Search Results](./screenshots/search.png)
-*Search results with suggestions dropdown*
+![Search Results](./screenshots/search.svg)
+*Search results for "react"*
 
 ### Shorts Feed
-![Shorts](./screenshots/shorts.png)
+![Shorts](./screenshots/shorts.svg)
 *Short-form vertical videos feed*
 
 ### Library (Liked Videos)
-![Library](./screenshots/library.png)
-*User's liked videos collection*
+![Library](./screenshots/library.svg)
+*Liked videos page (empty state for a new session)*
 
 ---
 
